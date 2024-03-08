@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel</title>
+    <title>OSM</title>
     <!-- Include Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
@@ -63,6 +63,11 @@
 </head>
 
 <body class="antialiased flex flex-col">
+
+    <div class="text-center form-control-lg text-white bg-gray-700">
+        <h3 class="font-weight-bold ">Online Schme Monitoring and MIS | Goverment Of Assam</h3>
+    </div>
+
     <div
         class="relative bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
         <div class="container mx-auto py-6 flex justify-between items-center">
