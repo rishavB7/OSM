@@ -39,6 +39,25 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
+        <!-- Mobile -->
+        <div class="mt-4">
+            <x-input-label for="mobile" :value="__('Mobile')" />
+            <x-text-input id="mobile" class="block mt-1 w-full" type="number" name="mobile" :value="old('mobile')" required autocomplete="mobile" />
+            <x-input-error :messages="$errors->get('mobile')" class="mt-2" />
+        </div>
+
+        <div class="mt-4">
+            <x-input-label for="role" :value="__('Role')" />
+            <x-input-error :messages="$errors->get('role')" class="mt-2" />
+                
+                <select class="block mt-1 w-full mb-4" id="role " name="role" required>
+                    <option value="">Select User Type</option>
+                    <option value="1">Admin</option>
+                    <option value="2">DC/SDO  Admin</option>
+                    <option value="3">Nodal Officer</option>
+                </select>
+        </div>
+
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                 {{ __('Already registered?') }}
