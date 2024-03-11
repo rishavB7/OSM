@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('district_user_map', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('district_unique_id');
             $table->bigInteger('department_id');
-            $table->bigInteger('user_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('district_unique_code');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('district_unique_code')->references('unique_code')->on('district_master');
         });
     }
 

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('district_master', function (Blueprint $table) {
             $table->id();
             $table->string('district');
-            $table->bigInteger('unique_code');
+            $table->bigInteger('unique_code')->unique();
             $table->bigInteger('district_number');
             $table->string('district_type');
             $table->timestamps();

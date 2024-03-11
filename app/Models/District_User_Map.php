@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class District_User_Map extends Model
+{
+    use HasFactory;
+
+    protected $table = 'district_user_map';
+
+    protected $fillable = [
+        'district_unique_code',
+        'user_id',
+    ];
+
+
+    public function district_master() {
+        return $this->belongsTo('\App\Models\District_Master', 'district_unique_code', 'unique_code');
+    }
+
+
+
+    // public function election_district_master(){
+    //     return $this->belongsTo('App\Models\Election_district_master', 'election_district_unique_code', 'unique_code');
+    // }
+
+    // public function user(){
+    //     return $this->belongsTo('App\Models\User', 'user_id', 'id');
+    // }
+
+}
