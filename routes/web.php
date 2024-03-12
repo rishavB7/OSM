@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MapController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SchemeRegisterController;
 
@@ -35,5 +36,7 @@ Route::post('/scheme-create', [SchemeRegisterController::class, 'store']);
 Route::get('/scheme-implement', function () {
     return view('SchemeImplementationPhase');
 });
+
+Route::get('/test', [MapController::class, 'index'])->name('test');
 
 require __DIR__ . '/auth.php';

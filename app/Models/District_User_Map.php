@@ -22,11 +22,6 @@ class District_User_Map extends Model
     }
 
 
-
-    // public function election_district_master(){
-    //     return $this->belongsTo('App\Models\Election_district_master', 'election_district_unique_code', 'unique_code');
-    // }
-
     // public function user(){
     //     return $this->belongsTo('App\Models\User', 'user_id', 'id');
     // }
