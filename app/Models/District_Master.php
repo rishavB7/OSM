@@ -17,6 +17,11 @@ class District_Master extends Model
         'district_no',
         'district_type',
     ];
+
+    public function users() {
+        return $this->belongsTo(User::class, 'district_user_map', 'district_unique_code', 'user_id');
+    }
+
     
 
     public function district_user_map() {

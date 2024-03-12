@@ -1,7 +1,7 @@
 <x-guest-layout>
     <form method="POST" action="{{ route('register') }}">
         @csrf
-
+        
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
@@ -46,6 +46,7 @@
             <x-input-error :messages="$errors->get('mobile')" class="mt-2" />
         </div>
 
+        <!-- Role -->
         <div class="mt-4">
             <x-input-label for="role" :value="__('Role')" />
             <x-input-error :messages="$errors->get('role')" class="mt-2" />
@@ -55,6 +56,22 @@
                     <option value="1">Admin</option>
                     <option value="2">DC/SDO  Admin</option>
                     <option value="3">Nodal Officer</option>
+                </select>
+        </div>
+
+        <!-- District -->
+        <div class="mt-4">
+            <x-input-label for="district" :value="__('District')" />
+            <x-input-error :messages="$errors->get('district')" class="mt-2" />
+                
+                <select class="block mt-1 w-full mb-4" id="district " name="district" required>
+                    <option value="">Select District</option>
+                       @foreach ($districts as $district)
+                    <option value="{{$district->id}}">{{$district->district}}</option>
+                    @endforeach
+                    {{-- <option value="">Golaghat</option>
+                    <option value="">Jorhat</option>
+                    <option value="">Lakhimpur</option> --}}
                 </select>
         </div>
 

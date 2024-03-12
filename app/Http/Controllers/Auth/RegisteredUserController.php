@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
+use App\Models\District_Master;
+use Illuminate\Validation\Rules;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
-use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Auth\Events\Registered;
+use App\Providers\RouteServiceProvider;
 
 class RegisteredUserController extends Controller
 {
@@ -20,7 +21,9 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $data['districts'] = District_Master::get();
+
+        return view('auth.register', $data);
     }
 
     /**
@@ -37,6 +40,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'mobile' => ['required', 'max:10'],
             'role' => ['required'],
+            'district' => ['required']
         ]);
         // dd('asdasdasd');
 
@@ -46,6 +50,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'mobile' => $request->mobile,
             'role' => $request->role,
+            'district' => $request->district,
             'status' => true,
         ]);
 

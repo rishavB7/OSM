@@ -24,6 +24,7 @@ class User extends Authenticatable
         'mobile',
         'role',
         'status',
+        'district',
     ];
 
     /**
@@ -45,4 +46,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function districts() {
+        return $this->belongsTo(District_Master::class, 'district_user_map', 'user_id', 'district_unique_code');
+    }
+
 }
