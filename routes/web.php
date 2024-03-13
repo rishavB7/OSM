@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SchemeRegisterController;
+use App\Http\Controllers\UserManagementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,5 +51,12 @@ Route::get('/scheme-implement', function () {
 });
 
 Route::get('/test', [MapController::class, 'index'])->name('test');
+
+// Route::get('dashboard/user/create', function () {
+//     return view('user_create');
+// });
+
+Route::match(['get', 'post'], '/dashboard/user/create', [UserManagementController::class, 'user_create'])->name('user_create');
+Route::get('/dashboard/listUser', [UserManagementController::class, 'list_user'])->name('listUser');
 
 require __DIR__ . '/auth.php';

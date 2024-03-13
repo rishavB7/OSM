@@ -24,6 +24,7 @@ class RegisteredUserController extends Controller
         $data['districts'] = District_Master::get();
 
         return view('auth.register', $data);
+        // return view('user_create', $data);
     }
 
     /**

@@ -14,24 +14,33 @@
             <span class="navbar-toggler-icon"></span>
         </button>
        <div>
-        <ul class="navbar-nav ">
-            <select>
-                <option value="">User Management</option>
-                <option value="">Add User</option>
-                <option value=""></option>
-            </select>
-        </ul>
-       </div>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    User Management
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="{{ route('user_create') }}">Create User</a>
+                    <a class="dropdown-item" href="{{route('listUser')}}">List User</a>
+                    <!-- Add more dropdown items as needed -->
+                </div>
+            </div>
+
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     </nav>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    {{ __("admin's dashboard") }}
+                    {{ __("Admin's dashboard") }}
                 </div>
             </div>
         </div>
     </div>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,6 +52,7 @@
 </head>
 <body>
 </body>
+
 </html>
 
 </x-app-layout>
