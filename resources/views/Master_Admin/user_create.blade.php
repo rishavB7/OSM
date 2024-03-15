@@ -89,14 +89,14 @@
                 <label for="role">Role</label>
                 <select class="form-control" id="role" name="role" required>
                     <option value="">Select User Type</option>
-                    {{-- <option value="1">Admin</option> --}}
-                    <option value="2">DC/SDO Admin</option>
-                    <option value="3">Nodal Officer</option>
+                        <option value="2">DC/SDO Admin</option>
+                        <option value="3">Nodal Officer</option>
                 </select>
                 @error('role')
                     <p class="mt-2">{{ $message }}</p>
                 @enderror
             </div>
+            
 
             <!-- District -->
             <div class="form-group">

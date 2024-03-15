@@ -100,11 +100,11 @@
 
     <div class="flex-1">
         <div class="h-64 bg-white text-center py-10">
-            <h1>Main content</h1>
             @yield('home-page')
+            <h1>Main content</h1>
         </div>
     </div>
-
+    
     <footer class="bg-gray-200 py-20 text-center">
         <p>&copy; 2024 Your Website. All rights reserved.</p>
     </footer>

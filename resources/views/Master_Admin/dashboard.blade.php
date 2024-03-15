@@ -13,7 +13,6 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-       <div>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     User Management
@@ -29,16 +28,16 @@
             <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    </nav>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("Admin's dashboard") }}
+            <div class="ml-auto login py-2 ">
+                <div class="max-w-xl mx-auto sm:px-6 lg:px-3">
+                    <div class=" overflow-hidden shadow-sm ">
+                        <div class="p-2 text-white font-bold text-xl">
+                            {{ __("You're logged in as Admin") }}
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </nav>
 
 
 

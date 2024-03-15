@@ -14,8 +14,13 @@ class District_User_Map extends Model
     protected $fillable = [
         'district_unique_code',
         'user_id',
+        'department_id',
     ];
 
+
+    public function user() {
+        return $this->belongsTo('\App\Models\User', 'department_id', 'department_id');
+    }
 
     public function district_master() {
         return $this->belongsTo('\App\Models\District_Master', 'district_unique_code', 'unique_code');

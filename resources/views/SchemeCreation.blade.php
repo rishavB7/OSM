@@ -1,64 +1,62 @@
-<style>
+@extends('HOD_Admin.dashboard')
 
-    form {
-        width: 300px;
-        margin: 0 auto;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #f9f9f9;
-    }
-    
-    label {
-        font-weight: bold;
-    }
-    
-    input[type="text"],
-    input[type="number"],
-    select {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-    }
-    
-    input[type="submit"] {
-        width: 100%;
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-    
-    input[type="submit"]:hover {
-        background-color: #45a049;
-    }
-    h1{
-        text-align: center;
-    }
-</style>
+@section('schemeCreate')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Schemes</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Scheme Entry</h1>
+        <form action="{{route('schemeCreate')}}" method="post">
+            @csrf
+            <div class="form-group">
+                <label for="scheme_name">Name of the scheme</label>
+                <input type="text" name="scheme_name" id="scheme_name" class="form-control @error('scheme_name') is-invalid @enderror" placeholder="" aria-describedby="helpId" value="{{ old('scheme_name') }}">
+                @error('scheme_name')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            
+                <label for="scheme_description">Scheme Description</label>
+                <input type="text" name="scheme_description" id="scheme_description" class="form-control @error('scheme_description') is-invalid @enderror" placeholder="" aria-describedby="helpId" value="{{ old('scheme_description') }}">
+                @error('scheme_description')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            
+                <label for="start_date">Starting Date</label>
+                <input type="date" name="start_date" id="start_date" class="form-control @error('start_date') is-invalid @enderror" placeholder="" aria-describedby="helpId" value="{{ old('start_date') }}">
+                @error('start_date')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            
+                <label for="end_date">Ending Date</label>
+                <input type="date" name="end_date" id="end_date" class="form-control @error('end_date') is-invalid @enderror" placeholder="" aria-describedby="helpId" value="{{ old('end_date') }}">
+                @error('end_date')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            
+                {{-- Add error handling for other fields if needed --}}
+                
+                <div class="form-group mt-2">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </div>
+            
+            
+    </form>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+@endsection
 
 
-<h1>New Scheme Creation</h1>
-<form action="{{ url('/') }}/scheme-create" method="POST">
-    @csrf <!-- Laravel CSRF protection -->
-    <label for="name">Scheme Name:</label><br>
-    <input type="text" id="name" name="name" required><br><br>
-    
-    <label for="starting_year">Starting Year:</label><br>
-    <input type="number" id="starting_year" name="starting_year" min="1900" max="2100" required><br><br>
-    
-    {{-- <label for="status">Status:</label><br>
-    <select id="status" name="status" required>
-        <option value="Pending">Pending</option>
-        <option value="Ongoing">Ongoing</option>
-        <option value="Completed">Completed</option>
-    </select><br><br> --}}
-    
-    <input type="submit" value="Create Scheme">
-</form>
+

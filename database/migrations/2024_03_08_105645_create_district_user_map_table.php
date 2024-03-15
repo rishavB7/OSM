@@ -20,6 +20,7 @@ return new class extends Migration
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('district_unique_code')->references('unique_code')->on('district_master');
+            $table->foreign('department_id')->references('id')->on('department');
         });
     }
 

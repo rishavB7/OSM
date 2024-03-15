@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class District_Master extends Model
 {
@@ -18,13 +19,13 @@ class District_Master extends Model
         'district_type',
     ];
 
-    public function users() {
+    public function users(): BelongsTo {
         return $this->belongsTo(User::class, 'district_user_map', 'district_unique_code', 'user_id');
     }
 
-    
 
-    public function district_user_map() {
+
+    public function district_user_map(): BelongsTo {
         return $this->belongsTo('App\Models\District_User_Map', 'unique_code', 'district_unique_code');
     }
     

@@ -2,6 +2,7 @@
  use App\Models\User;
  use App\Models\District_Master;
  use App\Models\District_User_Map;
+ use App\Models\Departments;
 ?>
 
 
@@ -37,6 +38,7 @@
                       <th>Role</th>
                       <th>District</th>
                       <th>Status</th>
+                      <th>Department</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,16 +54,23 @@
                             <td>Master Admin</td>                    
                         @elseif($all_user->role == 2)
                             <td>DC/SDO Admin</td>
-                        @else
+                        @elseif($all_user->role == 3)
                             <td>Nodal Officer</td>    
+                        @else
+                            <td>N/A</td>
                         @endif
                         {{-- <td>{{$all_user->district}}</td> --}}
                         @php
                              $district = District_Master::find($all_user->district);
+                            //  $department = Departments::find($all_user->department);
                         @endphp
                         @if ($district)
                             <td>{{$district->district}}</td>
                         @endif
+
+                        {{-- @if ($department)
+                            <td>{{$departmemnt->department_name}}</td>                            
+                        @endif --}}
                         <td>
                             @if ($all_user->status == '1')
                               <a class="badge badge-success text-white ">Active</a>  
