@@ -38,7 +38,7 @@
                       <th>Role</th>
                       <th>District</th>
                       <th>Status</th>
-                      <th>Department</th>
+                      {{-- <th>Department</th> --}}
                     </tr>
                 </thead>
                 <tbody>

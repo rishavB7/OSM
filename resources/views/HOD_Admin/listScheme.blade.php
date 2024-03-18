@@ -1,18 +1,10 @@
 
+@extends('layouts.app')
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <title>Title</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+@section('content')
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  </head>
-  <body>
-    
+@include('layouts.navigation')
+    <div class="wrapper">
         <h3 class="text-center">List Of Schemes</h3>
     
       <div class="container">
@@ -39,6 +31,8 @@
                         <td>{{$i++}}</td>      
                         <td>{{$scheme->scheme_name}}</td>
                         <td>{{$scheme->scheme_description}}</td>
+                        <td>{{$scheme->start_date}}</td>
+                        <td>{{$scheme->end_date}}</td>
                         <td>
                             @if ($scheme->status == '1')
                               <a class="badge badge-success text-white ">Active</a>  
@@ -51,5 +45,6 @@
                 </tbody>
             </table>
         </div>
-</body>
-</html>
+      </div>
+        @include('layouts.footer')
+@endsection

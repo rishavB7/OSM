@@ -39,7 +39,7 @@ class SchemeRegisterController extends Controller
 
     public function schemeCreate(Request $request) {
         if($request->isMethod('get')) {
-            return view('SchemeCreation');
+            return view('HOD_Admin.SchemeCreation');
         } else {
             $validatedData = $request->validate([
                 'scheme_name' => ['required','string','max:255'],
@@ -63,7 +63,6 @@ class SchemeRegisterController extends Controller
 
     public function listScheme(Request $request) {
         $data['schemes'] = Schemes::on(Session::get('db_conn_name'))->get();
-
         return view('HOD_Admin.listScheme', $data);
     }
 
