@@ -1,18 +1,18 @@
 @extends('layouts.app')    
 
 @section('content')
-
-@include('layouts.navigation')
+@include('layouts.header')
+{{-- @include('layouts.navigation') --}}
  <div class="wrapper" >
     {{-- HOD DASHBOARD --}}
-    <nav class="navbar navbar-expand-lg bg-slate-700">
+    <nav class="navbar navbar-expand-lg dark:bg-blue-900">
         <a class="navbar-brand" href="#"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
     
         <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn btn-secondary dropdown-toggle bg-blue-400 hover:bg-blue-500" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Scheme Management
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="ml-4">
-            <button class="btn btn-secondary" type="button">
+            <button class="btn btn-secondary bg-blue-400 hover:bg-blue-500" type="button">
                 Overview
             </button>
         </div>

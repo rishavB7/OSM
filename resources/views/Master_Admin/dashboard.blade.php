@@ -4,14 +4,17 @@
 @section('content')
 
 {{-- @include('layouts.navigation') --}}
+@include('layouts.header')
+
  <div class="wrapper" >
-    <nav class="navbar navbar-expand-lg bg-slate-700">
+    <div>
+    <nav class="navbar navbar-expand-lg dark:bg-blue-900">
         <a class="navbar-brand" href="#"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-secondary dropdown-toggle bg-blue-400 hover:bg-blue-500" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     User Management
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -62,7 +65,6 @@
                     </x-slot>
                 </x-dropdown>
 
-
                 {{-- Regular HTML Elements  --}}
                 {{-- <div x-data="{ open: false }" @click.away="open = false">
                     <button @click="open = !open" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
@@ -91,6 +93,9 @@
 
             </div> --}}
         </nav>
+    </div>
+        @include('layouts.carousel')
+    </div>
  </div>
 @include('layouts.footer')
 @endsection

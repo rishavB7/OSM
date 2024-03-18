@@ -2,7 +2,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+@include('layouts.header')
 @include('layouts.navigation')
     <div class="wrapper">
         <h3 class="text-center">List Of Schemes</h3>

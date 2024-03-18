@@ -1,23 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create User</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
+@section('title', 'Create User')
+@section('content')
+@include('layouts.header')
 
-<body>
-    <h3 class="text-center">Create User</h3>
+<div>
+    <h3 class="text-center text-4xl">Create User</h3>
     <div class="container">
-
-        {{-- @if(session('success'))
-            <div class="alert alert-success mt-4">
-                {{ session('success') }}
-            </div>
-        @endif --}}
 
         @if (session('alert-success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -127,13 +116,11 @@
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="submit" class="btn btn-primary bg-blue-700">Create</button>
             </div>
         </form>
     </div>
+</div>
+@include('layouts.footer')
+@endsection
 
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-
-</html>
