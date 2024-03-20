@@ -6,7 +6,7 @@
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3kHecKi3ISweorKrFJxBSCssERHW7zpaJ2522aVs9uw&s" class="d-block w-100" alt="...">
+        <img src="https://mdbootstrap.com/img/Photos/Slides/img%20(130).webp" class="d-block w-100" alt="...">
         <div class="carousel-caption d-none d-md-block">
           <h5>First slide label</h5>
           <p>Some representative placeholder content for the first slide.</p>

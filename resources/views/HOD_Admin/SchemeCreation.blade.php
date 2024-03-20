@@ -5,6 +5,19 @@
 {{-- @include('layouts.navigation') --}}
  <div class="wrapper" >
     <div class="container">
+        @if (session('alert-success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('alert-success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @elseif(session('alert-failed'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('alert-failed') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
+
         <h1 class="text-center">Scheme Entry</h1>
         <form action="{{route('schemeCreate')}}" method="post">
             @csrf
@@ -36,7 +49,7 @@
                 {{-- Add error handling for other fields if needed --}}
             
                 <div class="form-group mt-2">
-                    <button type="submit" class="btn btn-primary ">Create</button>
+                    <button type="submit" class="btn btn-primary bg-blue-700">Create</button>
                 </div>
             </div>
             

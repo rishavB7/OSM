@@ -76,7 +76,7 @@ class UserManagementController extends Controller
     public function addUser(Request $request) {
         if ($request->isMethod('get')) {
             $data['districts'] = District_Master::get();
-            $data['department_name'] = Departments::on('conn_golaghat')->get();
+            $data['department_name'] = Departments::on(Session::get('db_conn_name'))->get();
             return view('District_Admin.addUser', $data);
         } else {
             $validatedData = $request->validate([
@@ -118,7 +118,6 @@ class UserManagementController extends Controller
 
                     DB::commit();
 
-                    // Successfully run.
                     return redirect()->route('addUser')->with('alert-success', 'User Created Successfully');
         } catch (Exception $e) {
             DB::rollBack();

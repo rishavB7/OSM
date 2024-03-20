@@ -11,7 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-
         $dbname= [
             'conn_bajali',
             'conn_baksa',
@@ -51,16 +50,16 @@ return new class extends Migration
         ];
 
         for($dbcnt = 0; $dbcnt < count($dbname); $dbcnt++){
-            Schema::connection($dbname[$dbcnt])->create('department_user_map', function (Blueprint $table) {
+        Schema::connection($dbname[$dbcnt])->create('schemes', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
-            $table->unsignedBigInteger('department_id');
-            $table->boolean('status')->default(1);
+            $table->string('scheme_name');
+            $table->string('scheme_description');
+            $table->string('start_date');
+            $table->string('end_date');
+            $table->boolean('status');
             $table->timestamps();
-
-            $table->foreign('department_id')->references('id')->on('department_master');
-        });
-    }
+        }); 
+    }                
     }
 
     /**
@@ -68,6 +67,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('department_user_map');
+        Schema::connection('conn_golaghat')->dropIfExists('schemes');
     }
 };

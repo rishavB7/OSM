@@ -18,9 +18,9 @@
                         @else
                         <a href="{{ route('login') }}" class="btn btn-primary py-2 px-4">Log in</a>
                         
-                        @if (Route::has('register'))
+                        {{-- @if (Route::has('register'))
                         <a href="{{ route('register') }}" class="btn btn-primary py-2 px-4">Register</a>
-                        @endif
+                        @endif --}}
                     @endauth
                 </div>
             @endif

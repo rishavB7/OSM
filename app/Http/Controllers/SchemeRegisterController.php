@@ -57,7 +57,7 @@ class SchemeRegisterController extends Controller
                 
             ]);
 
-            return redirect()->route('dashboard');
+            return redirect()->route('dashboard')->with('alert-success', 'Scheme Created Successfully');
         }
     }
 
@@ -65,13 +65,4 @@ class SchemeRegisterController extends Controller
         $data['schemes'] = Schemes::on(Session::get('db_conn_name'))->get();
         return view('HOD_Admin.listScheme', $data);
     }
-
-    // public function store(Request $request){
-    //     $validatedData = $request->validate([
-    //         'name' => 'required|string|max:255',
-    //         'starting_year' => 'required|integer|min:1900|max:2100',
-    //     ]);
-
-    //     dd($validatedData);
-    // }
 }
