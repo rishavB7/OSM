@@ -64,14 +64,14 @@
             <x-input-label for="district" :value="__('District')" />
             <x-input-error :messages="$errors->get('district')" class="mt-2" />
                 
-                <select class="block mt-1 w-full mb-4" id="district " name="district" required>
+                <select class="block mt-1 w-full mb-4" id="district " name="district">
                     <option value="">Select District</option>
-                       @foreach ($districts as $district)
+                       {{-- @foreach ($districts as $district)
                     <option value="{{$district->id}}">{{$district->district}}</option>
-                    @endforeach
-                    {{-- <option value="">Golaghat</option>
-                    <option value="">Jorhat</option>
-                    <option value="">Lakhimpur</option> --}}
+                    @endforeach --}}
+                    <option value="Golaghat">Golaghat</option>
+                    <option value="Jorhat">Jorhat</option>
+                    <option value="Lakhimpur">Lakhimpur</option>
                 </select>
         </div>
 

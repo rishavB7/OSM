@@ -77,7 +77,8 @@
              <div class="form-group">
                 <label for="role">Role</label>
                 <select class="form-control" id="role" name="role" required>
-                    <option value="">Select User Type</option>
+                    <option selected disabled>Select User Type</option>
+                        <option value="3">Nodal Officer</option>
                         <option value="4">Assistant 1</option>
                         <option value="5">Assistant 2</option>
                 </select>
@@ -102,18 +103,43 @@
             </div>
 
             <!-- District -->
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label for="district">District</label>
                 <select class="form-control" id="district" name="district" required>
-                    <option value="" selected disabled>Select District</option>
+                    <option value="">Select District</option>
                     @foreach ($districts as $district)
-                        <option value="{{ $district->id }}">{{ $district->district }}</option>
+                        @php
+                            // Check if the logged-in user is an admin from this district
+                            $isAdminFromDistrict = Auth::user()->isDcSdo() && Auth::user()->belongsToDistrict($district->id);
+                        @endphp
+                        <option value="{{ $district->id }}" {{ $isAdminFromDistrict ? 'selected' : '' }}>
+                            {{ $district->district }}
+                        </option>
                     @endforeach
                 </select>
                 @error('district')
                     <p class="mt-2">{{ $message }}</p>
                 @enderror
-            </div>
+            </div> --}}
+
+            {{-- <div class="form-group">
+                <label for="district">District</label>
+                <select class="form-control" id="district" name="district" required {{ Auth::user()->isDcSdo() ? 'disabled' : '' }}>
+                    <option value="">Select District</option>
+                    @foreach ($districts as $district)
+                        @php
+                            // Check if the logged-in user is an admin from this district
+                            $isAdminFromDistrict = Auth::user()->isDcSdo() && Auth::user()->belongsToDistrict($district->id);
+                        @endphp
+                        <option value="{{ $district->id }}" {{ $isAdminFromDistrict ? 'selected' : '' }}>
+                            {{ $district->district }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('district')
+                    <p class="mt-2">{{ $message }}</p>
+                @enderror
+            </div> --}}
 
             <div class="form-group">
                 <button type="submit" class="btn btn-primary bg-blue-700">Create</button>

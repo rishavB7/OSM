@@ -3,9 +3,9 @@
 
 @section('content')
 @include('layouts.header')
-@include('layouts.navigation')
+{{-- @include('layouts.navigation') --}}
     <div class="wrapper">
-        <h3 class="text-center">List Of Schemes</h3>
+        <h3 class="text-center text-4xl mt-4">List Of Schemes</h3>
     
       <div class="container">
 

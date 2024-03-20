@@ -11,11 +11,11 @@
 
 @section('content')
 @include('layouts.header')
-  <div>
+  <div class="wrapper">
     
         <h3 class="text-center text-4xl">List Of Users</h3>
     
-      <div class="container">
+      <div class="container ">
 
         <a href="{{route('dashboard')}}">
             <button class="btn btn-primary d-inline-block m-2 float-right ">Back</button>
@@ -59,6 +59,8 @@
                         @endphp
                         @if ($district)
                             <td>{{$district->district}}</td>
+                        @else
+                        <td>N/A</td>    
                         @endif
 
                         {{-- @if ($department)

@@ -93,9 +93,7 @@
 
             </div> --}}
         </nav>
-    </div>
-        @include('layouts.carousel')
-    </div>
+    
  </div>
 @include('layouts.footer')
 @endsection

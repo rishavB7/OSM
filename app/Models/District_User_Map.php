@@ -12,23 +12,16 @@ class District_User_Map extends Model
     protected $table = 'district_user_map';
 
     protected $fillable = [
-        'district_unique_code',
         'user_id',
-        'department_id',
+        'district_id',
+        'district_unique_code'
     ];
 
-
-    public function user() {
-        return $this->belongsTo('\App\Models\User', 'department_id', 'department_id');
+    public function district_master(){
+        return $this->belongsTo('App\Models\District_Master', 'district_unique_code', 'unique_code');
     }
 
-    public function district_master() {
-        return $this->belongsTo('\App\Models\District_Master', 'district_unique_code', 'unique_code');
+    public function user(){
+        return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
-
-
-    // public function user(){
-    //     return $this->belongsTo('App\Models\User', 'user_id', 'id');
-    // }
-
 }

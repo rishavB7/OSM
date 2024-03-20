@@ -1,8 +1,8 @@
 @extends('layouts.app')
-
+@include('layouts.header')
 @section('content')
 
-@include('layouts.navigation')/
+{{-- @include('layouts.navigation') --}}
  <div class="wrapper" >
     <div class="container">
         <h1 class="text-center">Scheme Entry</h1>

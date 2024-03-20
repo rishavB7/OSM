@@ -6,8 +6,10 @@ use App\Models\Departments;
 use Illuminate\Http\Request;
 use App\Models\District_Master;
 use App\Models\District_User_Map;
+use App\Models\Department_User_Map;
 use Illuminate\Support\Facades\Hash;
-
+use DB;
+use Session;
 class UserManagementController extends Controller
 {
     public function user_create(Request $request) {
@@ -29,36 +31,53 @@ class UserManagementController extends Controller
             //     ]);
             // }
 
-            $user = User::create([
-                'id' => rand(001, 999),
-                'role' => $request->role,
-                'status' => 1,
-                'name' => $request->name,
-                'email' => trim(strtolower($request['email'])),
-                'mobile' => trim($request['mobile']),
-                'password' => Hash::make($request['password']),
-                'district' => $request['district'],
-            ]);
+            DB::beginTransaction();
+            try{
 
-            if($request->role == 2 || $request->role == 3) {
-                $district_name = District_Master::where('id', $request['district'],)->first();
+                        $user = User::create([
+                            'id' => rand(001, 999),
+                            'role' => $request->role,
+                            'status' => 1,
+                            'name' => $request->name,
+                            'email' => trim(strtolower($request['email'])),
+                            'mobile' => trim($request['mobile']),
+                            'password' => Hash::make($request['password']),
+                            // 'district' => $request['district'],
+                        ]);
 
-                $user_dist_map = District_User_Map::create([
-                    'user_id' => $user->id,
-                    "district_unique_code" => $district_name->unique_code,
-                ]);
-            }
+                        if($request->role == 2) {
+                            $district_name = District_Master::where('id', $request['district'])->first();
 
-            return redirect()->route('user_create')->with('alert-success', 'User Created Successfully');
-        }
+
+                            $user_dist_map = District_User_Map::create([
+                                'user_id' => $user->id,
+                                "district_unique_code" => $district_name->unique_code,
+                            ]);
+                        }
+
+
+                        DB::commit();
+                        return redirect()->route('user_create')->with('alert-success', 'User Created Successfully');
+
+                } catch (Exception $e) {
+                    DB::rollBack();
+
+                    $errorCode = $e->getCode();
+                    if (strpos($errorCode, '42') === 0) {
+                        $errorMessage = 'You are not permitted to make changes.';
+                        return view('error_page', ['errorMessage' => $errorMessage]);
+                    }
+                    dd('error');
+                }
+}
     }
 
 
     public function addUser(Request $request) {
         if ($request->isMethod('get')) {
             $data['districts'] = District_Master::get();
-            $data2['department_name'] = Departments::get();
-            return view('District_Admin.addUser', $data, $data2);
+            $data['department_name'] = Departments::on('conn_golaghat')->get();
+            return view('District_Admin.addUser', $data);
         } else {
             $validatedData = $request->validate([
                 'name' => ['required'],
@@ -68,30 +87,49 @@ class UserManagementController extends Controller
                 'role' => ['required'], 
                 'department_name' => ['required']
             ]);
+
+
+            DB::beginTransaction();
+            try{
     
-            $user = User::create([
-                'id' => rand(001, 999),
-                'role' => $request->role,
-                'status' => 1,
-                'name' => $request->name,
-                'email' => trim(strtolower($request['email'])),
-                'mobile' => trim($request['mobile']),
-                'password' => Hash::make($request['password']),
-                'district' => $request['district'],
-                "department_id" => $request['department_id'], // Changed 'department_name' to 'department_id'
-                'department_name' => $request['department_name']
-            ]);
-    
-            if($request->role == 4 || $request->role == 5) {
-                $district_name = District_Master::where('id', $request['district'],)->first();
-    
-                $user_dist_map = District_User_Map::create([
-                    'user_id' => $user->id,
-                    "district_unique_code" => $district_name->unique_code,
-                ]);
+                    $user = User::create([
+                        'role' => $request->role,
+                        'status' => 1,
+                        'name' => $request->name,
+                        'email' => trim(strtolower($request['email'])),
+                        'mobile' => trim($request['mobile']),
+                        'password' => Hash::make($request['password']),
+                    ]);
+            
+                    if($request->role == 3 || $request->role == 4) {
+                
+                       
+                        $user_dist_map = District_User_Map::create([
+                            'user_id' => $user->id,
+                            "district_unique_code" => session::get('district_unique_code'),
+                        ]);
+            
+
+                        $user_department_map = Department_User_Map::on(Session::get('db_conn_name'))->create([
+                            'user_id' => $user->id, 
+                            'department_id' => $request->department_name, 
+                        ]);
+                    }
+
+                    DB::commit();
+
+                    // Successfully run.
+                    return redirect()->route('addUser')->with('alert-success', 'User Created Successfully');
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            $errorCode = $e->getCode();
+            if (strpos($errorCode, '42') === 0) {
+                $errorMessage = 'You are not permitted to make changes.';
+                return view('error_page', ['errorMessage' => $errorMessage]);
             }
-    
-            return redirect()->route('addUser')->with('alert-success', 'User Created Successfully');
+            dd('error');
+        }
         }
     }
 

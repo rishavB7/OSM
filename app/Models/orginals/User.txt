@@ -24,6 +24,7 @@ class User extends Authenticatable
         'mobile',
         'role',
         'status',
+        'district',
     ];
 
     /**
@@ -45,4 +46,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function districts() {
+        return $this->belongsTo(District_Master::class, 'district_user_map', 'user_id', 'district_unique_code');
+    }
+
+    public function departments() {
+        return $this->belongsTo(Departments::class, 'user', 'id', 'department_id');
+    }
+
+    public function isDcSdo() {
+        return $this->role == 2; 
+    }
+
+    // Check if the user belongs to a specific district
+    public function belongsToDistrict($districtId) {
+        return $this->district == $districtId;
+    }
 }

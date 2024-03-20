@@ -19,7 +19,14 @@ class District_Master extends Model
         'district_type',
     ];
 
-   
+    public function users(): BelongsTo {
+        return $this->belongsTo(User::class, 'district_user_map', 'district_unique_code', 'user_id');
+    }
 
+
+
+    public function district_user_map(): BelongsTo {
+        return $this->belongsTo('App\Models\District_User_Map', 'unique_code', 'district_unique_code');
+    }
     
 }
