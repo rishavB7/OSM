@@ -19,8 +19,14 @@
 
 
         <h1 class="text-center">Scheme Entry</h1>
+
+        <a href="{{ route('dashboard') }}">
+            <button class="btn btn-primary d-inline-block m-2 float-right ">Back</button>
+        </a>
+        
         <form action="{{route('schemeCreate')}}" method="post">
             @csrf
+            
             <div class="form-group">
                 <label for="scheme_name">Name of the scheme</label>
                 <input type="text" name="scheme_name" id="scheme_name" class="form-control @error('scheme_name') is-invalid @enderror" placeholder="" aria-describedby="helpId" value="{{ old('scheme_name') }}">

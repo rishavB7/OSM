@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SchemeRegisterController;
 use App\Http\Controllers\UserManagementController;
+use App\Http\Controllers\SchemeManagementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,10 +34,16 @@ Route::middleware('auth')->group(function () {
 Route::get('/scheme-create', [SchemeRegisterController::class, 'schemeCreate'])->name('schemeCreate');
 Route::post('/scheme-create', [SchemeRegisterController::class, 'schemeCreate'])->name('schemeCreate');
 Route::get('/listScheme', [SchemeRegisterController::class, 'listScheme'])->name('listScheme');
+Route::get('/schemes/{id}/update', [SchemeRegisterController::class, 'updateScheme'])->name('SchemeUpdate');
+Route::post('/schemes/{id}/update', [SchemeRegisterController::class, 'updateScheme'])->name('SchemeUpdate');
+Route::match(['get','post'], '/schemes/{id}/delete', [SchemeRegisterController::class, 'deleteScheme'])->name('SchemeDelete');
+Route::get('/schemes/apply/{scheme}',[SchemeRegisterController::class, 'apply'])->name('schemes.apply')->middleware('auth');
+Route::match(['get', 'post'],'/schemeInfo/{id}',[SchemeRegisterController::class, 'schemeInfo'])->name('schemeInfo');
 
-Route::get('/scheme-implement', function () {
-    return view('SchemeImplementationPhase');
-});
+
+// Route::get('/scheme-implement', function () {
+//     return view('SchemeImplementationPhase');
+// });
 
 Route::get('/test', [MapController::class, 'index'])->name('test');
 
@@ -46,6 +53,7 @@ Route::get('/test', [MapController::class, 'index'])->name('test');
 
 Route::match(['get', 'post'], '/dashboard/user/create', [UserManagementController::class, 'user_create'])->name('user_create');
 Route::match(['get', 'post'], '/dashboard/addUser', [UserManagementController::class, 'addUser'])->name('addUser');
+Route::match(['get', 'patch'], '/dashboard/UpdateUser/{id}', [UserManagementController::class, 'updateUser'])->name('updateUser');
 Route::get('/dashboard/listUser', [UserManagementController::class, 'list_user'])->name('listUser');
 
 require __DIR__ . '/auth.php';

@@ -14,7 +14,10 @@ class UserManagementController extends Controller
 {
     public function user_create(Request $request) {
         if ($request->isMethod('get')) {
+            // $title = 'Create User';
+            $districts = District_Master::get();
             $data['districts'] = District_Master::get();
+            // $data = compact('title', 'districts',);
             return view('Master_Admin.user_create', $data);
         } else {
             $validatedData = $request->validate([
@@ -35,7 +38,7 @@ class UserManagementController extends Controller
             try{
 
                         $user = User::create([
-                            'id' => rand(001, 999),
+                            // 'id' => rand(001, 999),
                             'role' => $request->role,
                             'status' => 1,
                             'name' => $request->name,
@@ -77,6 +80,7 @@ class UserManagementController extends Controller
         if ($request->isMethod('get')) {
             $data['districts'] = District_Master::get();
             $data['department_name'] = Departments::on(Session::get('db_conn_name'))->get();
+            // dd('sad');
             return view('District_Admin.addUser', $data);
         } else {
             $validatedData = $request->validate([
@@ -139,38 +143,58 @@ class UserManagementController extends Controller
     {
 
 
-        // $data['all_users'] = Election_district_user_map::with(['user','election_district_master'])->get();
-        $data['all_users'] = User::orderBy('role', 'asc')->get();
+        $data['all_users'] = District_User_Map::with(['user','district_master'])->get();
+        // $data['all_users'] = User::orderBy('role', 'asc')->get();
+
+        // $data['districts'] = District_Master::get();
 
         return view('listUser', $data);
     }
 
 
-    // public function user_status(Request $request) {
+    // public function editUser($id) {
+    //     $all_users = User::find($id);
 
-    //     // dd('comming');
-    //     $id = $request->get('id');
-    //     // dd($id);
-    //     if ($id != '') {
-    //         $data = User::where('id', $id)->first();
-    //         if ($data->status == 0) {
-    //             User::where('id', $id)->update(['status' => 1]);
-    //             // return redirect()->route('admin.list.employee');
-    //             return redirect()->route('listUser')->with("alert-success", "User Successfully Activated!");
-    //         } else {
-    //             User::where('id', $id)->update(['status' => 0]);
-    //             // return redirect()->route('admin.list.employee');
-    //             return redirect()->route('listUser')->with("alert-success", "User Successfully Deactivated!");
-    //         }
-    //         // $redir_url = $request->session()->get('ref_url');
-    //         // return redirect($redir_url);
+    //     if(is_null($all_users)) {
+    //         return redirect('listUser');
 
-
-    //         // return redire
     //     } else {
-    //         // dd('comming');
-    //         return redirect('/');
+    //         $url = url('/dashboard/update') .'/'. $id;
+    //         $title = 'Update User';
+    //         $districts = District_Master::get();
+    //         $data = compact('all_users', 'districts', 'title');
+    //         return view('Master_Admin.user_create')->with($data);
     //     }
     // }
+
+    public function updateUser(Request $request, $id) {
+
+        if ($request->isMethod('get')) {
+
+            $data['districts'] = District_Master::get();
+
+            $data['user'] = User::where('id', $id)->first();
+            return view('Master_Admin.updateUser', $data);
+        } else {
+            
+            
+            $validatedData = $request->validate([
+                'name' => ['required'],
+                'email' => ['required', 'string'],
+                'password' => ['required', 'confirmed'],
+                'mobile' => ['required', 'digits:10'],
+            ]);
+            
+            // dd('asbdghsafudgsad'); 
+
+            $user = User::where('id', $id)->update([
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'password' => Hash::make($request['password']),
+            ]);
+
+            return redirect()->route('updateUser', $id)->with("alert-success", "User Successfully Updated!");
+        }
+    }
 }
 

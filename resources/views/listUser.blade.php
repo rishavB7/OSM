@@ -31,6 +31,7 @@
                       <th>Role</th>
                       <th>District</th>
                       <th>Status</th>
+                      <th>Action</th>
                       {{-- <th>Department</th> --}}
                     </tr>
                 </thead>
@@ -39,39 +40,45 @@
                     @foreach ($all_users as $all_user)
                     <tr>  
                         <td>{{$i++}}</td>      
-                        <td>{{$all_user->name}}</td>
-                        <td>{{$all_user->email}}</td>
-                        <td>{{$all_user->mobile}}</td>
+                        <td>{{$all_user->user->name}}</td>
+                        <td>{{$all_user->user->email}}</td>
+                        <td>{{$all_user->user->mobile}}</td>
                         {{-- <td>{{$all_user->role}}</td> --}}
-                        @if ($all_user->role == 1)
+                        @if ($all_user->user->role == 1)
                             <td>Master Admin</td>                    
-                        @elseif($all_user->role == 2)
+                        @elseif($all_user->user->role == 2)
                             <td>DC/SDO Admin</td>
-                        @elseif($all_user->role == 3)
+                        @elseif($all_user->user->role == 3)
                             <td>Nodal Officer</td>    
+                        @elseif($all_user->user->role == 4)
+                            <td>Assistant 1</td>    
+                        @elseif($all_user->user->role == 5)
+                            <td>Assistant 2</td>    
                         @else
                             <td>N/A</td>
                         @endif
                         {{-- <td>{{$all_user->district}}</td> --}}
-                        @php
-                             $district = District_Master::find($all_user->district);
-                            //  $department = Departments::find($all_user->department);
-                        @endphp
-                        @if ($district)
-                            <td>{{$district->district}}</td>
+    
+                        @if ($all_user->district_master->district)
+                            <td>{{$all_user->district_master->district}}</td>
                         @else
-                        <td>N/A</td>    
+                        <td>N/A</td>
                         @endif
 
                         {{-- @if ($department)
                             <td>{{$departmemnt->department_name}}</td>                            
                         @endif --}}
                         <td>
-                            @if ($all_user->status == '1')
+                            @if ($all_user->user->status == '1')
                               <a class="badge badge-success text-white ">Active</a>  
                             @else
                                <a class="badge badge-danger text-white ">Inactive</a>     
                             @endif
+                        </td>
+                        <td>
+                            <a href="{{ route('updateUser', $all_user->user->id) }}">
+                                <button class="btn-link">Edit</button>
+                            </a>
                         </td>
                     </tr>
                     @endforeach

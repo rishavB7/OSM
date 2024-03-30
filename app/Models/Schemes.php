@@ -16,5 +16,11 @@ class Schemes extends Model
         'start_date',
         'end_date',
         'status',
+        'physical_progress',
+        'percentage_of_progress',
+        'img1',
+        'img2',
+        'img3',
+        'img4',
     ];
 }
