@@ -13,7 +13,7 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-            <div class="dropdown">
+            {{-- <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle bg-blue-400 hover:bg-blue-500" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     User Management
                 </button>
@@ -22,7 +22,17 @@
                     <a class="dropdown-item" href="{{route('listUser')}}">List User</a>
                     <!-- Add more dropdown items as needed -->
                 </div>
-            </div>
+            </div> --}}
+            <a href="{{ route('user_create') }}">
+                <button class="btn btn-secondary bg-blue-400 hover:bg-blue-500 mr-2" type="button">
+                    Create User
+                </button>
+            </a>
+            <a href="{{ route('listUser') }}">
+                <button class="btn btn-secondary bg-blue-400 hover:bg-blue-500 mr-2" type="button">
+                    List Users
+                </button>
+            </a>
 
             <div class="ml-auto login py-2 ">
                 <div class="max-w-xl mx-auto sm:px-6 lg:px-3">

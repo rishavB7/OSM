@@ -18,9 +18,11 @@ class Schemes extends Model
         'status',
         'physical_progress',
         'percentage_of_progress',
-        'img1',
-        'img2',
-        'img3',
-        'img4',
+        'images',
+        'scheme_status',
+        // 'img1',
+        // 'img2',
+        // 'img3',
+        // 'img4',
     ];
 }

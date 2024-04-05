@@ -1,22 +1,27 @@
 <?php
 
 namespace App\Http\Controllers;
+use DB;
+use Session;
 use App\Models\User;
 use App\Models\Departments;
 use Illuminate\Http\Request;
 use App\Models\District_Master;
-use App\Models\District_User_Map;
+use App\Models\District_User_Map; 
+use App\Models\SubDistrict_User_Map; 
+use App\Models\SubDistrictMaster;
 use App\Models\Department_User_Map;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use DB;
-use Session;
+
 class UserManagementController extends Controller
 {
     public function user_create(Request $request) {
         if ($request->isMethod('get')) {
             // $title = 'Create User';
             $districts = District_Master::get();
-            $data['districts'] = District_Master::get();
+            $data['districts'] = District_Master::orderBy('id', 'asc')->get();
+
             // $data = compact('title', 'districts',);
             return view('Master_Admin.user_create', $data);
         } else {
@@ -50,8 +55,7 @@ class UserManagementController extends Controller
 
                         if($request->role == 2) {
                             $district_name = District_Master::where('id', $request['district'])->first();
-
-
+                           
                             $user_dist_map = District_User_Map::create([
                                 'user_id' => $user->id,
                                 "district_unique_code" => $district_name->unique_code,
@@ -78,7 +82,7 @@ class UserManagementController extends Controller
 
     public function addUser(Request $request) {
         if ($request->isMethod('get')) {
-            $data['districts'] = District_Master::get();
+            $data['districts'] = District_Master::orderBy('id', 'asc')->get();
             $data['department_name'] = Departments::on(Session::get('db_conn_name'))->get();
             // dd('sad');
             return view('District_Admin.addUser', $data);
@@ -139,8 +143,7 @@ class UserManagementController extends Controller
 
 
 
-    public function list_user(Request $request)
-    {
+    public function list_user(Request $request) {
 
 
         $data['all_users'] = District_User_Map::with(['user','district_master'])->get();
@@ -149,6 +152,24 @@ class UserManagementController extends Controller
         // $data['districts'] = District_Master::get();
 
         return view('listUser', $data);
+    }
+    public function list_user_by_district(Request $request) {
+
+
+        $dc_sdo_district = Auth::user()->district_master?->district; 
+        
+        // dd($dc_sdo_district);
+
+        $all_users = District_User_Map::with('user', 'district_master')
+            ->whereHas('user', function ($query) use ($dc_sdo_district) {
+                $query->where('role', 2); // Filter users with role DC/SDO Admin
+            })
+            ->whereHas('district_master', function ($query) use ($dc_sdo_district) {
+                $query->where('district', $dc_sdo_district);
+            })
+            ->get();
+
+         return view('District_Admin.listUserByDistrict', compact('all_users'));
     }
 
 

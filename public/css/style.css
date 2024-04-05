@@ -1,11 +1,13 @@
 .wrapper {
     min-height: 80vh;
-    padding-bottom: 50px; /* equal to the height of the footer */
-  position: relative;
 }
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 50px; /* equal to the height of the footer */
-  }
+
+.file-upload-container {
+    width: 150px; /* Adjust the width as needed */
+    overflow: hidden; /* Ensures the actual input doesn't spill out of the container */
+}
+
+input[type="file"] {
+    width: 100%; /* Ensure the input fills the container, stretching out the clickable area */
+}
+

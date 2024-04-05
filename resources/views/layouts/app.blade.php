@@ -54,6 +54,21 @@
         .navbar-toggler-icon {
             background-color: #555;
         }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #print_section, #print_section * {
+                visibility: visible;
+            }
+            #print_section {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }
+        
         </style>
 
         <!-- Scripts -->

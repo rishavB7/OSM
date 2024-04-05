@@ -33,6 +33,11 @@
                     List Of Schemes
                 </button>
             </a>
+            <a href="{{ route('finishedSchemes') }}">
+                <button class="btn btn-secondary bg-blue-400 hover:bg-blue-500 mr-2" type="button">
+                    Completed Schemes
+                </button>
+            </a>
 
             <div class="ml-auto login py-2 ">
                 <div class="max-w-xl mx-auto sm:px-6 lg:px-3">

@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use DB;
+use Auth,Session;
 use App\Models\Schemes;
 use Illuminate\Http\Request;
-use Auth,Session;
+use App\Models\ProgressReport;
+use App\Models\CompletedSchemes;
 use App\Models\District_User_Map;
+use App\Models\Scheme_Completion;
 
 class SchemeRegisterController extends Controller
 {
@@ -51,6 +54,8 @@ class SchemeRegisterController extends Controller
                 'start_date' => ['required'],
                 'end_date' => ['required'],
             ]);
+            DB::beginTransaction();
+            try{
 
             $scheme = Schemes::on(Session::get('db_conn_name'))->create([
                 'scheme_name' => $request->scheme_name,
@@ -61,7 +66,34 @@ class SchemeRegisterController extends Controller
                 
             ]);
 
+            // $completed_scheme_id = CompletedSchemes::where('id', $request['id'])->first();
+
+
+            // $completed_schemes_map = CompleteSchemeMap::create([
+            //     'scheme_id' => $scheme->id,
+            //     "completed_scheme_id" => $completed_scheme_id->id,
+            // ]);
+
+            // $scheme = CompletedSchemes::on(Session::get('db_conn_name'))->create([
+            //     'scheme_name' => $request->scheme_name,
+            //     'scheme_description' => $request->scheme_description,
+            //     'start_date' => $request->start_date,
+            //     'end_date' => $request->end_date,                
+            // ]);
+
+            DB::commit();
+
             return redirect()->route('dashboard')->with('alert-success', 'Scheme Created Successfully');
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            $errorCode = $e->getCode();
+            if (strpos($errorCode, '42') === 0) {
+                $errorMessage = 'You are not permitted to make changes.';
+                return view('error_page', ['errorMessage' => $errorMessage]);
+            }
+            dd('error');
+        }
         }
     }
 
@@ -82,7 +114,21 @@ class SchemeRegisterController extends Controller
                 'scheme_description' => ['required', 'string', 'max:255'],
                 'start_date' => ['required'],
                 'end_date' => ['required'],
+                'images.*' => ['nullable', 'image', 'mimes:png,jpg,jpeg'], // Validation for multiple images
+                'completion_year' => ['nullable'],
+                'achievement' => ['nullable'],
             ]);
+    
+            $imagePaths = [];
+    
+            // Handle image upload for each file
+            foreach ($request->file('images', []) as $image) {
+                $extension = $image->getClientOriginalExtension();
+                $filename = time() . '_' . uniqid() . '.' . $extension;
+                $path = 'assets/uploads/';
+                $image->move($path, $filename);
+                $imagePaths[] = $path . $filename;
+            }
     
             try {
                 // Update scheme details in the database
@@ -93,12 +139,24 @@ class SchemeRegisterController extends Controller
                     'end_date' => $request->end_date,
                     'physical_progress' => $request->physical_progress,
                     'percentage_of_progress' => $request->percentage_of_progress,
-                    'img1' => $request->img1,
-                    'img2' => $request->img2,
-                    'img3' => $request->img3,
-                    'img4' => $request->img4,
+                    'images' => json_encode($imagePaths), // Store image paths as JSON
+                    'completion_year' => $request->completion_year,
+                    'achievement' => $request->achievement,
                 ]);
+
+                if ($request->completion_year) {
+                    Schemes::on(Session::get('db_conn_name'))->where('id', $id)->update([
+                        'scheme_status' => 1,
+                    ]);
+                }
+                
+                if($request->completion_year == null) {
+                    Schemes::on(Session::get('db_conn_name'))->where('id', $id)->update([
+                        'scheme_status' => 0,
+                    ]);
+                } 
     
+
                 if ($updatedScheme) {
                     // If update successful, redirect with success message
                     return redirect()->route('SchemeUpdate', $id)->with('alert-success', 'Scheme Updated Successfully');
@@ -160,4 +218,16 @@ class SchemeRegisterController extends Controller
     
         return redirect()->route('listScheme')->with('success', 'Scheme status updated to active.');
     }
-}
+
+    public function finishedSchemes(Request $request) {
+        $data['schemes'] = CompletedSchemes::on(Session::get('db_conn_name'))
+                                   ->whereNotNull('completion_year')
+                                   ->get();
+        return view('HOD_Admin.finishedSchemes', $data);
+        
+        
+      
+    }
+
+    }
+

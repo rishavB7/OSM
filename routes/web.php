@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProgressReportController;
 use App\Http\Controllers\SchemeRegisterController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\SchemeManagementController;
@@ -39,6 +40,11 @@ Route::post('/schemes/{id}/update', [SchemeRegisterController::class, 'updateSch
 Route::match(['get','post'], '/schemes/{id}/delete', [SchemeRegisterController::class, 'deleteScheme'])->name('SchemeDelete');
 Route::get('/schemes/apply/{scheme}',[SchemeRegisterController::class, 'apply'])->name('schemes.apply')->middleware('auth');
 Route::match(['get', 'post'],'/schemeInfo/{id}',[SchemeRegisterController::class, 'schemeInfo'])->name('schemeInfo');
+Route::match(['get', 'post'],'/finishedSchemes',[SchemeRegisterController::class, 'finishedSchemes'])->name('finishedSchemes');
+
+
+
+
 
 
 // Route::get('/scheme-implement', function () {
@@ -55,5 +61,6 @@ Route::match(['get', 'post'], '/dashboard/user/create', [UserManagementControlle
 Route::match(['get', 'post'], '/dashboard/addUser', [UserManagementController::class, 'addUser'])->name('addUser');
 Route::match(['get', 'patch'], '/dashboard/UpdateUser/{id}', [UserManagementController::class, 'updateUser'])->name('updateUser');
 Route::get('/dashboard/listUser', [UserManagementController::class, 'list_user'])->name('listUser');
+// Route::get('/dashboard/listUser', [UserManagementController::class, 'list_user_by_district'])->name('listUserByDistrict');
 
 require __DIR__ . '/auth.php';
