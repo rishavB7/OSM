@@ -20,9 +20,5 @@ class Schemes extends Model
         'percentage_of_progress',
         'images',
         'scheme_status',
-        // 'img1',
-        // 'img2',
-        // 'img3',
-        // 'img4',
     ];
 }

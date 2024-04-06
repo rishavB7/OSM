@@ -6,7 +6,7 @@ use Auth,Session;
 use App\Models\Schemes;
 use Illuminate\Http\Request;
 use App\Models\ProgressReport;
-use App\Models\CompletedSchemes;
+use App\Models\SchemeProgress;
 use App\Models\District_User_Map;
 use App\Models\Scheme_Completion;
 
@@ -99,6 +99,7 @@ class SchemeRegisterController extends Controller
 
     public function listScheme(Request $request) {
         $data['schemes'] = Schemes::on(Session::get('db_conn_name'))->get();
+        $data['schemeProgress'] = SchemeProgress::on(Session::get('db_conn_name'))->get();
         return view('HOD_Admin.listScheme', $data);
     }
 
@@ -117,6 +118,7 @@ class SchemeRegisterController extends Controller
                 'images.*' => ['nullable', 'image', 'mimes:png,jpg,jpeg'], // Validation for multiple images
                 'completion_year' => ['nullable'],
                 'achievement' => ['nullable'],
+                'percentage_of_progress' => ['nullable', 'numeric'],
             ]);
     
             $imagePaths = [];
@@ -142,6 +144,21 @@ class SchemeRegisterController extends Controller
                     'images' => json_encode($imagePaths), // Store image paths as JSON
                     'completion_year' => $request->completion_year,
                     'achievement' => $request->achievement,
+                ]);
+
+                $latestSchemeProgress = SchemeProgress::on(Session::get('db_conn_name'))
+                ->where('scheme_id', $id)
+                ->orderBy('created_at', 'desc')
+                ->first();
+
+                $noOfEntries = $latestSchemeProgress ? $latestSchemeProgress->no_of_entries + 1 : 1;
+                $percentageOfProgress = $request->input('percentage_of_progress');
+
+                $log = SchemeProgress::on(Session::get('db_conn_name'))->create([
+                    'scheme_id' => $id,
+                    'no_of_entries' => $noOfEntries,
+                    'percentage_of_progress' => $percentageOfProgress,
+                    'images' => json_encode($imagePaths)
                 ]);
 
                 if ($request->completion_year) {
@@ -192,6 +209,7 @@ class SchemeRegisterController extends Controller
     public function schemeInfo(Request $request, $id) {
         if($request->isMethod('get')) {
             $data['scheme_id'] = Schemes::on(Session::get('db_conn_name'))->where('id', $id)->first();
+
             return view('HOD_Admin.SchemeInfo', $data); // Pass scheme details to the view
         } else {
             // Validate incoming request data
@@ -201,6 +219,18 @@ class SchemeRegisterController extends Controller
             ]);
         }
     }
+    public function progressLog(Request $request, $schemeId) {
+        if($request->isMethod('get')) {
+            // $data['scheme_id'] = Schemes::on(Session::get('db_conn_name'))->where('id', $id)->first();
+            // $data['schemeProgress'] = SchemeProgress::on(Session::get('db_conn_name'))->get();
+
+            $data['schemeProgress'] = SchemeProgress::on(Session::get('db_conn_name'))->where('id', $schemeId)->first();
+            return view('HOD_Admin.progressLog', $data);
+            //
+        }
+    }
+
+
     
     
 

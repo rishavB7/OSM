@@ -1,3 +1,6 @@
+<?php
+    use App\Models\SchemeProgress;
+?>
 @extends('layouts.app')
 
 @section('content')
@@ -22,7 +25,8 @@
                         <th>Last Updated On</th>
                         <th>Status</th>
                         <th>Action</th>
-                        <th></th>
+                        <th>Details</th>
+                        <th>Log</th>
                         <th>Scheme Status</th>
                     </tr>
                 </thead>
@@ -64,23 +68,62 @@
                                 </div>
                             </td>
                             <td>
-                                <a href="{{route('schemeInfo', $scheme->id)}}" class="badge badge-warning cursor-pointer text-white p-1 ">
+                                <div class="btn-group">
+                                    
+                                    <a href="{{route('schemeInfo', $scheme->id)}}" class="badge badge-warning cursor-pointer p-1 ">
+                                        View Details
+                                    </a>
+                                    {{-- <button type="button" class="bg-yellow-400 ml-1 rounded-md dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                      <span class="badge badge-warning cursor-pointer text-white p-1  visually-hidden">Toggle Dropdown</span>
+                                    </button> --}}
+                                    {{-- <ul class="dropdown-menu text-sm">
+                                        @foreach ($schemeProgress as $sp)
+                                            @if ($sp->scheme_id == $scheme->id)
+                                                <li><a href="{{route('progressLog', $scheme->id)}}">{{ $sp->updated_at }}</a></li>
+                                            @endif
+                                        @endforeach
+                                    </ul> --}}
+                                    
+                                  </div>
+                                {{-- <a href="{{route('schemeInfo', $scheme->id)}}" class="badge badge-warning cursor-pointer text-white p-1 ">
                                     View Details
-                                </a>
+                                </a> --}}
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                               
+                                    <button type="button" class="bg-yellow-400 ml-1 rounded-md dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <span class="badge badge-warning cursor-pointer text-white p-1  visually-hidden">Toggle Dropdown</span>
+                                      </button>
+                                <ul class="dropdown-menu text-sm">
+                                    <?php
+                                        $scheme_progress = SchemeProgress::on(Session::get('db_conn_name'))
+                                            ->where('scheme_id', $scheme->id)
+                                            ->orderBy('id', 'asc')
+                                            ->get();
+                                    ?>
+                                    @foreach ($scheme_progress as $scheme_progress)
+                                        <li><a href="{{route('progressLog', $scheme_progress->id)}}">{{ $scheme_progress->updated_at }}</a></li>
+                                    @endforeach
+                                </ul>
+                                
+                            </div>
+                         
                             </td>
 
                             <td>                
                                 @if ($scheme->status == 0)
                                     <a class="badge badge-light">Not Available</a>
                                 @elseif ($scheme->scheme_status == 0 && $scheme->percentage_of_progress != 100)
-                                    <a class="badge badge-warning text-white p-1">Running</a> 
+                                    <a class="badge badge-warning  p-1">Running</a> 
                                 @elseif ($scheme->scheme_status == 1 && $scheme->completion_year != null)
                                     <a class="badge badge-success text-white p-1">Completed</a>
                                 @endif
-                            </td>
+                            </td>    
                             
-                            
-                            
+
+
+
                         </tr>
                     @endforeach
                 </tbody>

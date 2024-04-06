@@ -42,6 +42,8 @@ Route::get('/schemes/apply/{scheme}',[SchemeRegisterController::class, 'apply'])
 Route::match(['get', 'post'],'/schemeInfo/{id}',[SchemeRegisterController::class, 'schemeInfo'])->name('schemeInfo');
 Route::match(['get', 'post'],'/finishedSchemes',[SchemeRegisterController::class, 'finishedSchemes'])->name('finishedSchemes');
 
+Route::match(['get', 'post'],'/log/{schemeId}',[SchemeRegisterController::class, 'progressLog'])->name('progressLog');
+
 
 
 

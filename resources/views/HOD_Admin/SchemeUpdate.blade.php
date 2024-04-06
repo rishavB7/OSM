@@ -87,8 +87,8 @@
                         <div class="file-upload-container">
                             <input type="file" name="images[]" id="images" multiple
                                 class="form-control @error('images') is-invalid @enderror"
-                                onchange="previewImages(event)">
-                            <div id="image-preview"></div> 
+                                onchange="previewImages(event)" style="width: 300px">
+                            <div id="image-preview" class="image-preview"></div> 
                             @error('images')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -176,14 +176,14 @@
             reader.onload = function(e) {
                 var img = document.createElement('img');
                 img.src = e.target.result;
-                img.classList.add('img-thumbnail'); 
-                img.classList.add('col-auto'); 
+                // img.classList.add('img-thumbnail'); 
+                // img.classList.add('col-auto'); 
                 previewContainer.appendChild(img);
 
                 // Add a line break after the second image
-                if (previewContainer.children.length == 2) {
-                    previewContainer.appendChild(document.createElement('br'));
-                }
+                // if (previewContainer.children.length == 2) {
+                //     previewContainer.appendChild(document.createElement('br'));
+                // }
             }
 
             reader.readAsDataURL(file);

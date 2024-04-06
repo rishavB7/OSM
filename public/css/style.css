@@ -3,11 +3,21 @@
 }
 
 .file-upload-container {
-    width: 150px; /* Adjust the width as needed */
+    width: 100%; /* Adjust the width as needed */
     overflow: hidden; /* Ensures the actual input doesn't spill out of the container */
 }
 
 input[type="file"] {
     width: 100%; /* Ensure the input fills the container, stretching out the clickable area */
 }
-
+.image-preview{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: row;
+}
+.image-preview img{
+    position: relative;
+    width: 300px !important;
+    margin-right: 30px;
+}
