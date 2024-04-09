@@ -28,7 +28,7 @@
 
                 <div class="form-group">
                     <label for="scheme_name">Name of the scheme</label>
-                    <input type="text" name="scheme_name" id="scheme_name"
+                    <input type="text" name="scheme_name" id="scheme_name" placeholder="Enter scheme name"
                         class="w-96 form-control  @error('scheme_name') is-invalid @enderror" placeholder=""
                         aria-describedby="helpId" value="{{ old('scheme_name') }}">
                     @error('scheme_name')
@@ -42,7 +42,7 @@
                 @enderror --}}
 
                     <label for="scheme_description">Scheme Description</label>
-                    <textarea name="scheme_description" id="scheme_description"
+                    <textarea name="scheme_description" id="scheme_description" placeholder="scheme description"
                         class="form-control @error('scheme_description') is-invalid @enderror" aria-describedby="helpId" rows="4">{{ old('scheme_description') }}</textarea>
                     @error('scheme_description')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -86,6 +86,38 @@
                                         class="form-control form-control-sm @error('end_date') is-invalid @enderror"
                                         value="{{ old('end_date') }}">
                                     @error('end_date')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Budget -->
+                            <div class="form-group">
+                                <label for="budget" class="form-label">Budget</label>
+                                <div class="input-group input-group-sm">
+                                    
+                                    <input type="number" name="budget" id="budget" placeholder="Enter budget amount" min="0"
+                                        class="w-80 form-control form-control-sm @error('budget') is-invalid @enderror"
+                                        value="{{ old('budget') }}">
+                                    @error('budget')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- Project Manager -->
+                            <div class="form-group">
+                                <label for="projectc_coordinator" class="form-label">Project Coordinator</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" name="projectc_coordinator" id="projectc_coordinator" placeholder="Enter project coordinator name"
+                                        class="form-control form-control-sm @error('projectc_coordinator') is-invalid @enderror"
+                                        value="{{ old('projectc_coordinator') }}">
+                                    @error('projectc_coordinator')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>

@@ -53,11 +53,6 @@ return new class extends Migration
             
             $table->text('physical_progress')->nullable();
             $table->decimal('percentage_of_progress')->nullable();
-            // $table->string('img1')->nullable();
-            // $table->string('img2')->nullable();
-            // $table->string('img3')->nullable();
-            // $table->string('img4')->nullable();
-
             $table->date('completion_year');
             $table->string('achievement');
         });

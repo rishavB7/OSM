@@ -53,9 +53,13 @@ class SchemeRegisterController extends Controller
                 'scheme_description' => ['required' ,'string', 'max:255'],
                 'start_date' => ['required'],
                 'end_date' => ['required'],
+                'budget' => ['required'],
+                'projectc_coordinator' => ['required'],
             ]);
             DB::beginTransaction();
             try{
+
+            $remainingBudget = $request->budget;
 
             $scheme = Schemes::on(Session::get('db_conn_name'))->create([
                 'scheme_name' => $request->scheme_name,
@@ -63,6 +67,9 @@ class SchemeRegisterController extends Controller
                 'start_date' => $request->start_date,
                 'end_date' => $request->end_date,
                 'status' => 0,
+                'budget' => $request->budget,
+                'remaining_budget' => $remainingBudget,
+                'projectc_coordinator' => $request->projectc_coordinator,
                 
             ]);
 
@@ -104,7 +111,7 @@ class SchemeRegisterController extends Controller
     }
 
     public function updateScheme(Request $request, $id) {
-        if($request->isMethod('get')) {
+        if ($request->isMethod('get')) {
             // Retrieve scheme details for the given $id
             $data['schemes'] = Schemes::on(Session::get('db_conn_name'))->where('id', $id)->first();
             return view('HOD_Admin.SchemeUpdate', $data); // Pass scheme details to the view
@@ -118,7 +125,8 @@ class SchemeRegisterController extends Controller
                 'images.*' => ['nullable', 'image', 'mimes:png,jpg,jpeg'], // Validation for multiple images
                 'completion_year' => ['nullable'],
                 'achievement' => ['nullable'],
-                'percentage_of_progress' => ['nullable', 'numeric'],
+                'percentage_of_progress' => ['nullable', 'numeric', 'required'],
+                'funds_used' => ['numeric', 'required'],
             ]);
     
             $imagePaths = [];
@@ -133,6 +141,17 @@ class SchemeRegisterController extends Controller
             }
     
             try {
+                // Retrieve the scheme details for the given $id
+                $scheme = Schemes::on(Session::get('db_conn_name'))->where('id', $id)->first();
+    
+                // Check if the scheme exists
+                if (!$scheme) {
+                    // Handle the case where the scheme does not exist
+                    return back()->withInput()->with('alert-failed', 'Scheme not found.');
+                }
+    
+                $remainingBudget = $scheme->budget - $request->funds_used;
+    
                 // Update scheme details in the database
                 $updatedScheme = Schemes::on(Session::get('db_conn_name'))->where('id', $id)->update([
                     'scheme_name' => $request->scheme_name,
@@ -144,36 +163,37 @@ class SchemeRegisterController extends Controller
                     'images' => json_encode($imagePaths), // Store image paths as JSON
                     'completion_year' => $request->completion_year,
                     'achievement' => $request->achievement,
+                    'remaining_budget' => $remainingBudget,
                 ]);
-
+    
                 $latestSchemeProgress = SchemeProgress::on(Session::get('db_conn_name'))
-                ->where('scheme_id', $id)
-                ->orderBy('created_at', 'desc')
-                ->first();
-
+                    ->where('scheme_id', $id)
+                    ->orderBy('created_at', 'desc')
+                    ->first();
+    
                 $noOfEntries = $latestSchemeProgress ? $latestSchemeProgress->no_of_entries + 1 : 1;
                 $percentageOfProgress = $request->input('percentage_of_progress');
-
+    
                 $log = SchemeProgress::on(Session::get('db_conn_name'))->create([
                     'scheme_id' => $id,
                     'no_of_entries' => $noOfEntries,
                     'percentage_of_progress' => $percentageOfProgress,
-                    'images' => json_encode($imagePaths)
+                    'images' => json_encode($imagePaths),
+                    'funds_used' => $request->funds_used, // Fix the variable name here
                 ]);
-
+    
                 if ($request->completion_year) {
                     Schemes::on(Session::get('db_conn_name'))->where('id', $id)->update([
                         'scheme_status' => 1,
                     ]);
                 }
-                
-                if($request->completion_year == null) {
+    
+                if ($request->completion_year == null) {
                     Schemes::on(Session::get('db_conn_name'))->where('id', $id)->update([
                         'scheme_status' => 0,
                     ]);
-                } 
+                }
     
-
                 if ($updatedScheme) {
                     // If update successful, redirect with success message
                     return redirect()->route('SchemeUpdate', $id)->with('alert-success', 'Scheme Updated Successfully');
@@ -183,10 +203,11 @@ class SchemeRegisterController extends Controller
                 }
             } catch (\Exception $e) {
                 // Handle any exceptions or errors during update process
-                return back()->withInput()->with('alert-failed', 'An error occurred while updating the scheme: '.$e->getMessage());
+                return back()->withInput()->with('alert-failed', 'An error occurred while updating the scheme: ' . $e->getMessage());
             }
         }
     }
+    
 
     public function deleteScheme(Request $request, $id) {
         try {
@@ -221,9 +242,11 @@ class SchemeRegisterController extends Controller
     }
     public function progressLog(Request $request, $schemeId) {
         if($request->isMethod('get')) {
-            // $data['scheme_id'] = Schemes::on(Session::get('db_conn_name'))->where('id', $id)->first();
+            // $data['scheme_id'] = Schemes::on(Session::get('db_conn_name'))->where('id', $scheme_id)->first();
             // $data['schemeProgress'] = SchemeProgress::on(Session::get('db_conn_name'))->get();
-
+            // $data['schemes'] = Schemes::on(Session::get('db_conn_name'))->get();
+            // $data['scheme'] = Schemes::on(Session::get('db_conn_name'))->find($schemeId);
+            $data['scheme'] = Schemes::on(Session::get('db_conn_name'))->where('id', $schemeId)->first();
             $data['schemeProgress'] = SchemeProgress::on(Session::get('db_conn_name'))->where('id', $schemeId)->first();
             return view('HOD_Admin.progressLog', $data);
             //
@@ -231,8 +254,6 @@ class SchemeRegisterController extends Controller
     }
 
 
-    
-    
 
     public function apply($schemeId)
     {

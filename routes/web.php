@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProgressReportController;
 use App\Http\Controllers\SchemeRegisterController;
@@ -44,6 +45,18 @@ Route::match(['get', 'post'],'/finishedSchemes',[SchemeRegisterController::class
 
 Route::match(['get', 'post'],'/log/{schemeId}',[SchemeRegisterController::class, 'progressLog'])->name('progressLog');
 
+Route::group(['middleware' => 'auth', 'prefix' => 'messages', 'as' => 'messages'], function () {
+    Route::get('/', [MessagesController::class, 'index']);
+    Route::get('create', [MessagesController::class, 'create'])->name('.create');
+    Route::post('/', [MessagesController::class, 'store'])->name('.store');
+    Route::get('{thread}', [MessagesController::class, 'show'])->name('.show');
+    Route::put('{thread}', [MessagesController::class, 'update'])->name('.update');
+    Route::delete('{thread}', [MessagesController::class, 'destroy'])->name('.destroy');
+});
+
+Route::get('/test', function() {
+    return view('HOD_Admin.test');
+});
 
 
 
@@ -53,7 +66,7 @@ Route::match(['get', 'post'],'/log/{schemeId}',[SchemeRegisterController::class,
 //     return view('SchemeImplementationPhase');
 // });
 
-Route::get('/test', [MapController::class, 'index'])->name('test');
+// Route::get('/test', [MapController::class, 'index'])->name('test');
 
 // Route::get('dashboard/user/create', function () {
 //     return view('user_create');

@@ -62,7 +62,7 @@
 
                     <label for="physical_progress">Physical Progress</label>
                     <input type="text" name="physical_progress" id="physical_progress"
-                        class="form-control @error('physical_progress') is-invalid @enderror" placeholder=""
+                        class="form-control @error('physical_progress') is-invalid @enderror" placeholder="" value="{{old('physical_progress')}}"
                         aria-describedby="helpId" value=" {{ $schemes->physical_progress }}">
                     @error('physical_progress')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -70,8 +70,8 @@
 
                     <label for="percentage_of_progress">% Of Progress</label>
                     <select name="percentage_of_progress" id="percentage_of_progress"
-                        class="form-control @error('percentage_of_progress') is-invalid @enderror"
-                        aria-describedby="helpId" onchange="toggleCompletionYear(this)">
+                        class="form-control @error('percentage_of_progress') is-invalid @enderror" aria-describedby="helpId"
+                        onchange="toggleCompletionYear(this)">
                         <option value="">Please select...</option>
                         @for ($i = 0; $i <= 100; $i += 10)
                             <option value="{{ $i }}" @if ($schemes->percentage_of_progress == $i) selected @endif>
@@ -82,13 +82,46 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
 
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="funds_used" class="form-label">Fund Used</label>
+                                <div class="input-group input-group-sm">
+                                    
+                                    <input type="number" min="0" name="funds_used" id="funds_used"
+                                        class="w-80 form-control form-control-sm @error('funds_used') is-invalid @enderror"
+                                        value="{{ old('funds_used') }}">
+                                    @error('funds_used')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="budget" class="form-label">Total Budget</label>
+                                <div class="input-group input-group-sm">
+                                    
+                                    <input type="number" name="budget" id="budget"
+                                        class="w-80 form-control form-control-sm @error('budget') is-invalid @enderror"
+                                        value="{{  $schemes->budget  }}"
+                                        disabled>
+                                    @error('budget')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <label for="images">Upload Images (Maximum 4 Images)</label>
                     <div class="flex space-x-1 px-4">
                         <div class="file-upload-container">
                             <input type="file" name="images[]" id="images" multiple
-                                class="form-control @error('images') is-invalid @enderror"
-                                onchange="previewImages(event)" style="width: 300px">
-                            <div id="image-preview" class="image-preview"></div> 
+                                class="form-control @error('images') is-invalid @enderror" onchange="previewImages(event)"
+                                style="width: 300px">
+                            <div id="image-preview" class="image-preview"></div>
                             @error('images')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -119,16 +152,16 @@
         document.addEventListener('DOMContentLoaded', function() {
             var completionYearInput = document.getElementById('completionYear');
             var achievementInput = document.getElementById('achievement');
-    
+
             // Initially disable completion year and achievement inputs
             completionYearInput.disabled = true;
             achievementInput.disabled = true;
         });
-    
+
         function toggleCompletionYear(selectElement) {
             var completionYearInput = document.getElementById('completionYear');
             var achievementInput = document.getElementById('achievement');
-    
+
             if (selectElement.value == '100') {
                 completionYearInput.disabled = false;
                 achievementInput.disabled = false;
@@ -139,17 +172,17 @@
                 achievementInput.value = ''; // Clear achievement if percentage of progress is not 100%
             }
         }
-    
+
         // function previewImages(event) {
         //     var previewContainer = document.getElementById('image-preview');
         //     previewContainer.innerHTML = ''; 
-    
+
         //     var files = event.target.files;
-    
+
         //     for (var i = 0; i < files.length; i++) {
         //         var file = files[i];
         //         var reader = new FileReader();
-    
+
         //         reader.onload = function(e) {
         //             var img = document.createElement('img');
         //             img.src = e.target.result;
@@ -157,41 +190,40 @@
         //             img.classList.add('col-auto'); 
         //             previewContainer.appendChild(img);
         //         }
-    
+
         //         reader.readAsDataURL(file);
         //     }
         // }
 
-    function previewImages(event) {
-        var previewContainer = document.getElementById('image-preview');
-        previewContainer.innerHTML = ''; 
+        function previewImages(event) {
+            var previewContainer = document.getElementById('image-preview');
+            previewContainer.innerHTML = '';
 
-        var files = event.target.files;
-        var numImages = files.length;
+            var files = event.target.files;
+            var numImages = files.length;
 
-        for (var i = 0; i < numImages; i++) {
-            var file = files[i];
-            var reader = new FileReader();
+            for (var i = 0; i < numImages; i++) {
+                var file = files[i];
+                var reader = new FileReader();
 
-            reader.onload = function(e) {
-                var img = document.createElement('img');
-                img.src = e.target.result;
-                // img.classList.add('img-thumbnail'); 
-                // img.classList.add('col-auto'); 
-                previewContainer.appendChild(img);
+                reader.onload = function(e) {
+                    var img = document.createElement('img');
+                    img.src = e.target.result;
+                    // img.classList.add('img-thumbnail'); 
+                    // img.classList.add('col-auto'); 
+                    previewContainer.appendChild(img);
 
-                // Add a line break after the second image
-                // if (previewContainer.children.length == 2) {
-                //     previewContainer.appendChild(document.createElement('br'));
-                // }
+                    // Add a line break after the second image
+                    // if (previewContainer.children.length == 2) {
+                    //     previewContainer.appendChild(document.createElement('br'));
+                    // }
+                }
+
+                reader.readAsDataURL(file);
             }
-
-            reader.readAsDataURL(file);
         }
-    }
-
     </script>
-    
+
 
 
     @include('layouts.footer')

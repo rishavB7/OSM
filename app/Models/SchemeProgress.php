@@ -14,6 +14,7 @@ class SchemeProgress extends Model
         'scheme_id',
         'no_of_entries',
         'percentage_of_progress',
-        'images'
+        'images',
+        'funds_used',
     ];
 }

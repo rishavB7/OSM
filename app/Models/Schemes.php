@@ -20,5 +20,8 @@ class Schemes extends Model
         'percentage_of_progress',
         'images',
         'scheme_status',
+        'budget',
+        'remaining_budget',
+        'projectc_coordinator'
     ];
 }

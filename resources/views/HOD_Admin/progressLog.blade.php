@@ -4,57 +4,67 @@
     @include('layouts.header')
     {{-- @include('layouts.navigation') --}}
     <div class="wrapper">
-        <h3 class="text-center text-4xl mt-4">Progress Log</h3>
-
         <div class="container">
+            <h3 class="text-center text-4xl mt-4">Progress Log</h3>
+            <div class="row justify-content-end mb-3">
+                <div class="col-auto">
+                    <a href="{{ route('dashboard') }}" class="btn btn-primary">Dashboard</a>
+                    <a href="{{ route('listScheme') }}" class="btn btn-primary ml-2">Back</a>
+                </div>
+            </div>
+            <div id="print_section" class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Scheme Title</th>
+                                    <th>% Of Progress</th>
+                                    <th>Physical Progress</th>
+                                    <th>Fund Used</th>
+                                    <th>Remaining Budget</th>
+                                    <th>Images</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if ($scheme)
+                                    <tr>
+                                        <td>{{ $scheme->scheme_name }}</td>
+                                        <td>{{ $schemeProgress->percentage_of_progress }}</td>
+                                        <td>{{ $schemeProgress->physical_progress }}</td>
+                                        <td>{{ $schemeProgress->funds_used }}</td>
+                                        <td>{{ $scheme->remaining_budget }}</td>
+                                        <td>
+                                            <div class="row">
+                                                @foreach (json_decode($schemeProgress->images) as $image)
+                                                    <div class="col-md-4 mb-3">
+                                                        <img src="{{ asset($image) }}" class="img-fluid rounded"
+                                                            alt="Scheme Image">
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @else
+                                    <tr>
+                                        <td colspan="6">No scheme details available.</td>
+                                    </tr>
+                                @endif
 
-            <a href="{{ route('dashboard') }}">
-                <button class="btn btn-primary d-inline-block m-2 float-right">Dashboard</button>
-            </a>
-    
-            <a href="{{ route('listScheme') }}">
-                <button class="btn btn-primary d-inline-block m-2 float-right">Back</button>
-            </a>
-            
-            <div id="print_section">  
-                <form>
-                    <div class="form-group">
-                        {{-- <label for="scheme_name">Name of the scheme</label>
-                        <input type="text" name="scheme_name" id="scheme_name" class="form-control" readonly value="{{ $scheme_id->scheme_name }}">
-                    
-                        <label for="scheme_description">Scheme Description</label>
-                        <input type="text" name="scheme_description" id="scheme_description" class="form-control" readonly value="{{ $scheme_id->scheme_description }}">
-                    
-                        <label for="start_date">Starting Date</label>
-                        <input type="date" name="start_date" id="start_date" class="form-control" readonly value="{{ $scheme_id->start_date }}" >
-                    
-                        <label for="end_date">Ending Date</label>
-                        <input type="date" name="end_date" id="end_date" class="form-control" readonly value="{{ $scheme_id->end_date }}"> --}}
-                        
-                        {{-- <label for="physical_progress">Physical Progress</label>
-                        <input type="text" name="physical_progress" id="physical_progress" class="form-control" readonly value="{{ $scheme_id->physical_progress }}"> --}}
-    
-                        <label for="percentage_of_progress">% Of Progress</label>
-                        <input type="number" min="0" max="100" name="percentage_of_progress" id="percentage_of_progress" class="form-control" readonly value="{{$schemeProgress->percentage_of_progress }}">
-    
-                        <label for="images">Images</label>
-                        <div class="row">
-                            @foreach(json_decode($schemeProgress->images) as $image)
-                                <div class="col-md-4">
-                                    <img src="{{ asset($image) }}" class="img-thumbnail" alt="Scheme Image">
-                                </div>
-                            @endforeach
-                        </div>
-    
-                        {{-- Add error handling for other fields if needed --}}
+                            </tbody>
+                        </table>
                     </div>
-                </form>
-            </div>  
-            <button class="btn btn-secondary p-2 mb-2" onclick="print_section()">Print</button>
+                </div>
+            </div>
+            <div class="row justify-content-end">
+                <div class="col-auto">
+                    <button class="btn btn-secondary p-2 mb-2 mt-2" onclick="print_section()">Print</button>
+                </div>
+            </div>
         </div>
     </div>
     @include('layouts.footer')
-    
+
     <script>
         function print_section() {
             window.print();

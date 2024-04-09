@@ -38,7 +38,13 @@
                     Completed Schemes
                 </button>
             </a>
+            <x-slot name="content">
+           
+        </x-slot>
+            
 
+
+        
             <div class="ml-auto login py-2 ">
                 <div class="max-w-xl mx-auto sm:px-6 lg:px-3">
                     <div class=" overflow-hidden shadow-sm ">
@@ -66,11 +72,16 @@
                         </button>
                     </x-slot>
                     
+                    
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
+
+                        <x-nav-link class="ml-3" :href="route('messages')" :active="request()->routeIs('messages') || request()->routeIs('messages.*')">
+                            Messages @include('messenger.unread-count')
+                        </x-nav-link>
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
