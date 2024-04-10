@@ -16,5 +16,10 @@ class SchemeProgress extends Model
         'percentage_of_progress',
         'images',
         'funds_used',
+        'physical_progress',
     ];
+
+    public function scheme(){
+        return $this->belongsTo('App\Models\Schemes', 'scheme_id', 'id');
+    }
 }

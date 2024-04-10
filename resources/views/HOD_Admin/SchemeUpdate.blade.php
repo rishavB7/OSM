@@ -61,9 +61,9 @@
                     @enderror
 
                     <label for="physical_progress">Physical Progress</label>
-                    <input type="text" name="physical_progress" id="physical_progress"
+                    <textarea type="text" name="physical_progress" id="physical_progress"
                         class="form-control @error('physical_progress') is-invalid @enderror" placeholder="" value="{{old('physical_progress')}}"
-                        aria-describedby="helpId" value=" {{ $schemes->physical_progress }}">
+                        aria-describedby="helpId" value=" {{ $schemes->physical_progress }}"></textarea>
                     @error('physical_progress')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -83,11 +83,10 @@
                     @enderror
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="funds_used" class="form-label">Fund Used</label>
                                 <div class="input-group input-group-sm">
-                                    
                                     <input type="number" min="0" name="funds_used" id="funds_used"
                                         class="w-80 form-control form-control-sm @error('funds_used') is-invalid @enderror"
                                         value="{{ old('funds_used') }}">
@@ -97,22 +96,34 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="budget" class="form-label">Total Budget</label>
                                 <div class="input-group input-group-sm">
-                                    
                                     <input type="number" name="budget" id="budget"
                                         class="w-80 form-control form-control-sm @error('budget') is-invalid @enderror"
-                                        value="{{  $schemes->budget  }}"
-                                        disabled>
+                                        value="{{  $schemes->budget  }}" disabled>
                                     @error('budget')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="remaining_budget" class="form-label">Remaining Fund</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="number" name="remaining_budget" id="remaining_budget"
+                                        class="w-80 form-control form-control-sm @error('remaining_budget') is-invalid @enderror"
+                                        value="{{  $schemes->remaining_budget  }}" disabled>
+                                    @error('remaining_budget')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    
 
 
                     <label for="images">Upload Images (Maximum 4 Images)</label>
@@ -226,5 +237,5 @@
 
 
 
-    @include('layouts.footer')
+    {{-- @include('layouts.footer') --}}
 @endsection

@@ -9,6 +9,7 @@ use App\Models\ProgressReport;
 use App\Models\SchemeProgress;
 use App\Models\District_User_Map;
 use App\Models\Scheme_Completion;
+use App\Models\handle_queries_table;
 
 class SchemeRegisterController extends Controller
 {
@@ -127,6 +128,7 @@ class SchemeRegisterController extends Controller
                 'achievement' => ['nullable'],
                 'percentage_of_progress' => ['nullable', 'numeric', 'required'],
                 'funds_used' => ['numeric', 'required'],
+                'physical_progress' => ['required', 'string', 'max:255'],
             ]);
     
             $imagePaths = [];
@@ -180,6 +182,7 @@ class SchemeRegisterController extends Controller
                     'percentage_of_progress' => $percentageOfProgress,
                     'images' => json_encode($imagePaths),
                     'funds_used' => $request->funds_used, // Fix the variable name here
+                    'physical_progress' => $request->physical_progress,
                 ]);
     
                 if ($request->completion_year) {
@@ -241,6 +244,7 @@ class SchemeRegisterController extends Controller
         }
     }
     public function progressLog(Request $request, $schemeId) {
+  
         if($request->isMethod('get')) {
             // $data['scheme_id'] = Schemes::on(Session::get('db_conn_name'))->where('id', $scheme_id)->first();
             // $data['schemeProgress'] = SchemeProgress::on(Session::get('db_conn_name'))->get();
@@ -248,8 +252,39 @@ class SchemeRegisterController extends Controller
             // $data['scheme'] = Schemes::on(Session::get('db_conn_name'))->find($schemeId);
             $data['scheme'] = Schemes::on(Session::get('db_conn_name'))->where('id', $schemeId)->first();
             $data['schemeProgress'] = SchemeProgress::on(Session::get('db_conn_name'))->where('id', $schemeId)->first();
+        
+
             return view('HOD_Admin.progressLog', $data);
             //
+        } else {
+            // Validate incoming request data
+            $validatedData = $request->validate([
+                'scheme_name' => ['required', 'string', 'max:255'],
+                'pending_queries' => ['required', 'string', 'max:255'],
+                'start_date' => ['required']
+            ]);
+            DB::beginTransaction();
+            try{
+            $scheme = handle_queries_table::on(Session::get('db_conn_name'))->create([
+                'scheme_name' => $request->scheme_name,
+              
+                'start_date' => $request->start_date,
+               'pending_queries' => $request->pending_queries
+                
+            ]);
+            DB::commit();
+
+            return redirect()->route('dashboard')->with('alert-success', 'Query Successfully Rasised');
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            $errorCode = $e->getCode();
+            if (strpos($errorCode, '42') === 0) {
+                $errorMessage = 'You are not permitted to make changes.';
+                return view('error_page', ['errorMessage' => $errorMessage]);
+            }
+            dd('error');
+        }
         }
     }
 

@@ -19,52 +19,65 @@
                 </div>
             @endif
 
-            <a href="{{ route('dashboard') }}">
-                <button class="btn btn-primary d-inline-block m-2 float-right">Dashboard</button>
-            </a>
-    
-            <a href="{{ route('listScheme') }}">
-                <button class="btn btn-primary d-inline-block m-2 float-right">Back</button>
-            </a>
-            
+            <a href="{{ route('dashboard') }}" class="btn btn-primary d-inline-block m-2 float-right">Dashboard</a>
+            <a href="{{ route('listScheme') }}" class="btn btn-primary d-inline-block m-2 float-right">Back</a>
+
             <div id="print_section">  
-                <form>
-                    <div class="form-group">
-                        <label for="scheme_name">Name of the scheme</label>
-                        <input type="text" name="scheme_name" id="scheme_name" class="form-control" readonly value="{{ $scheme_id->scheme_name }}">
-                    
-                        <label for="scheme_description">Scheme Description</label>
-                        <input type="text" name="scheme_description" id="scheme_description" class="form-control" readonly value="{{ $scheme_id->scheme_description }}">
-                    
-                        <label for="start_date">Starting Date</label>
-                        <input type="date" name="start_date" id="start_date" class="form-control" readonly value="{{ $scheme_id->start_date }}" >
-                    
-                        <label for="end_date">Ending Date</label>
-                        <input type="date" name="end_date" id="end_date" class="form-control" readonly value="{{ $scheme_id->end_date }}">
-                        
-                        <label for="physical_progress">Physical Progress</label>
-                        <input type="text" name="physical_progress" id="physical_progress" class="form-control" readonly value="{{ $scheme_id->physical_progress }}">
-    
-                        <label for="percentage_of_progress">% Of Progress</label>
-                        <input type="number" min="0" max="100" name="percentage_of_progress" id="percentage_of_progress" class="form-control" readonly value="{{ $scheme_id->percentage_of_progress }}">
-    
-                        <label for="images">Images</label>
-                        <div class="row">
-                            @foreach(json_decode($scheme_id->images) as $image)
-                                <div class="col-md-4">
-                                    <img src="{{ asset($image) }}" class="img-thumbnail" alt="Scheme Image">
-                                </div>
-                            @endforeach
-                        </div>
-    
-                        {{-- Add error handling for other fields if needed --}}
-                    </div>
-                </form>
+                <div class="table-responsive mt-4">
+                    <table class="table table-bordered table-striped">
+                        <tbody>
+                            <tr>
+                                <th style="width: 30%">Name of the scheme</th>
+                                <td>{{ $scheme_id->scheme_name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Scheme Description</th>
+                                <td>{{ $scheme_id->scheme_description }}</td>
+                            </tr>
+                            <tr>
+                                <th>Starting Date</th>
+                                <td>{{ $scheme_id->start_date }}</td>
+                            </tr>
+                            <tr>
+                                <th>Ending Date</th>
+                                <td>{{ $scheme_id->end_date }}</td>
+                            </tr>
+                            <tr>
+                                <th>Total Budget</th>
+                                <td>{{ $scheme_id->budget }}</td>
+                            </tr>
+                            <tr>
+                                <th>Project Coordinator</th>
+                                <td>{{ $scheme_id->projectc_coordinator }}</td>
+                            </tr>
+                            <tr>
+                                <th>Physical Progress</th>
+                                <td>{{ $scheme_id->physical_progress }}</td>
+                            </tr>
+                            <tr>
+                                <th>% Of Progress</th>
+                                <td>{{ $scheme_id->percentage_of_progress }}</td>
+                            </tr>
+                            <tr>
+                                <th>Images</th>
+                                <td>
+                                    <div class="row">
+                                        @foreach(json_decode($scheme_id->images) as $image)
+                                            <div class="col-md-4 mb-2">
+                                                <img src="{{ asset($image) }}" class="img-thumbnail" alt="Scheme Image">
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>  
-            <button class="btn btn-secondary p-2 mb-2" onclick="print_section()">Print</button>
+            <button class="btn btn-secondary p-2 mt-3 mb-2" onclick="print_section()">Print</button>
         </div>
     </div>
-    @include('layouts.footer')
+    {{-- @include('layouts.footer') --}}
     
     <script>
         function print_section() {

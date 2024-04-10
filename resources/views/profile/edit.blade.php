@@ -3,6 +3,9 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Profile') }}
         </h2>
+        <a href="{{ route('dashboard') }}" class="text-sm text-gray-800 underline hover:no-underline">
+            {{ __('Back to Dashboard') }}
+        </a>
         
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
