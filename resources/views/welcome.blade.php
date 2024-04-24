@@ -1,20 +1,18 @@
-{{-- @extends('layouts.app') 
+@extends('layouts.app') 
 @include('layouts.header')   
-@include('layouts.menu')
+{{-- @include('layouts.menu') --}}
 @section('content')
  <div class="wrapper" >
-     <h1>Main content</h1>
      @include('layouts.carousel')
     </div>
 @include('layouts.footer')
 @endsection
 
 
- --}}
 
- @extends('layouts.app')
+
+ {{-- @extends('layouts.app')
  @include('layouts.header')
-
  @section('content')
  
  
@@ -83,6 +81,6 @@
          </a>
      </div>
     </x-guest-layout>
- 
- @endsection
+ @include('layouts.footer')
+ @endsection --}}
  

@@ -9,6 +9,7 @@ use App\Http\Controllers\ProgressReportController;
 use App\Http\Controllers\SchemeRegisterController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\SchemeManagementController;
+use App\Http\Controllers\DepartmentManagementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,8 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/scheme-create', [SchemeRegisterController::class, 'schemeCreate'])->name('schemeCreate');
-Route::post('/scheme-create', [SchemeRegisterController::class, 'schemeCreate'])->name('schemeCreate');
+Route::get('/scheme-create', [SchemeRegisterController::class, 'schemeCreate'])->middleware(['auth', 'verified'])->name('schemeCreate');
+Route::post('/scheme-create', [SchemeRegisterController::class, 'schemeCreate'])->middleware(['auth', 'verified'])->name('schemeCreate');
 Route::get('/listScheme', [SchemeRegisterController::class, 'listScheme'])->name('listScheme');
 Route::get('/schemes/{id}/update', [SchemeRegisterController::class, 'updateScheme'])->name('SchemeUpdate');
 Route::post('/schemes/{id}/update', [SchemeRegisterController::class, 'updateScheme'])->name('SchemeUpdate');
@@ -55,7 +56,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'messages', 'as' => 'messages'
 });
 
 Route::get('/test', function() {
-    return view('HOD_Admin.test');
+    return view('Master_Admin.dasboardNew');
 });
 
 
@@ -76,6 +77,8 @@ Route::match(['get', 'post'], '/dashboard/user/create', [UserManagementControlle
 Route::match(['get', 'post'], '/dashboard/addUser', [UserManagementController::class, 'addUser'])->name('addUser');
 Route::match(['get', 'patch'], '/dashboard/UpdateUser/{id}', [UserManagementController::class, 'updateUser'])->name('updateUser');
 Route::get('/dashboard/listUser', [UserManagementController::class, 'list_user'])->name('listUser');
-// Route::get('/dashboard/listUser', [UserManagementController::class, 'list_user_by_district'])->name('listUserByDistrict');
+
+Route::match(['get', 'post'], '/dashboard/addDepartment', [DepartmentManagementController::class, 'addDepartment'])->name('addDepartment');
+Route::get('/dashboard/departmentList', [DepartmentManagementController::class, 'departmentList'])->name('departmentList');
 
 require __DIR__ . '/auth.php';

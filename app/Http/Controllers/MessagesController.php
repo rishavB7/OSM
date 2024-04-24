@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Schemes;
+use App\Models\SchemeProgress;
 use Illuminate\Http\Request;
 use Cmgmyr\Messenger\Models\Thread;
 use Cmgmyr\Messenger\Models\Message;
@@ -50,11 +52,19 @@ class MessagesController extends Controller
      *
      * @return mixed
      */
-    public function create()
+    public function create(Request $request, $id = "")
     {
         $users = User::where('id', '!=', Auth::id())->get();
-
-        return view('messenger.create', compact('users'));
+        $createdByUserMail = "";
+        
+        if ($request->query('schemeId') !== null){
+            $progressLogSchemeId = SchemeProgress::on(Session::get('db_conn_name'))->where('id', $request->query('schemeId'))->first();
+            $createdById = Schemes::on(Session::get('db_conn_name'))->where('id', $progressLogSchemeId->scheme_id)->first();
+            $createdByUserMail = User::where('id', $createdById->created_by)->first();
+        }
+        // @dd($createdByUserMail -> id);
+        $email_created_by = $createdByUserMail -> email ?? "";
+        return view('messenger.create', compact('users', 'email_created_by', 'createdByUserMail'));
     }
 
     /**

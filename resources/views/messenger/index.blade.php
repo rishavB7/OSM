@@ -2,6 +2,9 @@
 
 @section('content')
 @include('layouts.header')
+<div class="d-flex">
+    @include('layouts.sideNav')
+    <div class="container mt-0 mx-4">
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">
@@ -56,5 +59,7 @@
         </div>
     </x-slot>
 </x-app-layout>
+    </div>
+</div>
 @include('layouts.footer')    
 @endsection

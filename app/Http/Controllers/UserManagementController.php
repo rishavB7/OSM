@@ -147,46 +147,19 @@ class UserManagementController extends Controller
 
 
         $data['all_users'] = District_User_Map::with(['user','district_master'])->get();
+        // $department_name = Departments::on(Session::get('db_conn_name'))->get();
+        // dd($department_name);
+        if(Auth::user()->role == 2){
+            $data['currentUserDistrict'] = District_User_Map::where('user_id', Auth::user()->id)->first()->district_unique_code;
+        }
+
+        // $data['deapartmentName'] = Department_User_Map::where('user_id', )->first()->district_unique_code;
         // $data['all_users'] = User::orderBy('role', 'asc')->get();
 
         // $data['districts'] = District_Master::get();
 
         return view('listUser', $data);
     }
-    public function list_user_by_district(Request $request) {
-
-
-        $dc_sdo_district = Auth::user()->district_master?->district; 
-        
-        // dd($dc_sdo_district);
-
-        $all_users = District_User_Map::with('user', 'district_master')
-            ->whereHas('user', function ($query) use ($dc_sdo_district) {
-                $query->where('role', 2); // Filter users with role DC/SDO Admin
-            })
-            ->whereHas('district_master', function ($query) use ($dc_sdo_district) {
-                $query->where('district', $dc_sdo_district);
-            })
-            ->get();
-
-         return view('District_Admin.listUserByDistrict', compact('all_users'));
-    }
-
-
-    // public function editUser($id) {
-    //     $all_users = User::find($id);
-
-    //     if(is_null($all_users)) {
-    //         return redirect('listUser');
-
-    //     } else {
-    //         $url = url('/dashboard/update') .'/'. $id;
-    //         $title = 'Update User';
-    //         $districts = District_Master::get();
-    //         $data = compact('all_users', 'districts', 'title');
-    //         return view('Master_Admin.user_create')->with($data);
-    //     }
-    // }
 
     public function updateUser(Request $request, $id) {
 

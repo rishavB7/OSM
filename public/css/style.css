@@ -1,4 +1,11 @@
-.wrapper {
+.wrapper:has(.carousel) {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.wrapper:not(:has(.carousel)) {
     min-height: 80vh;
 }
 
@@ -20,4 +27,29 @@ input[type="file"] {
     position: relative;
     width: 300px !important;
     margin-right: 30px;
+}
+
+.login-btn{
+    transition: all 350ms ease;
+}
+
+.login-btn:hover{
+    text-decoration: none;
+}
+
+.wrapper > div > nav{
+    display: flex;
+    flex-direction: column;
+}
+
+.left-deshboard-btns {
+    margin: 1rem 0;
+    /* width: 25vw;  */
+    width: 10vw; 
+    height: 5vh;
+    border: none;
+}
+
+.btn-selected{
+    background-color: red !important;
 }

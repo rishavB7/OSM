@@ -41,8 +41,14 @@ class AuthenticatedSessionController extends Controller
 
         }
 
-        return redirect()->route('dashboard');
+        if (Auth::user()->role=='1' || Auth::user()->role=='2'){
+            return redirect()->route('dashboard');
+        }
+        if (Auth::user()->role=='3'){
+            return redirect()->route('listScheme');
+        }
 
+        return redirect()->route('/');
         // return redirect()->intended(RouteServiceProvider::HOME);
     }
 

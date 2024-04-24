@@ -57,15 +57,29 @@
                     </div>
                 </div>
             </div>
+            @if (Auth::user()->role == 2)
 
-            <div class="row justify-content-start mb-3 mt-2">
+            {{-- <div class="row justify-content-start mb-3 mt-2">
                 <div class="col-auto">
                     <input type="checkbox" id="unlock_query_section" onclick="toggleQuerySection()">
                     <label for="unlock_query_section">Raise Query</label>
                 </div>
-            </div>
+            </div> --}}
 
-            <div id="query_section" style="display: none;">
+            <a onclick="raise_query()">
+              <button type="submit" class="btn btn-group-sm btn-dark bg-dark mt-2">Raise Querry</button>
+            </a> 
+            
+            <script>
+                // href="{{route("messages.create")}}"
+                function raise_query() {
+                    let curr_schemeId = window.location.pathname.substring(window.location.pathname.indexOf('/log') + 5);
+                    window.location.href ="{{route("messages.create")}}" + "?schemeId=" + curr_schemeId;
+                }
+        
+            </script>
+            
+            {{-- <div id="query_section" style="display: none;">
                 <form action="{{ route('progressLog' ,$schemeProgress->id) }}" method="post">
                     @csrf
                     <div class="form-group mt-2">
@@ -90,7 +104,8 @@
                         <button type="submit" class="btn btn-primary bg-blue-700">Send</button>
                     </div>
                 </form>
-            </div>
+            </div> --}}
+            @endif
            
             <div class="row justify-content-end">
                 <div class="col-auto">

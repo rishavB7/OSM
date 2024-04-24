@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 use DB;
-use Auth,Session;
+use Session;
 use App\Models\Schemes;
 use Illuminate\Http\Request;
 use App\Models\ProgressReport;
 use App\Models\SchemeProgress;
+use App\Models\User;
 use App\Models\District_User_Map;
 use App\Models\Scheme_Completion;
 use App\Models\handle_queries_table;
+use Illuminate\Support\Facades\Auth;
 
 class SchemeRegisterController extends Controller
 {
@@ -62,16 +64,19 @@ class SchemeRegisterController extends Controller
 
             $remainingBudget = $request->budget;
 
+            $this->id = Auth::user()->id;
+
             $scheme = Schemes::on(Session::get('db_conn_name'))->create([
                 'scheme_name' => $request->scheme_name,
                 'scheme_description' => $request->scheme_description,
                 'start_date' => $request->start_date,
                 'end_date' => $request->end_date,
                 'status' => 0,
+                'scheme_status' => 0,
                 'budget' => $request->budget,
                 'remaining_budget' => $remainingBudget,
                 'projectc_coordinator' => $request->projectc_coordinator,
-                
+                'created_by' => Auth::user()->id,     
             ]);
 
             // $completed_scheme_id = CompletedSchemes::where('id', $request['id'])->first();
@@ -253,16 +258,15 @@ class SchemeRegisterController extends Controller
             $data['scheme'] = Schemes::on(Session::get('db_conn_name'))->where('id', $schemeId)->first();
             $data['schemeProgress'] = SchemeProgress::on(Session::get('db_conn_name'))->where('id', $schemeId)->first();
         
-
             return view('HOD_Admin.progressLog', $data);
             //
         } else {
-            // Validate incoming request data
-            $validatedData = $request->validate([
-                'scheme_name' => ['required', 'string', 'max:255'],
-                'pending_queries' => ['required', 'string', 'max:255'],
-                'start_date' => ['required']
-            ]);
+            // // Validate incoming request data
+            // $validatedData = $request->validate([
+            //     'scheme_name' => ['required', 'string', 'max:255'],
+            //     'pending_queries' => ['required', 'string', 'max:255'],
+            //     'start_date' => ['required']
+            // ]);
             DB::beginTransaction();
             try{
             $scheme = handle_queries_table::on(Session::get('db_conn_name'))->create([

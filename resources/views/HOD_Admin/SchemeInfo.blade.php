@@ -24,6 +24,7 @@
 
             <div id="print_section">  
                 <div class="table-responsive mt-4">
+                    @if($scheme_id)
                     <table class="table table-bordered table-striped">
                         <tbody>
                             <tr>
@@ -62,16 +63,22 @@
                                 <th>Images</th>
                                 <td>
                                     <div class="row">
-                                        @foreach(json_decode($scheme_id->images) as $image)
-                                            <div class="col-md-4 mb-2">
-                                                <img src="{{ asset($image) }}" class="img-thumbnail" alt="Scheme Image">
-                                            </div>
-                                        @endforeach
+                                        @if ($scheme_id->images != null)
+                                            @foreach(json_decode($scheme_id->images) as $image)
+                                                <div class="col-md-4 mb-2">
+                                                    <img src="{{ asset($image) }}" class="img-thumbnail" alt="Scheme Image">
+                                                </div>
+                                            @endforeach
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                    @else
+                       <p>No Data</p> 
+                    @endif
+                    
                 </div>
             </div>  
             <button class="btn btn-secondary p-2 mt-3 mb-2" onclick="print_section()">Print</button>

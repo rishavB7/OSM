@@ -2,10 +2,9 @@
 
 @section('content')
 @include('layouts.header')
-
-<div>
-    <h3 class="text-center text-4xl">Create User</h3>
-    <div class="container">
+<div class="d-flex">
+    @include('layouts.sideNav')
+    <div class="container mt-0 mx-4 my-4">
 
         {{-- @if(session('success'))
             <div class="alert alert-success mt-4">
@@ -24,17 +23,13 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-
-            <a href="{{route('dashboard')}}">
-                <button class="btn btn-primary d-inline-block m-2 float-right ">Back</button>
-            </a>
             
 
         <form method="POST" action="{{route('user_create')}}">
             @csrf
             
             <!-- Name -->
-            <div class="form-group">
+            <div class="form-group px-[20rem]">
                 <label for="name">Name</label>
                 <input id="name" class="form-control" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name" />
                 @error('name')
@@ -43,7 +38,7 @@
             </div>
 
             <!-- Email Address -->
-            <div class="form-group">
+            <div class="form-group px-[20rem]">
                 <label for="email">Email</label>
                 <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}" required autocomplete="username" />
                 @error('email')
@@ -52,7 +47,7 @@
             </div>
 
             <!-- Password -->
-            <div class="form-group">
+            <div class="form-group px-[20rem]">
                 <label for="password">Password</label>
                 <input id="password" class="form-control" type="password" name="password" required autocomplete="new-password" />
                 @error('password')
@@ -61,7 +56,7 @@
             </div>
 
             <!-- Confirm Password -->
-            <div class="form-group">
+            <div class="form-group px-[20rem]">
                 <label for="password_confirmation">Confirm Password</label>
                 <input id="password_confirmation" class="form-control" type="password" name="password_confirmation" required autocomplete="new-password" />
                 @error('password_confirmation')
@@ -70,7 +65,7 @@
             </div>
 
             <!-- Mobile -->
-            <div class="form-group">
+            <div class="form-group px-[20rem]">
                 <label for="mobile">Mobile</label>
                 <input id="mobile" class="form-control" type="number" name="mobile" value="{{ old('mobile') }}" required autocomplete="mobile" />
                 @error('mobile')
@@ -79,7 +74,7 @@
             </div>
 
             <!-- Role -->
-            <div class="form-group">
+            <div class="form-group px-[20rem]">
                 <label for="role">Role</label>
                 <select class="form-control" id="role" name="role" required>
                     {{-- <option value="">Select User Type</option> --}}
@@ -93,7 +88,7 @@
             
 
             <!-- District -->
-            <div class="form-group">
+            <div class="form-group px-[20rem]">
                 <label for="district">District</label>
                 <select class="form-control" id="district" name="district" required>
                     <option value="">Select District</option>
@@ -106,8 +101,8 @@
                 @enderror
             </div>
 
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary bg-blue-700">Create</button>
+            <div class="form-group px-[20rem]">
+                <button type="submit" class="btn btn-primary bg-blue-700 w-[150px]">Create</button>
             </div>
         </form>
     </div>

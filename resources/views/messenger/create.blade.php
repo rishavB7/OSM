@@ -3,7 +3,6 @@
 @section('content')
 @include('layouts.header')
     
-
 <x-app-layout>
     <x-slot name="header">
         <div class="d-flex justify-content-between align-items-center">
@@ -16,12 +15,10 @@
             </a>
         </div>
     
-
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-
                     <form action="{{ route('messages.store') }}" method="post">
                         {{ csrf_field() }}
                         <div class="col-md-6">
@@ -31,8 +28,9 @@
                                 <x-input id="subject" class="block w-full mt-1" type="text" name="subject"
                                     :value="old('subject')" />
                             </div>
-
+                            
                             <!-- Recipients list -->
+                            @if (app('request')->query('schemeId') === null)
                             <div class="mt-4">
                                 <x-label for="recipient" :value="__('Recipient')" />
                                 <select name="recipient"
@@ -42,7 +40,13 @@
                                     @endforeach
                                 </select>
                             </div>
-
+                            @else
+                            <x-label for="recipient" :value="__('Recipient')" />
+                                <select name="recipient"
+                                    class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                    <option value={{$createdByUserMail -> id}}>{{$email_created_by}}</option>
+                                </select>
+                            @endif
                             <!-- Message Form Input -->
                             <div class="mt-4">
                                 <x-label for="message" :value="__('Message')" />

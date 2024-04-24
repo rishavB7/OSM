@@ -17,6 +17,7 @@ class SchemeProgress extends Model
         'images',
         'funds_used',
         'physical_progress',
+        'queries',
     ];
 
     public function scheme(){

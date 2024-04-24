@@ -42,6 +42,16 @@ class SchemeManagementController extends Controller
        });
     }
 
+    public function getSchemeCreator($schemeId) {
+
+        $scheme = Schemes::where('id', $schemeId)->first();
+        $schemeCreator = $scheme->created_by;
+
+        $userMail = User::where('id', $schemeCreator)->get();
+
+        return view('schemeCreator.email');
+    }
+
     // public function schemeImp(Request $request) {
     //     if($request->isMethod('get')) {
     //         return view('HOD_Admin.SchemeImp');

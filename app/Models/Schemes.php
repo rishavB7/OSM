@@ -22,6 +22,7 @@ class Schemes extends Model
         'scheme_status',
         'budget',
         'remaining_budget',
-        'projectc_coordinator'
+        'projectc_coordinator',
+        'created_by',
     ];
 }

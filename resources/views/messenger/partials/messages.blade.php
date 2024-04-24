@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title', 'Message')
 @section('content')
 @include('layouts.header')
 
@@ -16,11 +17,13 @@
                 <h2 class="text-xl font-semibold leading-tight text-gray-800">
                     {{ __('Messages') }}
                 </h2>
+                @if (Auth::user()->role == 2)
                 <a href="{{ route('dashboard') }}" class="text-sm text-gray-800 underline hover:no-underline">
                     {{ __('Back to Dashboard') }}
                 </a>
+                @endif
             </div>
-        </x-slot>
+        
     
         <div class="py-12">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -56,6 +59,7 @@
                 </div>
             </div>
         </div>
+    </x-slot>
     </x-app-layout>
 </div>
 @include('layouts.footer')    

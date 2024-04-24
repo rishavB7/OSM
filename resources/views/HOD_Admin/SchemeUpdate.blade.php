@@ -2,7 +2,8 @@
 @include('layouts.header')
 @section('content')
     {{-- @include('layouts.navigation') --}}
-    <div class="wrapper">
+    <div class="wrapper d-flex ">
+        @include('layouts.sideNav')
         <div class="container">
             @if (session('alert-success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -16,61 +17,66 @@
                 </div>
             @endif
 
-            <a href="{{ route('dashboard') }}">
+            {{-- <a href="{{ route('dashboard') }}">
                 <button class="btn btn-primary d-inline-block m-2 float-right">Dashboard</button>
             </a>
 
             <a href="{{ route('listScheme') }}">
                 <button class="btn btn-primary d-inline-block m-2 float-right ">Back</button>
-            </a>
+            </a> --}}
 
-            <h1 class="text-center text-4xl">Update</h1>
-            <form action="{{ route('SchemeUpdate', $schemes->id) }}" method="post" enctype="multipart/form-data">
+            <h1 class="text-center text-3xl my-2">UPDATE SCHEME</h1>
+            <form class="d-flex justify-center bg-white" action="{{ route('SchemeUpdate', $schemes->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
-                <div class="form-group">
-                    <label for="scheme_name">Name of the scheme</label>
+                <div class="form-group m-10">
+                    <label class="mt-2 mb-1" for="scheme_name">Name of the scheme</label>
                     <input type="text" name="scheme_name" id="scheme_name"
-                        class="form-control @error('scheme_name') is-invalid @enderror" placeholder=""
+                        class="lg:w-[720px] form-control @error('scheme_name') is-invalid @enderror" placeholder=""
                         aria-describedby="helpId" value="{{ $schemes->scheme_name }}">
                     @error('scheme_name')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
 
-                    <label for="scheme_description">Scheme Description</label>
+                    <label class="mt-2 mb-1" for="scheme_description">Scheme Description</label>
                     <input type="text" name="scheme_description" id="scheme_description"
-                        class="form-control @error('scheme_description') is-invalid @enderror" placeholder=""
+                        class="lg:w-[720px] form-control @error('scheme_description') is-invalid @enderror" placeholder=""
                         aria-describedby="helpId" value="{{ $schemes->scheme_description }}">
                     @error('scheme_description')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-
-                    <label for="start_date">Starting Date</label>
-                    <input type="date" name="start_date" id="start_date"
-                        class="form-control @error('start_date') is-invalid @enderror" placeholder=""
-                        aria-describedby="helpId" value="{{ $schemes->start_date }}">
-                    @error('start_date')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-
-                    <label for="end_date">Ending Date</label>
-                    <input type="date" name="end_date" id="end_date"
-                        class="form-control @error('end_date') is-invalid @enderror" placeholder=""
-                        aria-describedby="helpId" value="{{ $schemes->end_date }}">
-                    @error('end_date')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-
-                    <label for="physical_progress">Physical Progress</label>
+                    
+                    <div class="d-flex">
+                        <div class="mr-4">
+                        <label class="mt-2 mb-1" for="start_date">Starting Date</label>
+                        <input type="date" name="start_date" id="start_date"
+                            class="form-control @error('start_date') is-invalid @enderror" placeholder=""
+                            aria-describedby="helpId" value="{{ $schemes->start_date }}">
+                        @error('start_date')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        </div>
+                        <div>
+                        <label class="mt-2 mb-1" for="end_date">Ending Date</label>
+                        <input type="date" name="end_date" id="end_date"
+                            class="form-control @error('end_date') is-invalid @enderror" placeholder=""
+                            aria-describedby="helpId" value="{{ $schemes->end_date }}">
+                        @error('end_date')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        </div>
+                    </div>
+                    
+                    <label class="mt-2 mb-1" for="physical_progress">Physical Progress</label>
                     <textarea type="text" name="physical_progress" id="physical_progress"
-                        class="form-control @error('physical_progress') is-invalid @enderror" placeholder="" value="{{old('physical_progress')}}"
+                        class="form-control lg:w-[720px] @error('physical_progress') is-invalid @enderror" placeholder="" value="{{old('physical_progress')}}"
                         aria-describedby="helpId" value=" {{ $schemes->physical_progress }}"></textarea>
                     @error('physical_progress')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
 
-                    <label for="percentage_of_progress">% Of Progress</label>
+                    <label class="mt-2 mb-1" for="percentage_of_progress">% Of Progress</label>
                     <select name="percentage_of_progress" id="percentage_of_progress"
-                        class="form-control @error('percentage_of_progress') is-invalid @enderror" aria-describedby="helpId"
+                        class="form-control lg:w-[720px] @error('percentage_of_progress') is-invalid @enderror" aria-describedby="helpId"
                         onchange="toggleCompletionYear(this)">
                         <option value="">Please select...</option>
                         @for ($i = 0; $i <= 100; $i += 10)
@@ -83,12 +89,12 @@
                     @enderror
 
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
+                        <div class="col-md-3">
+                            <div class="form-group mt-2">
                                 <label for="funds_used" class="form-label">Fund Used</label>
                                 <div class="input-group input-group-sm">
                                     <input type="number" min="0" name="funds_used" id="funds_used"
-                                        class="w-80 form-control form-control-sm @error('funds_used') is-invalid @enderror"
+                                        class=" form-control form-control-sm @error('funds_used') is-invalid @enderror"
                                         value="{{ old('funds_used') }}">
                                     @error('funds_used')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -96,12 +102,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
+                        <div class="col-md-3">
+                            <div class="form-group mt-2">
                                 <label for="budget" class="form-label">Total Budget</label>
                                 <div class="input-group input-group-sm">
                                     <input type="number" name="budget" id="budget"
-                                        class="w-80 form-control form-control-sm @error('budget') is-invalid @enderror"
+                                        class=" form-control form-control-sm @error('budget') is-invalid @enderror"
                                         value="{{  $schemes->budget  }}" disabled>
                                     @error('budget')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -109,12 +115,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
+                        <div class="col-md-3">
+                            <div class="form-group mt-2">
                                 <label for="remaining_budget" class="form-label">Remaining Fund</label>
                                 <div class="input-group input-group-sm">
                                     <input type="number" name="remaining_budget" id="remaining_budget"
-                                        class="w-80 form-control form-control-sm @error('remaining_budget') is-invalid @enderror"
+                                        class=" form-control form-control-sm @error('remaining_budget') is-invalid @enderror"
                                         value="{{  $schemes->remaining_budget  }}" disabled>
                                     @error('remaining_budget')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -126,11 +132,11 @@
                     
 
 
-                    <label for="images">Upload Images (Maximum 4 Images)</label>
+                    <label class="mt-2 mb-1" for="images">Upload Images (Maximum 4 Images)</label>
                     <div class="flex space-x-1 px-4">
                         <div class="file-upload-container">
                             <input type="file" name="images[]" id="images" multiple
-                                class="form-control @error('images') is-invalid @enderror" onchange="previewImages(event)"
+                                class="form-control lg:w-[720px] @error('images') is-invalid @enderror" onchange="previewImages(event)"
                                 style="width: 300px">
                             <div id="image-preview" class="image-preview"></div>
                             @error('images')
@@ -139,15 +145,15 @@
                         </div>
                     </div>
 
-                    <label for="completionYear">Completion Year</label>
-                    <input type="date" name="completion_year" id="completionYear" class="form-control" disabled>
+                    <label class="mt-2 mb-1" for="completionYear">Completion Year</label>
+                    <input type="date" name="completion_year" id="completionYear" class="form-control lg:w-[720px]" disabled>
 
                     @error('completion_year')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
 
-                    <label for="achievement">Achievement</label>
-                    <input type="text" name="achievement" id="achievement" class="form-control" disabled>
+                    <label class="mt-2 mb-1" for="achievement">Achievement</label>
+                    <input type="text" name="achievement" id="achievement" class="form-control lg:w-[720px]" disabled>
                     @error('achievement')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -237,5 +243,5 @@
 
 
 
-    {{-- @include('layouts.footer') --}}
+    @include('layouts.footer')
 @endsection

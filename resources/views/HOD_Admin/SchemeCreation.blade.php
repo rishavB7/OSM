@@ -2,8 +2,9 @@
 @include('layouts.header')
 @section('content')
     {{-- @include('layouts.navigation') --}}
-    <div class="wrapper">
-        <div class="container   ">
+    <div class="wrapper d-flex">
+        @include('layouts.sideNav')
+        <div class="container h-[80vh] d-flex flex-md-column lg:pt-5 lg:px-72 ">
             @if (session('alert-success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ session('alert-success') }}
@@ -17,11 +18,7 @@
             @endif
 
 
-            <h1 class="text-center">Scheme Entry</h1>
-
-            <a href="{{ route('dashboard') }}">
-                <button class="btn btn-primary d-inline-block m-2 float-right ">Back</button>
-            </a>
+            <h1 class="text-center text-2xl">Scheme Entry</h1>
 
             <form action="{{ route('schemeCreate') }}" method="post">
                 @csrf
@@ -128,14 +125,13 @@
                     {{-- Add error handling for other fields if needed --}}
 
                     <div class="form-group mt-2">
-                        <button type="submit" class="btn btn-primary bg-blue-700">Create</button>
+                        <button type="submit" class="btn btn-primary bg-blue-700 w-[150px]">Create</button>
                     </div>
                 </div>
-
-
-
             </form>
-
+            <a href="{{ route('dashboard') }}">
+                <button class="btn btn-primary float-right mt-[-4.4rem]">Back</button>
+            </a>
         </div>
     </div>
     @include('layouts.footer')
