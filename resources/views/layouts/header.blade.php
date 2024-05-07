@@ -1,10 +1,13 @@
 <div class="antialiased flex flex-col">
-  <div class="text-center form-control-lg text-white bg-[#2384c6] rounded-none h-12 flex items-center justify-between">
+  <div class="text-center form-control-lg text-white bg-[#2384c6] rounded-none h-16 flex items-center justify-between">
     <div class="flex">
       <a href="http://localhost:82/git-clone/OSM/public/">
       <img class="w-20 h-auto mr-2" src="https://static.javatpoint.com/fullformpages/images/nic.png" alt="NIC LOGO"></a>
       {{-- <img class="w-10 h-auto mr-2" src="public/image/logo2.png" alt="Assam Government logo"> --}}
-      <h3 class="font-weight-bold">Online Scheme Monitoring and MIS | Government Of Assam</h3>
+      <h3 class="font-weight-bold text-xl">Online Scheme Monitoring and MIS | Government Of Assam</h3>
+      <h3 class="font-weight-bold ml-[17rem]">DM Dashboard @Assam</h3>
+
+      
     </div>
     <div>
       @if (Route::has('login'))
@@ -14,7 +17,7 @@
         <div class="ml-auto login py-2 ">
           <div class="max-w-xl mx-auto sm:px-6 lg:px-3">
               <div class=" overflow-hidden shadow-sm ">
-                  <div class="p-2 text-white font-bold text-xl">
+                  <div class="p-2 text-white font-bold text-lg">
                       {{ __("You're logged in as Admin") }}
                   </div>
               </div>
@@ -24,8 +27,8 @@
       <div class="ml-auto login py-2 ">
         <div class="max-w-xl mx-auto sm:px-6 lg:px-3">
             <div class=" overflow-hidden shadow-sm ">
-                <div class="p-2 text-white font-bold text-sm">
-                    {{ __("You're logged in as ") . Auth::user()->email }} 
+                <div class="p-2 text-white font-bold text-lg">
+                    {{ __("You're logged in as ") . Auth::user()->email . '  (' .(Auth::user()->designation) .')' }} 
                 </div>                        
             </div>
         </div>
@@ -34,8 +37,38 @@
       <div class="ml-auto login py-2 ">
         <div class="max-w-xl mx-auto sm:px-6 lg:px-3">
             <div class=" overflow-hidden shadow-sm ">
-                <div class="p-2 text-white font-bold text-sm">
-                    {{ __("You're logged in as ") . Auth::user()->email }} 
+                <div class="p-2 text-white font-bold text-lg">
+                    {{ __("You're logged in as ") . Auth::user()->email . '  (' .(Auth::user()->designation) .')'}} 
+                </div>                        
+            </div>
+        </div>
+      </div>
+      @elseif (Auth::user()->role == 4)
+      <div class="ml-auto login py-2 ">
+        <div class="max-w-xl mx-auto sm:px-6 lg:px-3">
+            <div class=" overflow-hidden shadow-sm ">
+                <div class="p-2 text-white font-bold text-lg">
+                    {{ __("You're logged in as ") . Auth::user()->email . '  (' .(Auth::user()->designation) .')'}} 
+                </div>                        
+            </div>
+        </div>
+      </div>
+      @elseif (Auth::user()->role == 5)
+      <div class="ml-auto login py-2 ">
+        <div class="max-w-xl mx-auto sm:px-6 lg:px-3">
+            <div class=" overflow-hidden shadow-sm ">
+                <div class="p-2 text-white font-bold text-lg">
+                    {{ __("You're logged in as ") . Auth::user()->email . '  (' .(Auth::user()->designation) .')'}} 
+                </div>                        
+            </div>
+        </div>
+      </div>
+      @elseif (Auth::user()->role == 6)
+      <div class="ml-auto login py-2 ">
+        <div class="max-w-xl mx-auto sm:px-6 lg:px-3">
+            <div class=" overflow-hidden shadow-sm ">
+                <div class="p-2 text-white font-bold text-lg">
+                    {{ __("You're logged in as ") . Auth::user()->email . '  (' .(Auth::user()->designation) .')'}} 
                 </div>                        
             </div>
         </div>
@@ -78,12 +111,12 @@
           @endif
           
           @auth
-            @if (Auth::user()->role != 3)
+            {{-- @if (Auth::user()->role != 3) --}}
                 <a href="{{ url('/dashboard') }}" class="login-btn px-6 py-2 m-2 text-white bg-indigo-600 rounded-[10px] hover:bg-indigo-500 hover:text-indigo-200">Dashboard</a>
-            @endif    
+            {{-- @endif     --}}
           @else
             <a href="{{ route('login') }}" class="login-btn px-6 py-2 m-2 text-white bg-indigo-600 rounded-[10px] hover:bg-indigo-500 hover:text-indigo-200">Log in</a>
-          
+             
           {{-- @if (Route::has('register'))
           <a href="{{ route('register') }}" class="btn btn-primary py-2 px-4">Register</a>
           @endif --}}

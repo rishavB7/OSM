@@ -8,9 +8,14 @@
             <h3 class="text-center text-4xl mt-4">Progress Log</h3>
             <div class="row justify-content-end mb-3">
                 <div class="col-auto">
-                    <a href="{{ route('dashboard') }}" class="btn btn-primary">Dashboard</a>
-                    <a href="{{ route('listScheme') }}" class="btn btn-primary ml-2">Back</a>
+                    @if (Auth::user()->role == 2)    
+            <a href="{{ route('dashboard') }}" class="btn btn-primary d-inline-block m-2 float-right">Dashboard</a>
+            @endif
+                    <a href="{{ route('listScheme') }}" class="btn btn-primary ml-2 mt-2">Back</a>
                 </div>
+                <a onclick="raise_query()">
+                    <button type="submit" class="btn btn-group-sm btn-dark bg-dark mt-2">Raise Querry</button>
+                  </a> 
             </div>
             <div id="print_section" class="card">
                 <div class="card-body">
@@ -57,7 +62,7 @@
                     </div>
                 </div>
             </div>
-            @if (Auth::user()->role == 2)
+            @if (Auth::user()->role == 2 || Auth::user()->role == 4 || Auth::user()->role == 5 || Auth::user()->role == 6)
 
             {{-- <div class="row justify-content-start mb-3 mt-2">
                 <div class="col-auto">
@@ -66,9 +71,7 @@
                 </div>
             </div> --}}
 
-            <a onclick="raise_query()">
-              <button type="submit" class="btn btn-group-sm btn-dark bg-dark mt-2">Raise Querry</button>
-            </a> 
+            
             
             <script>
                 // href="{{route("messages.create")}}"

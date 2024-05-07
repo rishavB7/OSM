@@ -105,6 +105,24 @@
                                     @enderror
                                 </div>
                             </div>
+                            
+                            <!-- Supervisor -->
+                            <div class="form-group">
+                                <label for="supervisor">Supervisor</label>
+                                <select class="form-control rounded-md" id="supervisor" name="supervisor" required>
+                                    <option selected disabled>Select Supervisor</option>
+                                        {{-- <option value="2">DC</option>
+                                        <option value="5">CEO,ZP</option>
+                                        <option value="6">DDC</option> --}}
+                                        @foreach ($supervisors as $supervisor)
+                                        <option value="{{$supervisor->user_id}}">{{$supervisor->name}} ({{$supervisor->designation}}) </option> 
+                                        @endforeach
+                                </select>
+                                @error('supervisor')
+                                    <p class="mt-2">{{ $message }}</p>
+                                @enderror
+                            </div> 
+                            
                         </div>
                         <div class="col-md-6">
                             <!-- Project Manager -->
@@ -129,7 +147,7 @@
                     </div>
                 </div>
             </form>
-            <a href="{{ route('dashboard') }}">
+            <a href="{{ route('listScheme') }}">
                 <button class="btn btn-primary float-right mt-[-4.4rem]">Back</button>
             </a>
         </div>

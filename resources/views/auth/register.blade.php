@@ -60,20 +60,18 @@
         </div>
 
         <!-- District -->
-        <div class="mt-4">
+        {{-- <div class="mt-4">
             <x-input-label for="district" :value="__('District')" />
             <x-input-error :messages="$errors->get('district')" class="mt-2" />
                 
                 <select class="block mt-1 w-full mb-4" id="district " name="district">
                     <option value="">Select District</option>
-                       {{-- @foreach ($districts as $district)
-                    <option value="{{$district->id}}">{{$district->district}}</option>
-                    @endforeach --}}
+                
                     <option value="Golaghat">Golaghat</option>
                     <option value="Jorhat">Jorhat</option>
                     <option value="Lakhimpur">Lakhimpur</option>
                 </select>
-        </div>
+        </div> --}}
 
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">

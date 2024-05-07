@@ -1,6 +1,9 @@
 <?php
     use App\Models\SchemeProgress;
     use App\Models\User;
+    use App\Models\Department_User_Map;
+    use App\Models\Departments;
+    use App\Models\Scheme_Supervisor_Map;
 ?>
 @extends('layouts.app')
 
@@ -17,12 +20,14 @@
                 <button class="btn btn-primary d-inline-block m-2 float-right">Back</button>
             </a> --}}
 
+            
+
             <table border="1" class="table">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Name</th>
-                        <th>Description</th>
+                        <th>Scheme Name</th>
+                        {{-- <th>Description</th> --}}
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th>Last Updated On</th>
@@ -34,16 +39,17 @@
                         <th>Scheme Progress</th>
                         <th>Scheme Status</th>
                         <th>Created By</th>
+                        <th>Department</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $i = 1; ?>
                     @foreach ($schemes as $scheme)
-                    @if($scheme->created_by == Auth::user()->id || Auth::user()->role == 2)
+                    @if($scheme->created_by == Auth::user()->id || Auth::user()->role == 2 || Auth::user()->role == 5 || Auth::user()->role == 6)
                         <tr>
                             <td>{{ $i++ }}</td>
                             <td>{{ $scheme->scheme_name }}</td>
-                            <td>{{ $scheme->scheme_description }}</td>
+                            {{-- <td>{{ $scheme->scheme_description }}</td> --}}
                             <td>{{ $scheme->start_date }}</td>
                             <td>{{ $scheme->end_date }}</td>
                             <td>{{ $scheme->updated_at }}</td>
@@ -97,28 +103,51 @@
                             <td>
                                 <div class="btn-group">
                                     <a href="{{route('schemeInfo', $scheme->id)}}" class="bg-purple-500 hover:bg-purple-600 cursor-pointer p-2 btn text-white">
-                                        Show
+                                        View
                                     </a>
                                 </div>
                             </td>
                             <td>
-                                <div class="btn-group">
-                                    <button type="button" class="px-3 py-2 ml-[-1px] bg-pink-400 hover:bg-pink-500 active:bg-pink-500 font-bold text-sm text-white rounded-md dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <span class="btn btn-warning cursor-pointer text-white visually-hidden">Toggle Dropdown</span>
-                                        Log
-                                    </button>
-                                    <ul class="dropdown-menu text-sm">
-                                        <?php
-                                            $scheme_progress = SchemeProgress::on(Session::get('db_conn_name'))
+                                @php
+                                     $log_map = Scheme_Supervisor_Map::on(Session::get('db_conn_name'))
                                                 ->where('scheme_id', $scheme->id)
-                                                ->orderBy('id', 'asc')
-                                                ->get();
-                                        ?>
-                                        @foreach ($scheme_progress as $scheme_progress)
-                                            <li><a href="{{route('progressLog', $scheme_progress->id)}}">{{ $scheme_progress->updated_at }}</a></li>
-                                        @endforeach
-                                    </ul>
-                                </div>
+                                                ->where('supervisor_id', Auth::user()->id)
+                                                ->first();
+                                @endphp
+
+                                @if($log_map)
+
+                                    <?php
+                                                
+                                        $scheme_progress = SchemeProgress::on(Session::get('db_conn_name'))
+                                            ->where('scheme_id', $scheme->id)
+                                            ->orderBy('id', 'asc')
+                                            ->get();
+                                        
+                                    ?>
+                                    @if(!empty($scheme_progress))
+                                        <div class="btn-group">
+                                            <button type="button" class="px-3 py-2 ml-[-1px] bg-pink-400 hover:bg-pink-500 active:bg-pink-500 font-bold text-sm text-white rounded-md dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <span class="btn btn-warning cursor-pointer text-white visually-hidden">Toggle Dropdown</span>
+                                                Log
+                                            </button>
+                                            <ul class="dropdown-menu text-sm">
+                                            
+                                                    @foreach ($scheme_progress as $scheme_progress)
+                                                        <li><a href="{{route('progressLog', $scheme_progress->id)}}">{{ $scheme_progress->updated_at }}</a></li>
+                                                    @endforeach
+                                                
+                                            </ul>
+                                        </div>
+                                    @else
+                                        Progress Not Updated Yet.
+                                    @endif
+                                    
+                                @else
+                                    Log Not Available
+                                @endif
+                            
+                                
                             </td>
                             <td>                
                                 @if ($scheme->status == 0)
@@ -133,6 +162,22 @@
                                  $schemeCreatedBy = User::where('id', $scheme->created_by)->first()->name;   
                             @endphp
                             <td>{{$schemeCreatedBy}}</td>
+                            <td>
+                                <?php
+                                    $departmentId = Department_User_Map::on(Session::get('db_conn_name'))->where('user_id', $scheme->created_by)->get('department_id')->first();
+                                    
+                                    if($departmentId !== null){
+                                        $dName = Departments::on(Session::get('db_conn_name'))->where('id', $departmentId->department_id)->first();
+                                    }
+                                ?>
+                                {{-- {{dd($all_user->user->id)}} --}}
+                                @if($departmentId != null)
+                                    {{$dName->department_name}}
+                                @else
+                                    N/A
+                                @endif
+                            </td>
+                           
                         </tr>  
                     @endif 
                     @endforeach

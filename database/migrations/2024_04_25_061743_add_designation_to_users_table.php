@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('district_master', function (Blueprint $table) {
-            $table->id();
-            $table->string('district_name');
-            $table->string('district_type');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('designation')->default('user');
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('district_master');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };

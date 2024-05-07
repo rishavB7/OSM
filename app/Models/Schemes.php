@@ -24,5 +24,6 @@ class Schemes extends Model
         'remaining_budget',
         'projectc_coordinator',
         'created_by',
+        'supervisor'
     ];
 }

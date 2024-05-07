@@ -6,86 +6,87 @@
     <div>
     @include('layouts.sideNav')
     </div>
-    {{-- @include('layouts.navigation') --}}
-    {{-- <div class="wrapper"> --}}
-        {{-- HOD DASHBOARD --}}
-        {{-- <nav class="navbar navbar-expand-lg dark:bg-blue-900">
-            <a class="navbar-brand" href="#"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button> --}}
-
-            {{-- <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle bg-blue-400 hover:bg-blue-500" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Scheme Management
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="{{route('schemeCreate')}}">Create Scheme</a>
-                <a class="dropdown-item" href="{{route('listScheme')}}">List Of Schemes</a>
-                <a class="dropdown-item" href="">Edit Scheme</a>
-                <!-- Add more dropdown items as needed -->
-            </div>
-        </div> --}}
-            {{-- <a href="{{ route('schemeCreate') }}">
-                <button class="btn btn-secondary bg-blue-400 hover:bg-blue-500 mr-2" type="button">
-                    Create Scheme
-                </button>
-            </a>
-            <a href="{{ route('listScheme') }}">
-                <button class="btn btn-secondary bg-blue-400 hover:bg-blue-500 mr-2" type="button">
-                    List Of Schemes
-                </button>
-            </a>
-
-            <a href="{{ route('messages') }}" class="mr-2">
-                <button class="btn btn-secondary bg-blue-400 hover:bg-blue-500 mr-2" type="button">
-                    Messages @include('messenger.unread-count')
-                </button>
-            </a> --}}
-            
-
-            {{-- <div class="ml-auto login py-2 ">
-                <div class="max-w-xl mx-auto sm:px-6 lg:px-3">
-                    <div class=" overflow-hidden shadow-sm ">
-                        <div class="p-2 text-white font-bold text-sm">
-                            {{ __("You're logged in as ") . Auth::user()->name }} 
-                        </div>                        
-                    </div>
+    <div class="w-[100vw]">
+       <h1 class="text-center text-3xl">DASHBOARD</h1>
+       <div class="p-1 flex flex-wrap items-center justify-center">
+        <div class="flex-shrink-0 m-6 relative overflow-hidden bg-blue-500 rounded-lg max-w-xs shadow-lg h-40 w-1/3">
+            <svg class="absolute bottom-0 left-0 mb-8" viewBox="0 0 375 283" fill="none"
+                style="transform: scale(1.5); opacity: 0.1;">
+                <rect x="159.52" y="175" width="152" height="152" rx="8" transform="rotate(-45 159.52 175)" fill="white" />
+                <rect y="107.48" width="152" height="152" rx="8" transform="rotate(-45 0 107.48)" fill="white" />
+            </svg>
+            <div class="relative pt-10 px-10 flex items-center justify-center">
+                <div class="block absolute w-48 h-48 bottom-0 left-0 -mb-24 ml-3"
+                    style="background: radial-gradient(black, transparent 60%); transform: rotate3d(0, 0, 1, 20deg) scale3d(1, 0.6, 1); opacity: 0.2;">
                 </div>
-            </div> --}}
-
-            {{-- <div class="hidden sm:flex sm:items-center sm:ms-6 mr-4"> --}}
-                {{-- <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                    <div>{{ Auth::user()->name }}</div>
-
-                    <div class="ms-1">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                </button> --}}
-
-                {{-- <a href="{{ route('profile.edit') }}" class="ml-3 text-white">Profile</a>
-
-                
-
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}" class="ml-3 text-white">
-                    @csrf
-
-                    <button type="submit" class=" text-white hover:underline focus:outline-none rounded">Log Out</button>
-                </form>
-            </div> --}}
-        {{-- </nav> --}}
-
-    {{-- </div> --}}
-            <div class="bg-red-600 w-[100vw]">
-                dashboard content
+            </div>
+            <div class="relative text-white px-6 pb-6 mt-6">
+                <a class="hover:no-underline hover:text-white" href="{{route('listScheme')}}">
+                <span class="block  text-2xl -mb-1">Total Schemes</span>
+                <div class="flex justify-between">
+                    <?php
+                         use App\Models\Schemes;
+                            $nodalId = Auth::user()->id;
+                            $totalSchemes = Schemes::on(Session::get('db_conn_name'))->where('created_by', $nodalId)->count();
+                    ?>
+                    <span class="block font-semibold text-xl mt-3">{{$totalSchemes}}</span>
+                </div>
+                </a>
             </div>
         </div>
-    @include('layouts.footer')
-    
+        
+        <div class="flex-shrink-0 m-6 relative overflow-hidden bg-yellow-500 rounded-lg max-w-xs shadow-lg h-40 w-1/3">
+            <svg class="absolute bottom-0 left-0 mb-8" viewBox="0 0 375 283" fill="none"
+                style="transform: scale(1.5); opacity: 0.1;">
+                <rect x="159.52" y="175" width="152" height="152" rx="8" transform="rotate(-45 159.52 175)" fill="white" />
+                <rect y="107.48" width="152" height="152" rx="8" transform="rotate(-45 0 107.48)" fill="white" />
+            </svg>
+            <div class="relative pt-10 px-10 flex items-center justify-center">
+                <div class="block absolute w-48 h-48 bottom-0 left-0 -mb-24 ml-3"
+                    style="background: radial-gradient(black, transparent 60%); transform: rotate3d(0, 0, 1, 20deg) scale3d(1, 0.6, 1); opacity: 0.2;">
+                </div>
+            </div>
+            <a class="hover:no-underline"  href="{{route('runningSchemesListHod')}}">
+            <div class="relative text-white px-6 pb-6 mt-6">
+                <span class="block  text-2xl -mb-1">Running Schemes</span>
+                <?php
+                            $nodalId = Auth::user()->id;
+                            $runningSchemes = Schemes::on(Session::get('db_conn_name'))->where('created_by', $nodalId)->where('scheme_status', 0)->count();
+                    ?>
+                <div class="flex justify-between">
+                    <span class="block font-semibold text-xl mt-3">{{$runningSchemes}}</span>
+                </div>
+            </div>
+        </a>
+        </div>
+        <div class="flex-shrink-0 m-6 relative overflow-hidden bg-green-500 rounded-lg max-w-xs shadow-lg h-40 w-1/3">
+            <svg class="absolute bottom-0 left-0 mb-8" viewBox="0 0 375 283" fill="none"
+                style="transform: scale(1.5); opacity: 0.1;">
+                <rect x="159.52" y="175" width="152" height="152" rx="8" transform="rotate(-45 159.52 175)" fill="white" />
+                <rect y="107.48" width="152" height="152" rx="8" transform="rotate(-45 0 107.48)" fill="white" />
+            </svg>
+            <div class="relative pt-10 px-10 flex items-center justify-center">
+                <div class="block absolute w-48 h-48 bottom-0 left-0 -mb-24 ml-3"
+                    style="background: radial-gradient(black, transparent 60%); transform: rotate3d(0, 0, 1, 20deg) scale3d(1, 0.6, 1); opacity: 0.2;">
+                </div>
+            </div>
+            <a class="hover:no-underline"  href="{{route('completedSchemeListHod')}}">
+            <div class="relative text-white px-6 pb-6 mt-6">
+                <span class="block  text-2xl -mb-1">Completed Schemes</span>
+                <?php
+                $nodalId = Auth::user()->id;
+                            $completedSchemes = Schemes::on(Session::get('db_conn_name'))->where('created_by', $nodalId)->whereNotNull('completion_year')->count();
+                    ?>
+                <div class="flex justify-between">
+                    <span class="block font-semibold text-xl mt-3">{{$completedSchemes}}</span>
+                </div>
+            </div>
+        </a>
+        </div>      
+      
+       </div>
+    </div>
+</div>
+@include('layouts.footer')
+
 @endsection

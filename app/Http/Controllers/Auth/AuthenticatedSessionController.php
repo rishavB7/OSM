@@ -41,7 +41,7 @@ class AuthenticatedSessionController extends Controller
 
         }
 
-        if (Auth::user()->role=='1' || Auth::user()->role=='2'){
+        if (Auth::user()->role=='1' || Auth::user()->role=='2' || Auth::user()->role=='4' || Auth::user()->role=='5' || Auth::user()->role=='6'){
             return redirect()->route('dashboard');
         }
         if (Auth::user()->role=='3'){

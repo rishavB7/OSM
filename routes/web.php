@@ -37,12 +37,24 @@ Route::middleware('auth')->group(function () {
 Route::get('/scheme-create', [SchemeRegisterController::class, 'schemeCreate'])->middleware(['auth', 'verified'])->name('schemeCreate');
 Route::post('/scheme-create', [SchemeRegisterController::class, 'schemeCreate'])->middleware(['auth', 'verified'])->name('schemeCreate');
 Route::get('/listScheme', [SchemeRegisterController::class, 'listScheme'])->name('listScheme');
+Route::get('/runningSchemesList', [SchemeRegisterController::class, 'runningSchemesList'])->name('runningSchemesList');
+Route::get('/runningSchemesListDC', [SchemeRegisterController::class, 'runningSchemesListDC'])->name('runningSchemesListDC');
+Route::get('/runningSchemesListHod', [SchemeRegisterController::class, 'runningSchemesListHod'])->name('runningSchemesListHod');
+Route::get('/completedSchemesList', [SchemeRegisterController::class, 'completedSchemesList'])->name('completedSchemesList');
+Route::get('/completedSchemeListDC', [SchemeRegisterController::class, 'completedSchemeListDC'])->name('completedSchemeListDC');
+Route::get('/completedSchemeListHod', [SchemeRegisterController::class, 'completedSchemeListHod'])->name('completedSchemeListHod');
 Route::get('/schemes/{id}/update', [SchemeRegisterController::class, 'updateScheme'])->name('SchemeUpdate');
 Route::post('/schemes/{id}/update', [SchemeRegisterController::class, 'updateScheme'])->name('SchemeUpdate');
 Route::match(['get','post'], '/schemes/{id}/delete', [SchemeRegisterController::class, 'deleteScheme'])->name('SchemeDelete');
 Route::get('/schemes/apply/{scheme}',[SchemeRegisterController::class, 'apply'])->name('schemes.apply')->middleware('auth');
 Route::match(['get', 'post'],'/schemeInfo/{id}',[SchemeRegisterController::class, 'schemeInfo'])->name('schemeInfo');
 Route::match(['get', 'post'],'/finishedSchemes',[SchemeRegisterController::class, 'finishedSchemes'])->name('finishedSchemes');
+
+Route::get('/deptWiseSchemes', [SchemeRegisterController::class, 'deptWiseSchemes'])->name('deptWiseSchemes');
+
+Route::get('/listSchemeNodal', [SchemeRegisterController::class, 'listNodalScheme'])->name('listNodalScheme');
+
+
 
 Route::match(['get', 'post'],'/log/{schemeId}',[SchemeRegisterController::class, 'progressLog'])->name('progressLog');
 
@@ -75,10 +87,16 @@ Route::get('/test', function() {
 
 Route::match(['get', 'post'], '/dashboard/user/create', [UserManagementController::class, 'user_create'])->name('user_create');
 Route::match(['get', 'post'], '/dashboard/addUser', [UserManagementController::class, 'addUser'])->name('addUser');
+Route::match(['get', 'post'], '/dashboard/addUserCAtoDC', [UserManagementController::class, 'addUserCAtoDC'])->name('addUserCAtoDC');
 Route::match(['get', 'patch'], '/dashboard/UpdateUser/{id}', [UserManagementController::class, 'updateUser'])->name('updateUser');
 Route::get('/dashboard/listUser', [UserManagementController::class, 'list_user'])->name('listUser');
 
+Route::get('/listOfDc', [UserManagementController::class, 'dc_list'])->name('dc_list');
+Route::get('/listOfNodalOfficers', [UserManagementController::class, 'nodal_list'])->name('nodal_list');
+Route::get('/actusers', [UserManagementController::class, 'active_user_list'])->name('active_user_list');
+
 Route::match(['get', 'post'], '/dashboard/addDepartment', [DepartmentManagementController::class, 'addDepartment'])->name('addDepartment');
 Route::get('/dashboard/departmentList', [DepartmentManagementController::class, 'departmentList'])->name('departmentList');
+Route::get('/dashboard/departmentListCA_TO_DC', [DepartmentManagementController::class, 'departmentListCA_TO_DC'])->name('departmentListCA_TO_DC');
 
 require __DIR__ . '/auth.php';

@@ -5,6 +5,7 @@ use DB;
 use Session;
 use App\Models\User;
 use App\Models\Departments;
+use App\Models\Department_Master;
 use Illuminate\Http\Request;
 use App\Models\District_Master;
 use App\Models\District_User_Map; 
@@ -52,5 +53,9 @@ class DepartmentManagementController extends Controller
     public function departmentList(Request $request) {
         $departments = Departments::on(Session::get('db_conn_name'))->get();
         return view('District_Admin.departmentList', ['departments' => $departments]);
+    }
+    public function departmentListCA_TO_DC(Request $request) {
+        $departments = Departments::on(Session::get('db_conn_name'))->get();
+        return view('CA-TO-DC_Admin.departmentListCA_TO_DC', ['departments' => $departments]);
     }
 }

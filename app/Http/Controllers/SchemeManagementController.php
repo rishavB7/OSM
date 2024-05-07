@@ -51,43 +51,6 @@ class SchemeManagementController extends Controller
 
         return view('schemeCreator.email');
     }
-
-    // public function schemeImp(Request $request) {
-    //     if($request->isMethod('get')) {
-    //         return view('HOD_Admin.SchemeImp');
-    //     } else {
-    //         $validatedData = $request->validate([
-    //             'scheme_name' => ['required','string','max:255'],
-    //             'scheme_description' => ['required' ,'string', 'max:255'],
-    //             'start_date' => ['required'],
-    //             'end_date' => ['required'],
-    //             'date_of_reporting' => ['required'],
-    //         ]);
-
-    //         $scheme = Scheme_Implementation::on(Session::get('db_conn_name'))->create([
-    //             'date_of_reporting' => $request->date_of_reporting,
-    //             'status' => 1,
-                
-    //         ]);
-
-    //         return redirect()->route('dashboard')->with('alert-success', 'Scheme Implemented Successfully');
-    //     }
-    // }
-
-    // public function apply($schemeId)
-    // {
-    //     $scheme = Schemes::on(Session::get('db_conn_name'))->where('id', $schemeId)->first();
-    //     // Use 'first' instead of 'find' to fetch the scheme from the database
-    
-    //     if (!$scheme) {
-    //         return redirect()->route('listScheme')->with('error', 'Scheme not found.');
-    //     }
-    
-    //     $scheme->status = '1'; // Set status to 'Active'
-    //     $scheme->save();
-    
-    //     return redirect()->route('listScheme')->with('success', 'Scheme status updated to active.');
-    // }
     
 
 }

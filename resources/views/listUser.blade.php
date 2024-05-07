@@ -15,70 +15,76 @@ use App\Models\Department_User_Map;
         <div class="d-flex justify-between">
             @include('layouts.sideNav')
             <div class="max-h-[80vh] overflow-y-scroll w-[90%] m-4">
-                <table border="1" class="table" class="overflow-scroll">
-                    <thead>
+                <table border="1" class="table min-w-full divide-y divide-gray-200" class="overflow-scroll">
+                    <thead  class="bg-gray-50">
                         <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Mobile</th>
-                            <th>Role</th>
-                            <th>District</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                            @if (Auth::User()->role == 2 || Auth::User()->role == 3)
-                            <th>Department</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mobile</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">District</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                            @if (Auth::User()->role == 2 || Auth::User()->role == 3 || Auth::User()->role == 4)
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Department</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Designation</th>
                             @endif
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody  class="bg-white divide-y divide-gray-200">
                         <?php $i = 1; ?>
                         @foreach ($all_users as $all_user)
                             @if(Auth::user()->role == 1)
                             <tr>
-                                <td>{{ $i++ }}</td>
-                                <td>{{ $all_user->user->name }}</td>
-                                <td>{{ $all_user->user->email }}</td>
-                                <td>{{ $all_user->user->mobile }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $i++ }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $all_user->user->name }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $all_user->user->email }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $all_user->user->mobile }}</td>
                                 {{-- <td>{{$all_user->role}}</td> --}}
                                 @if ($all_user->user->role == 1)
-                                    <td>Master Admin</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">Master Admin</td>
                                 @elseif($all_user->user->role == 2)
-                                    <td>DC/SDO Admin</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">DC/SDO Admin</td>
                                 @elseif($all_user->user->role == 3)
-                                    <td>Nodal Officer</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">Nodal Officer</td>
                                 @elseif($all_user->user->role == 4)
-                                    <td>Assistant 1</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">CA_to_DC</td>
                                 @elseif($all_user->user->role == 5)
-                                    <td>Assistant 2</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">CEO_ZP</td>
                                 @else
-                                    <td>N/A</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">DDC</td>
                                 @endif
                                 {{-- <td>{{$all_user->district}}</td> --}}
 
                                 @if ($all_user->district_master->district)
-                                    <td>{{ $all_user->district_master->district }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $all_user->district_master->district }}</td>
                                 @else
-                                    <td>N/A</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">N/A</td>
                                 @endif
 
                                 {{-- @if ($department)
                         <td>{{$departmemnt->department_name}}</td>                            
                     @endif --}}
-                                <td>
+                                <td class="px-6 py-4 whitespace-nowrap">
                                     @if ($all_user->user->status == '1')
-                                        <a class="badge badge-success text-white ">Active</a>
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                            Active
+                                        </span>
                                     @else
-                                        <a class="badge badge-danger text-white ">Inactive</a>
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-red-800">
+                                        Inactive
+                                    </span>
                                     @endif
                                 </td>
-                                <td>
-                                    <a href="{{ route('updateUser', $all_user->user->id) }}">
-                                        <button class="btn-link">Edit</button>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <a href="{{ route('updateUser', $all_user->user->id) }}" class= "text-indigo-600 hover:text-indigo-900 hover:no-underline">
+                                        Edit
                                     </a>
                                 </td>
+                                
                             </tr>
-                            @elseif (Auth::user()->role == 2 && $all_user->district_master->unique_code == $currentUserDistrict)
+                            @elseif (Auth::user()->role == 2 || Auth::user()->role == 4  && $all_user->district_master->unique_code == $currentUserDistrict)
                                 <tr>
                                     <td>{{ $i++ }}</td>
                                     <td>{{ $all_user->user->name }}</td>
@@ -90,13 +96,10 @@ use App\Models\Department_User_Map;
                                     @elseif($all_user->user->role == 2)
                                         <td>DC/SDO Admin</td>
                                     @elseif($all_user->user->role == 3)
-                                        <td>Nodal Officer</td>
-                                    @elseif($all_user->user->role == 4)
-                                        <td>Assistant 1</td>
-                                    @elseif($all_user->user->role == 5)
-                                        <td>Assistant 2</td>
-                                    @else
-                                        <td>N/A</td>
+                                        <td>Deparment_HOD</td>
+                                    @elseif($all_user->user->role == 4 || 5 || 6)
+                                        <td>NODAL OFFICER</td>
+                                
                                     @endif
                                     {{-- <td>{{$all_user->district}}</td> --}}
 
@@ -135,6 +138,10 @@ use App\Models\Department_User_Map;
                                             N/A
                                         @endif
                                     </td>
+                                    <td>
+                                        {{$all_user->user->designation}}
+                                    </td>
+                                   
                                 </tr>
                             @endif
                         @endforeach

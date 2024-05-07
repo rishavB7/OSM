@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('district_user_map', function (Blueprint $table) {
+        Schema::create('district_master', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
-            $table->bigInteger('district_id');
-
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('district_id')->references('id')->on('district_master');
+            $table->string('district');
+            $table->bigInteger('unique_code')->unique();
+            $table->bigInteger('district_number');
+            $table->string('district_type');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('district_user_map');
+        Schema::dropIfExists('district_master');
     }
 };

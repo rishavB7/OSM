@@ -13,7 +13,7 @@ class DashboardController extends Controller
         $this->middleware('auth');
         $this->middleware(function ($request, $next) {
 
-            if(Auth::user()->role == 2 ){
+            if(Auth::user()->role == 2 || Auth::user()->role == 4 || Auth::user()->role == 5 || Auth::user()->role == 6){
                 $this->id = Auth::user()->id;
                 $election_district= District_User_Map::with('district_master')->where('user_id', Auth::user()->id)->first();
 
@@ -49,9 +49,19 @@ class DashboardController extends Controller
         }elseif(Auth::user()->role == 2){
 
             return view('District_Admin.dashboard');
-        }else{
-    
+        }elseif(Auth::user()->role == 3){
+
             return view('HOD_Admin.dashboard');
+        }elseif(Auth::user()->role == 4){
+
+            return view('CA-TO-DC_Admin.dashboard');
+        }elseif(Auth::user()->role == 5){
+
+            return view('CEO_ZP_Admin.dashboard');
+        }
+        else{
+            return view('DDC_Admin.dashboard');
         }
     }
 }
+

@@ -19,7 +19,9 @@
                 </div>
             @endif
 
+            @if (Auth::user()->role == 2)    
             <a href="{{ route('dashboard') }}" class="btn btn-primary d-inline-block m-2 float-right">Dashboard</a>
+            @endif
             <a href="{{ route('listScheme') }}" class="btn btn-primary d-inline-block m-2 float-right">Back</a>
 
             <div id="print_section">  

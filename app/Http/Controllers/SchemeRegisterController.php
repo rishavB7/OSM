@@ -9,8 +9,9 @@ use App\Models\ProgressReport;
 use App\Models\SchemeProgress;
 use App\Models\User;
 use App\Models\District_User_Map;
-use App\Models\Scheme_Completion;
-use App\Models\handle_queries_table;
+use App\Models\Department_User_Map;
+use App\Models\Scheme_Supervisor_Map;
+
 use Illuminate\Support\Facades\Auth;
 
 class SchemeRegisterController extends Controller
@@ -49,7 +50,16 @@ class SchemeRegisterController extends Controller
 
     public function schemeCreate(Request $request) {
         if($request->isMethod('get')) {
-            return view('HOD_Admin.SchemeCreation');
+            $data['supervisors'] = District_User_Map::join('users', 'users.id', '=', 'district_user_map.user_id')
+                ->where('district_user_map.district_unique_code', Session::get('district_unique_code'))
+                ->where(function($query) {
+                    $query->where('users.role', 2)
+                        ->orWhere('users.role', 5)
+                        ->orWhere('users.role', 6);
+                })
+                ->get();
+
+            return view('HOD_Admin.SchemeCreation', $data);
         } else {
             $validatedData = $request->validate([
                 'scheme_name' => ['required','string','max:255'],
@@ -58,6 +68,7 @@ class SchemeRegisterController extends Controller
                 'end_date' => ['required'],
                 'budget' => ['required'],
                 'projectc_coordinator' => ['required'],
+                'supervisor' => ['required', 'string'],
             ]);
             DB::beginTransaction();
             try{
@@ -65,6 +76,8 @@ class SchemeRegisterController extends Controller
             $remainingBudget = $request->budget;
 
             $this->id = Auth::user()->id;
+            $supervisorId = $request->supervisor;
+            // dd($supervisorId);
 
             $scheme = Schemes::on(Session::get('db_conn_name'))->create([
                 'scheme_name' => $request->scheme_name,
@@ -76,27 +89,26 @@ class SchemeRegisterController extends Controller
                 'budget' => $request->budget,
                 'remaining_budget' => $remainingBudget,
                 'projectc_coordinator' => $request->projectc_coordinator,
-                'created_by' => Auth::user()->id,     
+                'created_by' => Auth::user()->id,
+                'supervisor' => $supervisorId,     
             ]);
 
-            // $completed_scheme_id = CompletedSchemes::where('id', $request['id'])->first();
+            $schemeId = $scheme->id;
 
-
-            // $completed_schemes_map = CompleteSchemeMap::create([
-            //     'scheme_id' => $scheme->id,
-            //     "completed_scheme_id" => $completed_scheme_id->id,
-            // ]);
-
-            // $scheme = CompletedSchemes::on(Session::get('db_conn_name'))->create([
-            //     'scheme_name' => $request->scheme_name,
-            //     'scheme_description' => $request->scheme_description,
-            //     'start_date' => $request->start_date,
-            //     'end_date' => $request->end_date,                
-            // ]);
+           
+                
+                       
+            $scheme_supervisor_map = Scheme_Supervisor_Map::on(Session::get('db_conn_name'))->create([
+                'supervisor_id' => $supervisorId,
+                "scheme_id" => $schemeId,
+            ]);
+    
+        
+            
 
             DB::commit();
 
-            return redirect()->route('dashboard')->with('alert-success', 'Scheme Created Successfully');
+            return redirect()->route('listScheme')->with('alert-success', 'Scheme Created Successfully');
         } catch (Exception $e) {
             DB::rollBack();
 
@@ -110,11 +122,99 @@ class SchemeRegisterController extends Controller
         }
     }
 
+    public function deptWiseSchemes(Request $request) {
+        if ($request->isMethod('get')) {
+            $data['deptUser'] = Department_User_Map::on(Session::get('db_conn_name'))->where('department_id', $request->deptId)->first();
+            // dd($data['deptUser']);
+    
+            if ($data['deptUser'] !== null) {
+                $data['schemes'] = Scheme_Supervisor_Map::on(Session::get('db_conn_name'))
+                    ->join('schemes', 'schemes.id', '=', 'scheme_supervisor_map.scheme_id')
+                    ->where('schemes.created_by', $data['deptUser']->user_id)
+                    ->where('scheme_supervisor_map.supervisor_id', Auth::user()->id)
+                    ->get();
+                  
+                // $data['schemes'] = Schemes::on(Session::get('db_conn_name'))->where('created_by', $data['deptUser']->user_id)->get();
+                return view('HOD_Admin.listScheme', $data);
+            } else {
+                // Handle case where department user mapping is not found
+                return redirect()->back()->with('error', 'Department user mapping not found.');
+            }
+        }
+    }
+    
+
     public function listScheme(Request $request) {
         $data['schemes'] = Schemes::on(Session::get('db_conn_name'))->get();
+        $data['all_users'] = District_User_Map::with(['user','district_master'])->get();
         $data['schemeProgress'] = SchemeProgress::on(Session::get('db_conn_name'))->get();
         return view('HOD_Admin.listScheme', $data);
     }
+
+    public function listNodalScheme(Request $request) {
+        $data['schemes'] = Scheme_Supervisor_Map::on(Session::get('db_conn_name'))
+        ->join('schemes', 'schemes.id', '=', 'scheme_supervisor_map.scheme_id')
+        ->where('scheme_supervisor_map.supervisor_id', Auth::user()->id)
+        ->get();
+
+
+        // $data['schemes'] = Schemes::on(Session::get('db_conn_name'))->get();
+        $data['all_users'] = District_User_Map::with(['user','district_master'])->get();
+        $data['schemeProgress'] = SchemeProgress::on(Session::get('db_conn_name'))->get();
+        return view('listSchemeNodal', $data);
+    }
+
+    public function runningSchemesList(Request $request) {
+        $data['runningSchemes'] = Scheme_Supervisor_Map::on(Session::get('db_conn_name'))
+                ->join('schemes', 'schemes.id', '=', 'scheme_supervisor_map.scheme_id')
+                ->where('scheme_supervisor_map.supervisor_id', Auth::user()->id)
+                ->where('schemes.scheme_status', 0) 
+                ->get();
+        $data['schemeProgress'] = SchemeProgress::on(Session::get('db_conn_name'))->get();
+        return view('HOD_Admin.runningSchemesList', $data);
+    }
+
+    public function runningSchemesListHod(Request $request) {
+        $data['runningSchemes'] = Schemes::on(Session::get('db_conn_name'))->where('scheme_status', 0)->get();
+        $data['schemeProgress'] = SchemeProgress::on(Session::get('db_conn_name'))->get();
+        return view('HOD_Admin.runningSchemesListHod', $data);
+    }
+
+    public function runningSchemesListDC(Request $request) {
+        $data['runningSchemes'] = Schemes::on(Session::get('db_conn_name'))->where('scheme_status', 0)->get();
+        $data['schemeProgress'] = SchemeProgress::on(Session::get('db_conn_name'))->get();
+        return view('District_Admin.runningSchemeListDC', $data);
+    }
+    
+
+    public function completedSchemesList(Request $request) {
+        $data['completedSchemes'] = Scheme_Supervisor_Map::on(Session::get('db_conn_name'))
+                ->join('schemes', 'schemes.id', '=', 'scheme_supervisor_map.scheme_id')
+                ->where('scheme_supervisor_map.supervisor_id', Auth::user()->id)
+                ->whereNotNull('schemes.completion_year') 
+                ->get();
+        $data['schemeProgress'] = SchemeProgress::on(Session::get('db_conn_name'))->get();
+        return view('HOD_Admin.completedSchemesList', $data);
+    }
+
+    public function completedSchemeListHod(Request $request) {
+        $data['completedSchemes'] =  Schemes::on(Session::get('db_conn_name'))
+                ->whereNotNull('schemes.completion_year') 
+                ->get();
+        $data['schemeProgress'] = SchemeProgress::on(Session::get('db_conn_name'))->get();
+        return view('HOD_Admin.completedSchemeListHod', $data);
+    }
+
+    public function completedSchemeListDC(Request $request) {
+        $data['completedSchemes'] =  Schemes::on(Session::get('db_conn_name'))
+                ->whereNotNull('schemes.completion_year') 
+                ->get();
+        $data['schemeProgress'] = SchemeProgress::on(Session::get('db_conn_name'))->get();
+        return view('District_Admin.completedSchemeListDC', $data);
+    }
+    
+    
+    
 
     public function updateScheme(Request $request, $id) {
         if ($request->isMethod('get')) {
@@ -219,17 +319,25 @@ class SchemeRegisterController extends Controller
 
     public function deleteScheme(Request $request, $id) {
         try {
+            DB::beginTransaction();
+
+
+            $deletedProgress = SchemeProgress::on(Session::get('db_conn_name'))->where('scheme_id', $id)->delete();
+
             // Find the scheme by its ID and delete it from the database
             $deleted = Schemes::on(Session::get('db_conn_name'))->where('id', $id)->delete();
     
-            if ($deleted) {
+            if ($deleted && $deletedProgress) {
                 // If delete successful, redirect with success message
+                DB::commit();
                 return redirect()->route('listScheme')->with('alert-success', 'Scheme Deleted Successfully');
             } else {
+                DB::rollBack();
                 // If delete fails, redirect back with error message
                 return back()->with('alert-failed', 'Failed to Delete Scheme');
             }
         } catch (\Exception $e) {
+            DB::rollBack();
             // Handle any exceptions or errors during delete process
             return back()->with('alert-failed', 'An error occurred while deleting the scheme: '.$e->getMessage());
         }

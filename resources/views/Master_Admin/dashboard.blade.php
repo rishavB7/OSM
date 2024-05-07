@@ -19,6 +19,7 @@
                      style="background: radial-gradient(black, transparent 60%); transform: rotate3d(0, 0, 1, 20deg) scale3d(1, 0.6, 1); opacity: 0.2;">
                  </div>
              </div>
+             <a class="hover:no-underline" href="{{route('listUser')}}">
              <div class="d-flex justify-evenly relative text-white px-6 pb-6 mt-6">
                 <span class="block  text-2xl -mb-1">Total Users</span>
 
@@ -31,6 +32,7 @@
                     <span class="d-flex justify-center block font-semibold text-xl mt-[-0.8rem] bg-blue-700 rounded-[50%] p-[0.8rem] w-[50px]">{{$totalUsers}}</span>
                 </div>
             </div>
+             </a>
          </div>
          
          <div class="flex-shrink-0 m-6 relative overflow-hidden bg-yellow-500 rounded-lg max-w-xs shadow-lg h-40 w-1/3">
@@ -44,6 +46,7 @@
                      style="background: radial-gradient(black, transparent 60%); transform: rotate3d(0, 0, 1, 20deg) scale3d(1, 0.6, 1); opacity: 0.2;">
                  </div>
              </div>
+             <a class="hover:no-underline" href="{{route('dc_list')}}">
              <div class="d-flex justify-evenly relative text-white px-6 pb-6 mt-6">
                  <span class="block  text-2xl -mb-1">Total District Commissioners</span>
 
@@ -55,6 +58,7 @@
                      <div class="d-flex justify-center block font-bold text-xl mt-[-0.8rem] bg-yellow-700 rounded-[50%] p-[0.8rem] w-[50px]">{{$totalDCs}}</div>
                  </div>
              </div>
+            </a>
          </div>
          <div class="flex-shrink-0 m-6 relative overflow-hidden bg-green-500 rounded-lg max-w-xs shadow-lg h-40 w-1/3">
              <svg class="absolute bottom-0 left-0 mb-8" viewBox="0 0 375 283" fill="none"
@@ -67,6 +71,7 @@
                      style="background: radial-gradient(black, transparent 60%); transform: rotate3d(0, 0, 1, 20deg) scale3d(1, 0.6, 1); opacity: 0.2;">
                  </div>
              </div>
+             <a class="hover:no-underline" href="{{route('nodal_list')}}">
              <div class="d-flex justify-evenly relative text-white px-6 pb-6 mt-6">
                  <span class="block  text-2xl -mb-1">Total Nodal Officers</span>
 
@@ -78,6 +83,7 @@
                      <div class="d-flex justify-center block font-semibold text-xl mt-[-0.8rem] bg-green-700 rounded-[50%] p-[0.8rem] w-[50px]">{{$totalNodalOfcs}}</div>
                  </div>
              </div>
+             </a>
          </div>
 
          <div class="flex-shrink-0 m-6 relative overflow-hidden bg-blue-700 rounded-lg max-w-xs shadow-lg h-40 w-1/3">
@@ -91,6 +97,7 @@
                     style="background: radial-gradient(black, transparent 60%); transform: rotate3d(0, 0, 1, 20deg) scale3d(1, 0.6, 1); opacity: 0.2;">
                 </div>
             </div>
+            <a class="hover:no-underline" href="{{route('active_user_list')}}">
             <div class="d-flex justify-evenly relative text-white px-6 pb-6 mt-6">
                 <div>
                     <span class="block  text-2xl -mb-1">Active Users</span>
@@ -103,6 +110,7 @@
                     <div class="d-flex justify-center block font-semibold text-xl mt-[-0.8rem] bg-blue-500 rounded-[50%] p-[0.8rem] w-[50px]">{{$totalActiveUsers}}</div>
                 </div>
             </div>
+            </a>
         </div>
         </div>
      </div>

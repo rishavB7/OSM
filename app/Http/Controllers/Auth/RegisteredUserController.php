@@ -41,7 +41,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'mobile' => ['required', 'max:10'],
             'role' => ['required'],
-            'district' => ['required']
+            // 'district' => ['required']
         ]);
         // dd('asdasdasd');
 
@@ -51,7 +51,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'mobile' => $request->mobile,
             'role' => $request->role,
-            'district' => $request->district,
+            // 'district' => $request->district,
             'status' => true,
         ]);
 

@@ -64,6 +64,15 @@
                 @enderror
             </div>
 
+            <!-- Designation -->
+            <div class="form-group px-[20rem]">
+                <label for="designation">Designation</label>
+                <input id="designation" class="form-control" type="text" name="designation" value="{{old('designation')}}" required autocomplete="username" />
+                @error('designation')
+                    <p class="mt-2">{{ $message }}</p>
+                @enderror
+            </div> 
+
             <!-- Mobile -->
             <div class="form-group px-[20rem]">
                 <label for="mobile">Mobile</label>
@@ -79,7 +88,9 @@
                 <select class="form-control" id="role" name="role" required>
                     {{-- <option value="">Select User Type</option> --}}
                         <option value="2">DC/SDO Admin</option>
-                        {{-- <option value="3">Nodal Officer</option> --}}
+                        <option value="4">CA-TO-DC</option>
+                        <option value="5">CEO,ZP</option>
+                        <option value="6">DDC</option>
                 </select>
                 @error('role')
                     <p class="mt-2">{{ $message }}</p>
