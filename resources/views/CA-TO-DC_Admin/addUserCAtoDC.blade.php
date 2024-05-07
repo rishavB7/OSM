@@ -31,8 +31,14 @@
                     <!-- Name -->
                     <div class="form-group w-[24rem]">
                         <label for="name">Name</label>
+<<<<<<< HEAD
                         <input id="name" class="form-control rounded-md" type="text" name="name"  onchange="generateUsername()"
                             value="{{ old('name') }}" required autofocus autocomplete="name" />
+=======
+                        <input id="name" class="form-control rounded-md" type="text" name="name"
+                            value="{{ old('name') }}" required autofocus autocomplete="name"
+                            onchange="generateUsername()" />
+>>>>>>> 1d5c4edabcaae6505d1d2adcfec49ae4bb6416a1
                         @error('name')
                             <p class="mt-2">{{ $message }}</p>
                         @enderror
@@ -48,6 +54,7 @@
                         @enderror
                     </div>
 
+<<<<<<< HEAD
                     <!-- Role -->
                     <div class="form-group w-[24rem]">
                         <label for="role">Role</label>
@@ -107,6 +114,8 @@
                         @enderror
                     </div>
 
+=======
+>>>>>>> 1d5c4edabcaae6505d1d2adcfec49ae4bb6416a1
                     <!-- Mobile -->
                     <div class="form-group w-[24rem]">
                         <label for="mobile">Mobile</label>
@@ -120,6 +129,36 @@
                     
                     
 
+                    <!-- Email Address -->
+                    <div class="form-group w-[24rem]">
+                        <label for="email">Username</label>
+                        <input id="email" class="form-control rounded-md" type="email" name="email"
+                            value="{{ old('email') }}" required autocomplete="username" readonly />
+                        @error('email')
+                            <p class="mt-2">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group w-[24rem]">
+                        <label for="password">Password</label>
+                        <input id="password" class="form-control rounded-md" type="password" name="password" required
+                            autocomplete="new-password" />
+                        @error('password')
+                            <p class="mt-2">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="form-group w-[24rem]">
+                        <label for="password_confirmation">Confirm Password</label>
+                        <input id="password_confirmation" class="form-control rounded-md" type="password"
+                            name="password_confirmation" required autocomplete="new-password" />
+                        @error('password_confirmation')
+                            <p class="mt-2">{{ $message }}</p>
+                        @enderror
+                    </div>
+
                     <div class="form-group w-[24rem]">
                         <button type="submit" class="btn btn-primary bg-blue-700 w-[150px]">Create</button>
                     </div>
@@ -128,7 +167,11 @@
         </div>
     </div>
     @include('layouts.footer')
+    <script>
+        function generateUsername() {
+            var name = document.getElementById("name").value.toLowerCase(); // Convert name to lowercase
 
+<<<<<<< HEAD
     <script>
         function generateUsername() {
             var name = document.getElementById("name").value.toLowerCase(); // Convert name to lowercase
@@ -147,4 +190,17 @@
     </script>
     
 
+=======
+            var dept_select = document.getElementById("department_name");
+            var dept = dept_select.options[dept_select.selectedIndex].text.trim()
+                .toLowerCase();
+
+            var username = name.replace(/\s+/g, '') + "_" + "hod" + "_" + dept.replace(/[^a-zA-Z0-9]/g, '') +
+                "@dmdashboard.nic.in";
+
+
+            document.getElementById("email").value = username;
+        }
+    </script>
+>>>>>>> 1d5c4edabcaae6505d1d2adcfec49ae4bb6416a1
 @endsection
