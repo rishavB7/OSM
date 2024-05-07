@@ -32,7 +32,8 @@
                     <div class="form-group w-[24rem]">
                         <label for="name">Name</label>
                         <input id="name" class="form-control rounded-md" type="text" name="name"
-                            value="{{ old('name') }}" required autofocus autocomplete="name" />
+                            value="{{ old('name') }}" required autofocus autocomplete="name"
+                            onchange="generateUsername()" />
                         @error('name')
                             <p class="mt-2">{{ $message }}</p>
                         @enderror
@@ -44,37 +45,6 @@
                         <input id="designation" class="form-control rounded-md" type="text" name="designation"
                             value="{{ old('designation') }}" required autocomplete="username" />
                         @error('designation')
-                            <p class="mt-2">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Email Address -->
-                    <div class="form-group w-[24rem]">
-                        <label for="email">Unique Id</label>
-                        <input id="email" class="form-control rounded-md" type="email"
-                            placeholder="e.g name_dept_distName@dmdashboard.assam" name="email"
-                            value="{{ old('email') }}" required autocomplete="username" />
-                        @error('email')
-                            <p class="mt-2">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Password -->
-                    <div class="form-group w-[24rem]">
-                        <label for="password">Password</label>
-                        <input id="password" class="form-control rounded-md" type="password" name="password" required
-                            autocomplete="new-password" />
-                        @error('password')
-                            <p class="mt-2">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Confirm Password -->
-                    <div class="form-group w-[24rem]">
-                        <label for="password_confirmation">Confirm Password</label>
-                        <input id="password_confirmation" class="form-control rounded-md" type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-                        @error('password_confirmation')
                             <p class="mt-2">{{ $message }}</p>
                         @enderror
                     </div>
@@ -104,7 +74,8 @@
                     <!-- Department -->
                     <div class="form-group w-[24rem]">
                         <label for="department">Department</label>
-                        <select class="form-control rounded-md" id="department_name" name="department_name" required>
+                        <select class="form-control rounded-md" id="department_name" name="department_name" required
+                            onchange="generateUsername()">
                             <option value="" selected disabled>Select User Type</option>
                             @foreach ($department_name as $department)
                                 <option value="{{ $department->id }}">{{ $department->department_name }}</option>
@@ -117,6 +88,36 @@
                                 class="text-blue-600">Create department</a></p>
                     </div>
 
+                    <!-- Email Address -->
+                    <div class="form-group w-[24rem]">
+                        <label for="email">Username</label>
+                        <input id="email" class="form-control rounded-md" type="email" name="email"
+                            value="{{ old('email') }}" required autocomplete="username" readonly />
+                        @error('email')
+                            <p class="mt-2">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group w-[24rem]">
+                        <label for="password">Password</label>
+                        <input id="password" class="form-control rounded-md" type="password" name="password" required
+                            autocomplete="new-password" />
+                        @error('password')
+                            <p class="mt-2">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="form-group w-[24rem]">
+                        <label for="password_confirmation">Confirm Password</label>
+                        <input id="password_confirmation" class="form-control rounded-md" type="password"
+                            name="password_confirmation" required autocomplete="new-password" />
+                        @error('password_confirmation')
+                            <p class="mt-2">{{ $message }}</p>
+                        @enderror
+                    </div>
+
                     <div class="form-group w-[24rem]">
                         <button type="submit" class="btn btn-primary bg-blue-700 w-[150px]">Create</button>
                     </div>
@@ -125,5 +126,19 @@
         </div>
     </div>
     @include('layouts.footer')
+    <script>
+        function generateUsername() {
+            var name = document.getElementById("name").value.toLowerCase(); // Convert name to lowercase
 
+            var dept_select = document.getElementById("department_name");
+            var dept = dept_select.options[dept_select.selectedIndex].text.trim()
+                .toLowerCase();
+
+            var username = name.replace(/\s+/g, '') + "_" + "hod" + "_" + dept.replace(/[^a-zA-Z0-9]/g, '') +
+                "@dmdashboard.nic.in";
+
+
+            document.getElementById("email").value = username;
+        }
+    </script>
 @endsection
