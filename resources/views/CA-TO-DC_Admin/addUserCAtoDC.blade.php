@@ -31,7 +31,7 @@
                     <!-- Name -->
                     <div class="form-group w-[24rem]">
                         <label for="name">Name</label>
-                        <input id="name" class="form-control rounded-md" type="text" name="name"
+                        <input id="name" class="form-control rounded-md" type="text" name="name"  onchange="generateUsername()"
                             value="{{ old('name') }}" required autofocus autocomplete="name" />
                         @error('name')
                             <p class="mt-2">{{ $message }}</p>
@@ -48,12 +48,40 @@
                         @enderror
                     </div>
 
+                    <!-- Role -->
+                    <div class="form-group w-[24rem]">
+                        <label for="role">Role</label>
+                        <select class="form-control rounded-md" id="role" name="role"  onchange="generateUsername()" required> 
+                            <option selected disabled>Select User Type</option>
+                            <option value="3">DEPT_HOD</option>
+                        </select>
+                        @error('role')
+                            <p class="mt-2">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Department -->
+                    <div class="form-group w-[24rem]">
+                        <label for="department">Department</label>
+                        <select class="form-control rounded-md" id="department_name" name="department_name" onchange="generateUsername()" required>
+                            <option value="" selected disabled>Select User Type</option>
+                            @foreach ($department_name as $department)
+                                <option value="{{ $department->id }}">{{ $department->department_name }}</option>
+                            @endforeach
+                        </select>
+                        @error('department_name')
+                            <p class="mt-2">{{ $message }}</p>
+                        @enderror
+                        <p class="text-sm">Department not mentioned? <a href="{{ route('addDepartment') }}"
+                                class="text-blue-600">Create department</a></p>
+                    </div>
+
+
                     <!-- Email Address -->
                     <div class="form-group w-[24rem]">
-                        <label for="email">Unique Id</label>
-                        <input id="email" class="form-control rounded-md" type="email"
-                            placeholder="e.g name_dept_distName@dmdashboard.assam" name="email"
-                            value="{{ old('email') }}" required autocomplete="username" />
+                        <label for="email">Username</label>
+                        <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}"
+                            required autocomplete="username" readonly />
                         @error('email')
                             <p class="mt-2">{{ $message }}</p>
                         @enderror
@@ -89,33 +117,8 @@
                         @enderror
                     </div>
 
-                    <!-- Role -->
-                    <div class="form-group w-[24rem]">
-                        <label for="role">Role</label>
-                        <select class="form-control rounded-md" id="role" name="role" required>
-                            <option selected disabled>Select User Type</option>
-                            <option value="3">DEPT_HOD</option>
-                        </select>
-                        @error('role')
-                            <p class="mt-2">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Department -->
-                    <div class="form-group w-[24rem]">
-                        <label for="department">Department</label>
-                        <select class="form-control rounded-md" id="department_name" name="department_name" required>
-                            <option value="" selected disabled>Select User Type</option>
-                            @foreach ($department_name as $department)
-                                <option value="{{ $department->id }}">{{ $department->department_name }}</option>
-                            @endforeach
-                        </select>
-                        @error('department_name')
-                            <p class="mt-2">{{ $message }}</p>
-                        @enderror
-                        <p class="text-sm">Department not mentioned? <a href="{{ route('addDepartment') }}"
-                                class="text-blue-600">Create department</a></p>
-                    </div>
+                    
+                    
 
                     <div class="form-group w-[24rem]">
                         <button type="submit" class="btn btn-primary bg-blue-700 w-[150px]">Create</button>
@@ -125,5 +128,23 @@
         </div>
     </div>
     @include('layouts.footer')
+
+    <script>
+        function generateUsername() {
+            var name = document.getElementById("name").value.toLowerCase(); // Convert name to lowercase
+            var role = document.getElementById("role").value;
+            var departmentSelect = document.getElementById("department_name");
+            var departmentText = departmentSelect.options[departmentSelect.selectedIndex].text.trim().toLowerCase();
+    
+            if (role == 3) {
+                role = "hod";
+            } 
+    
+            var username = name.replace(/\s+/g, '') + "_" + role + "_" + departmentText.replace(/[^a-zA-Z0-9]/g, '') + "@dmdashboard.nic.in";
+    
+            document.getElementById("email").value = username;
+        }
+    </script>
+    
 
 @endsection
