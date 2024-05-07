@@ -58,10 +58,7 @@ class DepartmentManagementController extends Controller
     }
     public function departmentListCA_TO_DC(Request $request) {
         // $data['departments'] = Departments::on(Session::get('db_conn_name'))->get();
-        $data['departments'] = Department_User_Map::on(Session::get('db_conn_name'))
-      ->join('users', 'users.id', '=', 'district_user_map.user_id')
-      ->join('department_master', 'department_master.id', '=', 'district_user_map.')
-                                ->get();
+        $data['departments'] = Department_User_Map::on(Session::get('db_conn_name'))->get();
         // dd($data['deptUsers']);
         return view('CA-TO-DC_Admin.departmentListCA_TO_DC', $data);
     }
