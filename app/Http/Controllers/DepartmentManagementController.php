@@ -57,9 +57,16 @@ class DepartmentManagementController extends Controller
         return view('District_Admin.departmentList', ['departments' => $departments]);
     }
     public function departmentListCA_TO_DC(Request $request) {
-        // $data['departments'] = Departments::on(Session::get('db_conn_name'))->get();
-        $data['departments'] = Department_User_Map::on(Session::get('db_conn_name'))->get();
+        $data['departments'] = Departments::on(Session::get('db_conn_name'))->get();
+        // $data['departments'] = Department_User_Map::on(Session::get('db_conn_name'))->get();
         // dd($data['deptUsers']);
         return view('CA-TO-DC_Admin.departmentListCA_TO_DC', $data);
+    }
+
+    public function printDepartmentListCA_TO_DC(Request $request) {
+        $data['departments'] = Departments::on(Session::get('db_conn_name'))->get();
+        // $data['departments'] = Department_User_Map::on(Session::get('db_conn_name'))->get();
+        // dd($data['deptUsers']);
+        return view('CA-TO-DC_Admin.printDepartmentListCA_TO_DC', $data);
     }
 }

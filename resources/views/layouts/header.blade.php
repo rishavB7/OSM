@@ -5,8 +5,8 @@
                 <img class="w-20 h-auto mr-2" src="https://static.javatpoint.com/fullformpages/images/nic.png"
                     alt="NIC LOGO"></a>
             {{-- <img class="w-10 h-auto mr-2" src="public/image/logo2.png" alt="Assam Government logo"> --}}
-            <h3 class="font-weight-bold text-xl">Online Scheme Monitoring and MIS | Government Of Assam</h3>
-            <h3 class="font-weight-bold ml-[17rem]">DM Dashboard @Assam</h3>
+            <h3 class="font-weight-bold text-sm mt-1">Online Scheme Monitoring and MIS | Government Of Assam</h3>
+            <h3 class="font-weight-bold text-sm ml-[10rem] mt-1">DM Dashboard @Assam</h3>
 
         </div>
         <div>
@@ -16,7 +16,7 @@
                         @if (Auth::user()->role == 1)
                             <div class="ml-auto login py-2 ">
                                 <div class="max-w-xl mx-auto sm:px-6 lg:px-3">
-                                    <div class=" overflow-hidden shadow-sm ">
+                                    <div class=" overflow-hidden  ">
                                         <div class="p-2 text-white font-bold text-sm">
                                             {{ __("You're logged in as Master Admin") }}
                                         </div>
@@ -26,9 +26,10 @@
                         @elseif (Auth::user()->role == 2)
                             <div class="ml-auto login py-2 ">
                                 <div class="max-w-xl mx-auto sm:px-6 lg:px-3">
-                                    <div class=" overflow-hidden shadow-sm ">
+                                    <div class=" overflow-hidden  ">
                                         <div class="p-2 text-white font-bold text-sm">
-                                            {{ __("You're logged in as ") . Auth::user()->email . '  (' . Auth::user()->designation . ')' }}
+                                            You are logged in as DC/SDO (C)
+                                            {{-- {{ __("You're logged in as ") . Auth::user()->name . '  (' . Auth::user()->designation . ')' }} --}}
                                         </div>
                                     </div>
                                 </div>
@@ -36,9 +37,10 @@
                         @elseif (Auth::user()->role == 3)
                             <div class="ml-auto login py-2 ">
                                 <div class="max-w-xl mx-auto sm:px-6 lg:px-3">
-                                    <div class=" overflow-hidden shadow-sm ">
+                                    <div class=" overflow-hidden  ">
                                         <div class="p-2 text-white font-bold text-sm">
-                                            {{ __("You're logged in as ") . Auth::user()->email . '  (' . Auth::user()->designation . ')' }}
+                                            You are logged in as Department HOD
+                                            {{-- {{ __("You're logged in as ") . Auth::user()->name . '  (' . Auth::user()->designation . ')' }} --}}
                                         </div>
                                     </div>
                                 </div>
@@ -46,9 +48,10 @@
                         @elseif (Auth::user()->role == 4)
                             <div class="ml-auto login py-2 ">
                                 <div class="max-w-xl mx-auto sm:px-6 lg:px-3">
-                                    <div class=" overflow-hidden shadow-sm ">
+                                    <div class=" overflow-hidden  ">
                                         <div class="p-2 text-white font-bold text-sm">
-                                            {{ __("You're logged in as ") . Auth::user()->email . '  (' . Auth::user()->designation . ')' }}
+                                            You are logged in as CA-TO-DC
+                                            {{-- {{ __("You're logged in as ") . Auth::user()->name . '  (' . Auth::user()->designation . ')' }} --}}
                                         </div>
                                     </div>
                                 </div>
@@ -56,9 +59,10 @@
                         @elseif (Auth::user()->role == 5)
                             <div class="ml-auto login py-2 ">
                                 <div class="max-w-xl mx-auto sm:px-6 lg:px-3">
-                                    <div class=" overflow-hidden shadow-sm ">
+                                    <div class=" overflow-hidden  ">
                                         <div class="p-2 text-white font-bold text-sm">
-                                            {{ __("You're logged in as ") . Auth::user()->email . '  (' . Auth::user()->designation . ')' }}
+                                            You are logged in as CEO, ZP
+                                            {{-- {{ __("You're logged in as ") . Auth::user()->name . '  (' . Auth::user()->designation . ')' }} --}}
                                         </div>
                                     </div>
                                 </div>
@@ -66,9 +70,10 @@
                         @elseif (Auth::user()->role == 6)
                             <div class="ml-auto login py-2 ">
                                 <div class="max-w-xl mx-auto sm:px-6 lg:px-3">
-                                    <div class=" overflow-hidden shadow-sm ">
+                                    <div class=" overflow-hidden  ">
                                         <div class="p-2 text-white font-bold text-sm">
-                                            {{ __("You're logged in as ") . Auth::user()->email . '  (' . Auth::user()->designation . ')' }}
+                                            You are logged in as DDC
+                                            {{-- {{ __("You're logged in as ") . Auth::user()->name . '  (' . Auth::user()->designation . ')' }} --}}
                                         </div>
                                     </div>
                                 </div>

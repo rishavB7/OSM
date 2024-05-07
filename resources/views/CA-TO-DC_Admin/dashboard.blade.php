@@ -93,7 +93,7 @@
                             style="background: radial-gradient(black, transparent 60%); transform: rotate3d(0, 0, 1, 20deg) scale3d(1, 0.6, 1); opacity: 0.2;">
                         </div>
                     </div>
-                    <a class="hover:no-underline" href="{{ route('departmentList') }}">
+                    <a class="hover:no-underline" href="{{ route('departmentListCA_TO_DC') }}">
                         <div class="relative text-white px-6 pb-6 mt-6">
                             <span class="block  text-2xl -mb-1">Total Departments</span>
                             <?php

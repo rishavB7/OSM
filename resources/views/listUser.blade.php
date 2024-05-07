@@ -14,14 +14,14 @@ use App\Models\Department_User_Map;
 
         <div class="d-flex justify-between">
             @include('layouts.sideNav')
-            <div class="d-flex flex-column">
+            <div class="d-flex flex-column w-100">
                 <div>
                     <a href="{{ route('dashboard') }}">
                         <button class="btn btn-primary d-inline-block m-2 float-right py-1">Back</button>
                     </a>
                 </div>
-                <div class="max-h-[80vh] overflow-y-scroll  m-4">
-                    <table border="1" class="table min-w-full divide-y divide-gray-200" class="overflow-scroll">
+                <div class=" overflow-y-scroll  m-4" >
+                    <table border="1" class="table  divide-gray-200 overflow-scroll">
                         <thead class="bg-gray-50">
                             <tr>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#
@@ -66,7 +66,7 @@ use App\Models\Department_User_Map;
                                         @if ($all_user->user->role == 1)
                                             <td class="px-6 py-4 whitespace-nowrap">Master Admin</td>
                                         @elseif($all_user->user->role == 2)
-                                            <td class="px-6 py-4 whitespace-nowrap">DC/SDO Admin</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">DC/SDO (C)</td>
                                         @elseif($all_user->user->role == 3)
                                             <td class="px-6 py-4 whitespace-nowrap">Nodal Officer</td>
                                         @elseif($all_user->user->role == 4)
@@ -76,7 +76,7 @@ use App\Models\Department_User_Map;
                                         @else
                                             <td class="px-6 py-4 whitespace-nowrap">DDC</td>
                                         @endif
-                                        {{-- <td>{{$all_user->district}}</td> --}}
+                                       
 
                                         @if ($all_user->district_master->district)
                                             <td class="px-6 py-4 whitespace-nowrap">
@@ -86,9 +86,7 @@ use App\Models\Department_User_Map;
                                             <td class="px-6 py-4 whitespace-nowrap">N/A</td>
                                         @endif
 
-                                        {{-- @if ($department)
-                            <td>{{$departmemnt->department_name}}</td>                            
-                        @endif --}}
+                                        
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             @if ($all_user->user->status == '1')
                                                 <span
@@ -121,7 +119,7 @@ use App\Models\Department_User_Map;
                                         @if ($all_user->user->role == 1)
                                             <td>Master Admin</td>
                                         @elseif($all_user->user->role == 2)
-                                            <td>DC/SDO Admin</td>
+                                            <td>DC/SDO (C)</td>
                                         @elseif($all_user->user->role == 3)
                                             <td>Deparment_HOD</td>
                                         @elseif($all_user->user->role == 4 || 5 || 6)
@@ -135,9 +133,6 @@ use App\Models\Department_User_Map;
                                             <td>N/A</td>
                                         @endif
 
-                                        {{-- @if ($department)
-                                <td>{{$departmemnt->department_name}}</td>                            
-                            @endif --}}
                                         <td>
                                             @if ($all_user->user->status == '1')
                                                 <a class="badge badge-success text-white ">Active</a>

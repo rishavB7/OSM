@@ -31,14 +31,9 @@
                     <!-- Name -->
                     <div class="form-group w-[24rem]">
                         <label for="name">Name</label>
-<<<<<<< HEAD
-                        <input id="name" class="form-control rounded-md" type="text" name="name"  onchange="generateUsername()"
-                            value="{{ old('name') }}" required autofocus autocomplete="name" />
-=======
                         <input id="name" class="form-control rounded-md" type="text" name="name"
                             value="{{ old('name') }}" required autofocus autocomplete="name"
                             onchange="generateUsername()" />
->>>>>>> 1d5c4edabcaae6505d1d2adcfec49ae4bb6416a1
                         @error('name')
                             <p class="mt-2">{{ $message }}</p>
                         @enderror
@@ -54,11 +49,20 @@
                         @enderror
                     </div>
 
-<<<<<<< HEAD
+                    <!-- Mobile -->
+                    <div class="form-group w-[24rem]">
+                        <label for="mobile">Mobile</label>
+                        <input id="mobile" class="form-control rounded-md" type="number" name="mobile"
+                            value="{{ old('mobile') }}" required autocomplete="mobile" />
+                        @error('mobile')
+                            <p class="mt-2">{{ $message }}</p>
+                        @enderror
+                    </div>
+
                     <!-- Role -->
                     <div class="form-group w-[24rem]">
                         <label for="role">Role</label>
-                        <select class="form-control rounded-md" id="role" name="role"  onchange="generateUsername()" required> 
+                        <select class="form-control rounded-md" id="role" name="role" required>
                             <option selected disabled>Select User Type</option>
                             <option value="3">DEPT_HOD</option>
                         </select>
@@ -70,7 +74,8 @@
                     <!-- Department -->
                     <div class="form-group w-[24rem]">
                         <label for="department">Department</label>
-                        <select class="form-control rounded-md" id="department_name" name="department_name" onchange="generateUsername()" required>
+                        <select class="form-control rounded-md" id="department_name" name="department_name" required
+                            onchange="generateUsername()">
                             <option value="" selected disabled>Select User Type</option>
                             @foreach ($department_name as $department)
                                 <option value="{{ $department->id }}">{{ $department->department_name }}</option>
@@ -82,52 +87,6 @@
                         <p class="text-sm">Department not mentioned? <a href="{{ route('addDepartment') }}"
                                 class="text-blue-600">Create department</a></p>
                     </div>
-
-
-                    <!-- Email Address -->
-                    <div class="form-group w-[24rem]">
-                        <label for="email">Username</label>
-                        <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}"
-                            required autocomplete="username" readonly />
-                        @error('email')
-                            <p class="mt-2">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Password -->
-                    <div class="form-group w-[24rem]">
-                        <label for="password">Password</label>
-                        <input id="password" class="form-control rounded-md" type="password" name="password" required
-                            autocomplete="new-password" />
-                        @error('password')
-                            <p class="mt-2">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Confirm Password -->
-                    <div class="form-group w-[24rem]">
-                        <label for="password_confirmation">Confirm Password</label>
-                        <input id="password_confirmation" class="form-control rounded-md" type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-                        @error('password_confirmation')
-                            <p class="mt-2">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-=======
->>>>>>> 1d5c4edabcaae6505d1d2adcfec49ae4bb6416a1
-                    <!-- Mobile -->
-                    <div class="form-group w-[24rem]">
-                        <label for="mobile">Mobile</label>
-                        <input id="mobile" class="form-control rounded-md" type="number" name="mobile"
-                            value="{{ old('mobile') }}" required autocomplete="mobile" />
-                        @error('mobile')
-                            <p class="mt-2">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    
-                    
 
                     <!-- Email Address -->
                     <div class="form-group w-[24rem]">
@@ -171,26 +130,6 @@
         function generateUsername() {
             var name = document.getElementById("name").value.toLowerCase(); // Convert name to lowercase
 
-<<<<<<< HEAD
-    <script>
-        function generateUsername() {
-            var name = document.getElementById("name").value.toLowerCase(); // Convert name to lowercase
-            var role = document.getElementById("role").value;
-            var departmentSelect = document.getElementById("department_name");
-            var departmentText = departmentSelect.options[departmentSelect.selectedIndex].text.trim().toLowerCase();
-    
-            if (role == 3) {
-                role = "hod";
-            } 
-    
-            var username = name.replace(/\s+/g, '') + "_" + role + "_" + departmentText.replace(/[^a-zA-Z0-9]/g, '') + "@dmdashboard.nic.in";
-    
-            document.getElementById("email").value = username;
-        }
-    </script>
-    
-
-=======
             var dept_select = document.getElementById("department_name");
             var dept = dept_select.options[dept_select.selectedIndex].text.trim()
                 .toLowerCase();
@@ -202,5 +141,4 @@
             document.getElementById("email").value = username;
         }
     </script>
->>>>>>> 1d5c4edabcaae6505d1d2adcfec49ae4bb6416a1
 @endsection

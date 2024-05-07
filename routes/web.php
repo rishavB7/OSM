@@ -101,5 +101,6 @@ Route::get('/actusers', [UserManagementController::class, 'active_user_list'])->
 Route::match(['get', 'post'], '/dashboard/addDepartment', [DepartmentManagementController::class, 'addDepartment'])->name('addDepartment');
 Route::get('/dashboard/departmentList', [DepartmentManagementController::class, 'departmentList'])->name('departmentList');
 Route::get('/dashboard/departmentListCA_TO_DC', [DepartmentManagementController::class, 'departmentListCA_TO_DC'])->name('departmentListCA_TO_DC');
+Route::get('/dashboard/printDepartmentListCA_TO_DC', [DepartmentManagementController::class, 'printDepartmentListCA_TO_DC'])->name('printDepartmentListCA_TO_DC');
 
 require __DIR__ . '/auth.php';
