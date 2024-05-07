@@ -33,8 +33,8 @@ use App\Models\Department_User_Map;
                         
                             <tr>
                                 <td>{{ $i++ }}</td>
-                                <td>{{ $department->department_name }}</td>
-                                <td>{{ $department->department_address }}</td>
+                                <td>{{ $department->department->department_name }}</td>
+                                {{-- <td>{{ $department->department_address }}</td> --}}
                                 {{-- <td>{{ $department->name }}</td>s --}}
                         @endforeach
                     </tbody>

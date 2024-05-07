@@ -45,7 +45,7 @@
                 <tbody>
                     <?php $i = 1; ?>
                     @foreach ($schemes as $scheme)
-                    @if($scheme->created_by == Auth::user()->id || Auth::user()->role == 2 || Auth::user()->role == 5 || Auth::user()->role == 6)
+                    @if($scheme->created_by == Auth::user()->id)
                         <tr>
                             <td>{{ $i++ }}</td>
                             <td>{{ $scheme->scheme_name }}</td>
@@ -108,14 +108,7 @@
                                 </div>
                             </td>
                             <td>
-                                @php
-                                     $log_map = Scheme_Supervisor_Map::on(Session::get('db_conn_name'))
-                                                ->where('scheme_id', $scheme->id)
-                                                ->where('supervisor_id', Auth::user()->id)
-                                                ->first();
-                                @endphp
-
-                                @if($log_map)
+                               
 
                                     <?php
                                                 
@@ -143,9 +136,7 @@
                                         Progress Not Updated Yet.
                                     @endif
                                     
-                                @else
-                                    Log Not Available
-                                @endif
+                                
                             
                                 
                             </td>

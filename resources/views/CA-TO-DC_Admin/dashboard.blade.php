@@ -49,7 +49,7 @@
                     </div>
                 </div>
             @endif
-            <h1 class="text-center text-3xl">DASHBOARD {{ $passwordChanged }}</h1>
+            <h1 class="text-center text-3xl">DASHBOARD</h1>
             <div class="p-1 flex flex-wrap items-center justify-center">
                 <div
                     class="flex-shrink-0 m-6 relative overflow-hidden bg-indigo-400 rounded-lg max-w-xs shadow-lg h-40 w-1/3">

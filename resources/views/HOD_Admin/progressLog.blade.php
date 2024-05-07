@@ -8,14 +8,17 @@
             <h3 class="text-center text-4xl mt-4">Progress Log</h3>
             <div class="row justify-content-end mb-3">
                 <div class="col-auto">
-                    @if (Auth::user()->role == 2)    
+                    @if (Auth::user()->role == 2 )    
             <a href="{{ route('dashboard') }}" class="btn btn-primary d-inline-block m-2 float-right">Dashboard</a>
             @endif
                     <a href="{{ route('listScheme') }}" class="btn btn-primary ml-2 mt-2">Back</a>
                 </div>
+                @if (!Auth::user()->role === 3)
                 <a onclick="raise_query()">
                     <button type="submit" class="btn btn-group-sm btn-dark bg-dark mt-2">Raise Querry</button>
                   </a> 
+                @endif
+                
             </div>
             <div id="print_section" class="card">
                 <div class="card-body">

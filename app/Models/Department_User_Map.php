@@ -23,4 +23,8 @@ class Department_User_Map extends Model
     public function user(){
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
+
+    public function department(){
+        return $this->belongsTo('App\Models\Departments', 'department_id', 'id');
+    }
 }
