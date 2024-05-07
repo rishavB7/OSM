@@ -42,26 +42,37 @@ class DashboardController extends Controller
             return $next($request);
         });
     }
-    public function index() {
-        if(Auth::user()->role == 1){
-            return view('Master_Admin.dashboard');
     
-        }elseif(Auth::user()->role == 2){
-
-            return view('District_Admin.dashboard');
-        }elseif(Auth::user()->role == 3){
-
-            return view('HOD_Admin.dashboard');
-        }elseif(Auth::user()->role == 4){
-
-            return view('CA-TO-DC_Admin.dashboard');
-        }elseif(Auth::user()->role == 5){
-
-            return view('CEO_ZP_Admin.dashboard');
-        }
-        else{
-            return view('DDC_Admin.dashboard');
+    public function index() {
+        $user = Auth::user();
+        $data = [
+            'passwordChanged' => $user->isPasswordChanged
+        ];
+    
+        switch ($user->role) {
+            case 1:
+                return view('Master_Admin.dashboard');
+                break;
+    
+            case 2:
+                return view('District_Admin.dashboard', $data);
+                break;
+    
+            case 3:
+                return view('HOD_Admin.dashboard', $data);
+                break;
+    
+            case 4:
+                return view('CA-TO-DC_Admin.dashboard', $data);
+                break;
+    
+            case 5:
+                return view('CEO_ZP_Admin.dashboard', $data);
+                break;
+    
+            default:
+                return view('DDC_Admin.dashboard', $data);
+                break;
         }
     }
 }
-

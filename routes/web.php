@@ -89,7 +89,10 @@ Route::match(['get', 'post'], '/dashboard/user/create', [UserManagementControlle
 Route::match(['get', 'post'], '/dashboard/addUser', [UserManagementController::class, 'addUser'])->name('addUser');
 Route::match(['get', 'post'], '/dashboard/addUserCAtoDC', [UserManagementController::class, 'addUserCAtoDC'])->name('addUserCAtoDC');
 Route::match(['get', 'patch'], '/dashboard/UpdateUser/{id}', [UserManagementController::class, 'updateUser'])->name('updateUser');
+Route::match(['get', 'post'], '/dashboard/update-password', [UserManagementController::class, 'update_password'])->name('update_password');
 Route::get('/dashboard/listUser', [UserManagementController::class, 'list_user'])->name('listUser');
+
+
 
 Route::get('/listOfDc', [UserManagementController::class, 'dc_list'])->name('dc_list');
 Route::get('/listOfNodalOfficers', [UserManagementController::class, 'nodal_list'])->name('nodal_list');
