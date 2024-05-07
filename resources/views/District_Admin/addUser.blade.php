@@ -21,9 +21,9 @@
                 </div>
             @endif
 
-            {{-- <a href="{{route('dashboard')}}">
+            <a href="{{route('dashboard')}}">
                 <button class="btn btn-primary d-inline-block m-2 float-right py-1">Back</button>
-            </a> --}}
+            </a>
 
 
             <form method="POST" action="{{ route('addUser') }}">

@@ -12,6 +12,10 @@ use App\Models\Department_User_Map;
     @include('layouts.header')
     <div class="wrapper">
 
+        <a href="{{route('dashboard')}}">
+            <button class="btn btn-primary d-inline-block m-2 float-right py-1">Back</button>
+        </a>
+
         <div class="d-flex justify-between">
             @include('layouts.sideNav')
             <div class="max-h-[80vh] overflow-y-scroll w-[90%] m-4">

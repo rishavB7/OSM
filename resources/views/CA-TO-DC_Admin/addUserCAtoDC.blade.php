@@ -21,9 +21,9 @@
                 </div>
             @endif
 
-            {{-- <a href="{{route('dashboard')}}">
+            <a href="{{route('dashboard')}}">
                 <button class="btn btn-primary d-inline-block m-2 float-right py-1">Back</button>
-            </a> --}}
+            </a>
 
 
             <form method="POST" action="{{ route('addUserCAtoDC') }}">
@@ -117,6 +117,7 @@
                     @error('department_name')
                         <p class="mt-2">{{ $message }}</p>
                     @enderror
+                    <p class="text-sm">Department not mentioned? <a href="{{route('addDepartment')}}" class="text-blue-600">Create department</a></p>
                 </div>
 
 
@@ -124,6 +125,7 @@
                     <button type="submit" class="btn btn-primary bg-blue-700 w-[150px]">Create</button>
                 </div>
             </form>
+
         </div>
     </div>
     @include('layouts.footer')

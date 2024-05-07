@@ -19,15 +19,17 @@
                     </div>
                 @endif
 
-                
+                <a href="{{route('listUser')}}">
+                    <button class="btn btn-primary d-inline-block m-2 float-right ">Back</button>
+                </a>
 
                 <form method="POST" action="{{ route('updateUser', $user->id) }}">
                     @csrf
                     @method('PATCH')
                     <!-- Name -->
-                    <div class="form-group px-[20rem]">
+                    <div class="form-group px-[35rem]">
                         <label for="name">Name</label>
-                        <input id="name" class="form-control" type="text" name="name" value="{{ $user->name }}"
+                        <input id="name" class="form-control rounded-md" type="text" name="name" value="{{ $user->name }}"
                             required autofocus autocomplete="name" />
                         @error('name')
                             <p class="mt-2">{{ $message }}</p>
@@ -35,9 +37,9 @@
                     </div>
 
                     <!-- Email Address -->
-                    <div class="form-group px-[20rem]">
+                    <div class="form-group px-[35rem]">
                         <label for="email">Email</label>
-                        <input id="email" class="form-control" type="email" name="email" value="{{ $user->email }}"
+                        <input id="email" class="form-control rounded-md" type="email" name="email" value="{{ $user->email }}"
                             required autocomplete="username" />
                         @error('email')
                             <p class="mt-2">{{ $message }}</p>
@@ -45,9 +47,9 @@
                     </div>
 
                     <!-- Password -->
-                    <div class="form-group px-[20rem]">
+                    <div class="form-group px-[35rem]">
                         <label for="password">Password</label>
-                        <input id="password" class="form-control" type="password" name="password" required
+                        <input id="password" class="form-control rounded-md" type="password" name="password" required
                             autocomplete="new-password" />
                         @error('password')
                             <p class="mt-2">{{ $message }}</p>
@@ -55,9 +57,9 @@
                     </div>
 
                     <!-- Confirm Password -->
-                    <div class="form-group px-[20rem]">
+                    <div class="form-group px-[35rem]">
                         <label for="password_confirmation">Confirm Password</label>
-                        <input id="password_confirmation" class="form-control" type="password" name="password_confirmation"
+                        <input id="password_confirmation" class="form-control rounded-md" type="password" name="password_confirmation"
                             required autocomplete="new-password" />
                         @error('password_confirmation')
                             <p class="mt-2">{{ $message }}</p>
@@ -65,9 +67,9 @@
                     </div>
 
                     <!-- Mobile -->
-                    <div class="form-group px-[20rem]">
+                    <div class="form-group px-[35rem]">
                         <label for="mobile">Mobile</label>
-                        <input id="mobile" class="form-control" type="number" name="mobile" value="{{ $user->mobile }}"
+                        <input id="mobile" class="form-control rounded-md" type="number" name="mobile" value="{{ $user->mobile }}"
                             required autocomplete="mobile" />
                         @error('mobile')
                             <p class="mt-2">{{ $message }}</p>
@@ -75,13 +77,11 @@
                     </div>
 
 
-                    <div class="form-group px-[20rem]">
+                    <div class="form-group px-[35rem]">
                         <button type="submit" class="btn btn-primary bg-blue-700 w-[150px]">Update</button>
                     </div>
                 </form>
-                <a href="{{route('listUser')}}">
-                    <button class="btn btn-primary d-inline-block m-2 float-right ">Back</button>
-                </a>
+                
     
             </div>
         </div>

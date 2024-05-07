@@ -16,9 +16,9 @@
         
         <div class="container-fluid" >
             <h3 class="text-center text-2xl mt-2 mb-2">List Of Schemes</h3>
-            {{-- <a href="{{ route('dashboard') }}">
+            <a href="{{ route('dashboard') }}">
                 <button class="btn btn-primary d-inline-block m-2 float-right">Back</button>
-            </a> --}}
+            </a>
 
             
 

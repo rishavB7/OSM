@@ -73,7 +73,7 @@
              </div>
              <a class="hover:no-underline" href="{{route('nodal_list')}}">
              <div class="d-flex justify-evenly relative text-white px-6 pb-6 mt-6">
-                 <span class="block  text-2xl -mb-1">Total Nodal Officers</span>
+                 <span class="block  text-2xl -mb-1">Total Department HODs</span>
 
                 <?php
                     $totalNodalOfcs = User::where('role', 3)->count();
@@ -112,7 +112,8 @@
             </div>
             </a>
         </div>
-        </div>
+
+      </div>
      </div>
     </div>
 

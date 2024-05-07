@@ -20,10 +20,11 @@ class DepartmentManagementController extends Controller
     public function addDepartment(Request $request) {
         if ($request->isMethod('get')) {
         
-            return view('District_Admin.addDepartment');
+            return view('CA-TO-DC_Admin.addDepartment');
         } else {
             $validatedData = $request->validate([
                 'department_name' => ['required'],
+                'department_address' => ['required'],
             ]);
 
            
@@ -32,6 +33,7 @@ class DepartmentManagementController extends Controller
 
                         $deptName = Departments::on(Session::get('db_conn_name'))->create([
                             'department_name' => $request->department_name,
+                            'department_address' => $request->department_address,
                         ]);
 
                         DB::commit();
@@ -55,7 +57,10 @@ class DepartmentManagementController extends Controller
         return view('District_Admin.departmentList', ['departments' => $departments]);
     }
     public function departmentListCA_TO_DC(Request $request) {
-        $departments = Departments::on(Session::get('db_conn_name'))->get();
-        return view('CA-TO-DC_Admin.departmentListCA_TO_DC', ['departments' => $departments]);
+        $data['departments'] = Departments::on(Session::get('db_conn_name'))->get();
+        $data['deptUsers'] = Department_User_Map::on(Session::get('db_conn_name'))
+                                ->get();
+        // dd($data['deptUsers']);
+        return view('CA-TO-DC_Admin.departmentListCA_TO_DC', $data);
     }
 }

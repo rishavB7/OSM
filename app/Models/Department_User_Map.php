@@ -16,5 +16,11 @@ class Department_User_Map extends Model
         'user_id',
     ]);
 
-     
+    public function district_master(){
+        return $this->belongsTo('App\Models\District_Master', 'department_id', 'id');
+    }
+
+    public function user(){
+        return $this->belongsTo('App\Models\User', 'user_id', 'id');
+    }
 }
