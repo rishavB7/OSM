@@ -50,7 +50,7 @@ input[type="file"] {
     margin: 1rem 0;
     /* width: 25vw;  */
     width: 10vw; 
-    height: 5vh;
+    /* height: 5vh; */
     border: none;
 }
 

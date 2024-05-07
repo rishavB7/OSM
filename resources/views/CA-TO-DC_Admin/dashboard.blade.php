@@ -49,8 +49,8 @@
                     </div>
                 </div>
             @endif
-            <h1 class="text-center text-3xl">DASHBOARD</h1>
-            <div class="p-1 flex flex-wrap items-center justify-center">
+            <h2 class="ml-[2rem] mt-3"><b>DASHBOARD</b></h2>
+            <div class="p-1 flex flex-wrap items-center ">
                 <div
                     class="flex-shrink-0 m-6 relative overflow-hidden bg-indigo-400 rounded-lg max-w-xs shadow-lg h-40 w-1/3">
                     <svg class="absolute bottom-0 left-0 mb-8" viewBox="0 0 375 283" fill="none"
