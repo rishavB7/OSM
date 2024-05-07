@@ -1,8 +1,8 @@
 <?php
-    use App\Models\User;
-    use App\Models\District_Master;
-    use App\Models\District_User_Map;
-    use App\Models\Departments;
+use App\Models\User;
+use App\Models\District_Master;
+use App\Models\District_User_Map;
+use App\Models\Departments;
 ?>
 
 @extends('layouts.app')
@@ -30,17 +30,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i=1 
+                    <?php $i = 1;
                     ?>
                     @foreach ($all_users as $all_user)
-                    @if ($all_user->district_master->district == Auth()::user()->district)
-                    <tr>  
-                            <td>{{$i++}}</td>      
-                            <td>{{$all_user->user->name}}</td>
-                            <!-- Include other user details as needed -->
-                        </tr>
-                    @endif
-                @endforeach
+                        @if ($all_user->district_master->district == Auth()::user()->district)
+                            <tr>
+                                <td>{{ $i++ }}</td>
+                                <td>{{ $all_user->user->name }}</td>
+                                <!-- Include other user details as needed -->
+                            </tr>
+                        @endif
+                    @endforeach
                 </tbody>
             </table>
         </div>
