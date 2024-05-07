@@ -2,7 +2,7 @@
 @include('layouts.header')
 @section('content')
     {{-- @include('layouts.navigation') --}}
-    <div class="wrapper d-flex">
+    <div class="wrapper d-flex mb-4">
         @include('layouts.sideNav')
         <div class="container h-[80vh] d-flex flex-md-column lg:pt-5 lg:px-72 ">
             @if (session('alert-success'))
@@ -16,7 +16,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-
 
             <h1 class="text-center text-2xl">Scheme Entry</h1>
 
@@ -45,7 +44,6 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
 
-
                     {{-- <label for="start_date">Starting Date</label>
                 <input type="date" name="start_date" id="start_date" class="form-control @error('start_date') is-invalid @enderror" placeholder="" aria-describedby="helpId" value="{{ old('start_date') }}">
                 @error('start_date')
@@ -64,7 +62,7 @@
                             <div class="form-group">
                                 <label for="start_date" class="form-label">Starting Date</label>
                                 <div class="input-group input-group-sm">
-                                    
+
                                     <input type="date" name="start_date" id="start_date"
                                         class="w-80 form-control form-control-sm @error('start_date') is-invalid @enderror"
                                         value="{{ old('start_date') }}">
@@ -96,8 +94,9 @@
                             <div class="form-group">
                                 <label for="budget" class="form-label">Budget</label>
                                 <div class="input-group input-group-sm">
-                                    
-                                    <input type="number" name="budget" id="budget" placeholder="Enter budget amount" min="0"
+
+                                    <input type="number" name="budget" id="budget" placeholder="Enter budget amount"
+                                        min="0"
                                         class="w-80 form-control form-control-sm @error('budget') is-invalid @enderror"
                                         value="{{ old('budget') }}">
                                     @error('budget')
@@ -105,31 +104,34 @@
                                     @enderror
                                 </div>
                             </div>
-                            
+
                             <!-- Supervisor -->
                             <div class="form-group">
-                                <label for="supervisor">Supervisor</label>
-                                <select class="form-control rounded-md" id="supervisor" name="supervisor" required>
-                                    <option selected disabled>Select Supervisor</option>
-                                        {{-- <option value="2">DC</option>
-                                        <option value="5">CEO,ZP</option>
-                                        <option value="6">DDC</option> --}}
-                                        @foreach ($supervisors as $supervisor)
-                                        <option value="{{$supervisor->user_id}}">{{$supervisor->name}} ({{$supervisor->designation}}) </option> 
-                                        @endforeach
-                                </select>
-                                @error('supervisor')
+                                <label>Reporting Officers</label>
+                                <div class="ml-2">
+                                    @foreach ($supervisors as $supervisor)
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="supervisors[]"
+                                                value="{{ $supervisor->user_id }}">
+                                            <label class="form-check-label">
+                                                {{ $supervisor->name }} ({{ $supervisor->designation }})
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                @error('supervisors')
                                     <p class="mt-2">{{ $message }}</p>
                                 @enderror
-                            </div> 
-                            
+                            </div>
+
                         </div>
                         <div class="col-md-6">
                             <!-- Project Manager -->
                             <div class="form-group">
                                 <label for="projectc_coordinator" class="form-label">Project Coordinator</label>
                                 <div class="input-group input-group-sm">
-                                    <input type="text" name="projectc_coordinator" id="projectc_coordinator" placeholder="Enter project coordinator name"
+                                    <input type="text" name="project_coordinator" id="projectc_coordinator"
+                                        placeholder="Enter project coordinator name"
                                         class="form-control form-control-sm @error('projectc_coordinator') is-invalid @enderror"
                                         value="{{ old('projectc_coordinator') }}">
                                     @error('projectc_coordinator')

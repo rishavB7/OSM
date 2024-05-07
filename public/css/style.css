@@ -1,3 +1,7 @@
+.red{
+    color: red;
+}
+
 .wrapper:has(.carousel) {
     min-height: 80vh;
     display: flex;
@@ -52,4 +56,26 @@ input[type="file"] {
 
 .btn-selected{
     background-color: red !important;
+}
+
+.passwordChangeModal {
+    display: block; /* Hide by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    z-index: 1000; /* Ensure the modal is on top */
+    backdrop-filter: blur(5px); /* Apply blur effect to background content */
+}
+
+/* Styles for the modal content */
+.passwordChangeModal-content {
+    background-color: #fff;
+    width: 350px;
+    margin: 100px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }

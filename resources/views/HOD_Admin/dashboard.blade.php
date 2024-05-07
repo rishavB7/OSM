@@ -7,6 +7,48 @@
     @include('layouts.sideNav')
     </div>
     <div class="w-[100vw]">
+        @if ($passwordChanged == 0)
+                <div id="passwordChangeModal" class="passwordChangeModal">
+                    <div class="passwordChangeModal-content">
+                        <h2><b>Change Password</b></h2>
+                        <br>
+                        <form action="{{ route('update_password') }}" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <label>Current Password</label>
+                                <input class="form-control" type="text" name="old_password"
+                                    value="{{ old('old_password') }}" required autofocus autocomplete="old_password" />
+                                @error('old_password')
+                                    <p class="mt-2 red">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label>New Password</label>
+                                <input class="form-control" type="password" name="password" value="{{ old('password') }}"
+                                    required autofocus autocomplete="password" />
+                                @error('password')
+                                    <p class="mt-2 red">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label>Confirm Password</label>
+                                <input class="form-control" type="text" name="password_confirmation"
+                                    value="{{ old('password_confirmation') }}" required autofocus
+                                    autocomplete="password_confirmation" />
+                                @error('password_confirmation')
+                                    <p class="mt-2 red">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary bg-blue-700 w-[150px]">Create</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            @endif
        <h1 class="text-center text-3xl">DASHBOARD</h1>
        <div class="p-1 flex flex-wrap items-center justify-center">
         <div class="flex-shrink-0 m-6 relative overflow-hidden bg-blue-500 rounded-lg max-w-xs shadow-lg h-40 w-1/3">

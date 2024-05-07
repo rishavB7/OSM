@@ -61,15 +61,17 @@ class SchemeRegisterController extends Controller
 
             return view('HOD_Admin.SchemeCreation', $data);
         } else {
+         
             $validatedData = $request->validate([
-                'scheme_name' => ['required','string','max:255'],
-                'scheme_description' => ['required' ,'string', 'max:255'],
+                'scheme_name' => ['required', 'string', 'max:255'],
+                'scheme_description' => ['required', 'string', 'max:255'],
                 'start_date' => ['required'],
                 'end_date' => ['required'],
                 'budget' => ['required'],
-                'projectc_coordinator' => ['required'],
-                'supervisor' => ['required', 'string'],
+                'project_coordinator' => ['required'],
+                'supervisors.*' => ['required'], // Validation rule for supervisors as an array
             ]);
+        
             DB::beginTransaction();
             try{
 
@@ -77,7 +79,7 @@ class SchemeRegisterController extends Controller
 
             $this->id = Auth::user()->id;
             $supervisorId = $request->supervisor;
-            // dd($supervisorId);
+ 
 
             $scheme = Schemes::on(Session::get('db_conn_name'))->create([
                 'scheme_name' => $request->scheme_name,
@@ -88,23 +90,22 @@ class SchemeRegisterController extends Controller
                 'scheme_status' => 0,
                 'budget' => $request->budget,
                 'remaining_budget' => $remainingBudget,
-                'projectc_coordinator' => $request->projectc_coordinator,
+                'projectc_coordinator' => $request->project_coordinator,
                 'created_by' => Auth::user()->id,
-                'supervisor' => $supervisorId,     
+                // 'supervisor' => $supervisorId,     
             ]);
 
             $schemeId = $scheme->id;
 
            
-                
+            $selectedSupervisors = $request->input('supervisors');  
                        
-            $scheme_supervisor_map = Scheme_Supervisor_Map::on(Session::get('db_conn_name'))->create([
-                'supervisor_id' => $supervisorId,
-                "scheme_id" => $schemeId,
-            ]);
-    
-        
-            
+            foreach ($selectedSupervisors as $supervisorId) {
+                $scheme_supervisor_map = Scheme_Supervisor_Map::on(Session::get('db_conn_name'))->create([
+                    'supervisor_id' => $supervisorId,
+                    'scheme_id' => $schemeId,
+                ]);
+            }
 
             DB::commit();
 
@@ -428,4 +429,3 @@ class SchemeRegisterController extends Controller
     }
 
     }
-

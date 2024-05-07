@@ -271,5 +271,32 @@ class UserManagementController extends Controller
             return redirect()->route('updateUser', $id)->with("alert-success", "User Successfully Updated!");
         }
     }
-}
 
+    public function update_password(Request $request){
+        $request->validate([
+            'old_password' => 'required',
+            'password' => [
+                'required',
+                'confirmed',
+                'min:8',
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]+$/',
+            ],
+        ], [
+            'password.regex' => 'The new password must contain at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 8 characters long.',
+        ]);
+
+
+        if (!Hash::check($request->old_password, Auth::user()->password)) {
+            return back()->withErrors(['old_password' => 'The old password is incorrect.']);
+        }
+
+        $user = User::where('id', Auth::user()->id)->update([
+            'password' => Hash::make($request['password']),
+            'isPasswordChanged' => 1,
+        ]);
+
+        Auth::logout();
+
+        return redirect()->route('login')->with('status', 'Password updated successfully. Please login with your new password.');
+    }
+}
