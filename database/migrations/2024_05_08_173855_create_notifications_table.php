@@ -50,15 +50,14 @@ return new class extends Migration
         ];
 
         for($dbcnt = 0; $dbcnt < count($dbname); $dbcnt++){
-            Schema::connection($dbname[$dbcnt])->create('scheme_supervisor_map', function (Blueprint $table) {
+            Schema::connection($dbname[$dbcnt])->create('notifications', function (Blueprint $table) {
                 $table->id();
-                $table->bigInteger('supervisor_id');
-                $table->unsignedBigInteger('scheme_id');
+                $table->string('title');
+                $table->string('filename');
                 $table->timestamps();
-
-                $table->foreign('scheme_id')->references('id')->on('schemes');
             });
         }
+        
     }
 
     /**
@@ -66,6 +65,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('scheme_supervisor_map');
+        Schema::dropIfExists('notifications');
     }
 };
