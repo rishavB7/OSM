@@ -13,7 +13,7 @@ class DashboardController extends Controller
         $this->middleware('auth');
         $this->middleware(function ($request, $next) {
 
-            if(Auth::user()->role == 2 || Auth::user()->role == 4 || Auth::user()->role == 5 || Auth::user()->role == 6){
+            if(Auth::user()->role == 2 || Auth::user()->role == 3 || Auth::user()->role == 4 || Auth::user()->role == 5 || Auth::user()->role == 6){
                 $this->id = Auth::user()->id;
                 $election_district= District_User_Map::with('district_master')->where('user_id', Auth::user()->id)->first();
 

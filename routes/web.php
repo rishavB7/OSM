@@ -55,6 +55,8 @@ Route::match(['get', 'post'],'/printSchemeInfo/{id}',[SchemeRegisterController::
 Route::match(['get', 'post'],'/finishedSchemes',[SchemeRegisterController::class, 'finishedSchemes'])->name('finishedSchemes');
 
 Route::get('/deptWiseSchemes', [SchemeRegisterController::class, 'deptWiseSchemes'])->name('deptWiseSchemes');
+Route::get('/departmentwiseSchemeListDC', [SchemeRegisterController::class, 'departmentwiseSchemeListDC'])->name('departmentwiseSchemeListDC');
+Route::get('/departmentwiseSchemeList', [SchemeRegisterController::class, 'departmentwiseSchemeList'])->name('departmentwiseSchemeList');
 
 Route::get('/listSchemeNodal', [SchemeRegisterController::class, 'listNodalScheme'])->name('listNodalScheme');
 

@@ -129,9 +129,10 @@ class SchemeRegisterController extends Controller
             // dd($data['deptUser']);
     
             if ($data['deptUser'] !== null) {
+
                 $data['schemes'] = Scheme_Supervisor_Map::on(Session::get('db_conn_name'))
                     ->join('schemes', 'schemes.id', '=', 'scheme_supervisor_map.scheme_id')
-                    ->where('schemes.created_by', $data['deptUser']->user_id)
+                    // ->where('schemes.created_by', $data['deptUser']->user_id)
                     ->where('scheme_supervisor_map.supervisor_id', Auth::user()->id)
                     ->get();
                 //   dd($data['schemes']);
@@ -144,6 +145,43 @@ class SchemeRegisterController extends Controller
         }
     }
     
+    public function departmentwiseSchemeList(Request $request) {
+        if ($request->isMethod('get')) {
+            $data['deptUser'] = Department_User_Map::on(Session::get('db_conn_name'))->where('department_id', $request->deptId)->first();
+            // dd($data['deptUser']);
+    
+            if ($data['deptUser'] !== null) {
+
+                $data['schemes'] = Scheme_Supervisor_Map::on(Session::get('db_conn_name'))
+                    ->join('schemes', 'schemes.id', '=', 'scheme_supervisor_map.scheme_id')
+                    ->where('schemes.created_by', $data['deptUser']->user_id)
+                    ->where('scheme_supervisor_map.supervisor_id', Auth::user()->id)
+                    ->get();
+                //   dd($data['schemes']);
+                // $data['schemes'] = Schemes::on(Session::get('db_conn_name'))->where('created_by', $data['deptUser']->user_id)->get();
+                return view('CEO_ZP_Admin.departmentwiseSchemeList', $data);
+            } else {
+                // Handle case where department user mapping is not found
+                return redirect()->back()->with('error', 'Department user mapping not found.');
+            }
+        }
+    }
+    public function departmentwiseSchemeListDC(Request $request) {
+        if ($request->isMethod('get')) {
+            $data['schemeDepartmentMap'] = Department_User_Map::on(Session::get('db_conn_name'))->where('department_id', $request->deptId)->first();
+            if(empty($data['schemeDepartmentMap'])){
+                echo "No HOD User Created Yet";
+                exit();
+            } else {
+                $data['schemes']= Schemes::on(Session::get('db_conn_name'))->where('created_by', $data['schemeDepartmentMap']->user_id)->get();
+                // $data['deptUser'] = Department_User_Map::on(Session::get('db_conn_name'))->where('department_id', $request->deptId)->first();
+                // dd($data['deptUser']);
+                return view('District_Admin.departmentwiseSchemeListDC', $data);
+            }
+           
+        }
+    }
+    
 
     public function listScheme(Request $request) {
         $data['schemes'] = Schemes::on(Session::get('db_conn_name'))->get();
@@ -151,6 +189,7 @@ class SchemeRegisterController extends Controller
         $data['schemeProgress'] = SchemeProgress::on(Session::get('db_conn_name'))->get();
         return view('HOD_Admin.listScheme', $data);
     }
+    
     public function listSchemeDC(Request $request) {
         $data['schemes'] = Schemes::on(Session::get('db_conn_name'))->get();
         $data['all_users'] = District_User_Map::with(['user','district_master'])->get();

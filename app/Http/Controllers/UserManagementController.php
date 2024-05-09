@@ -290,7 +290,7 @@ class UserManagementController extends Controller
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
         $user->mobile = $validatedData['mobile'];
-    ~
+    
         // Check if password is provided, if not generate a random password
         if ($request->filled('password')) {
             $user->password = Hash::make($validatedData['password']);

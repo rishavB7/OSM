@@ -29,9 +29,12 @@
             <form method="POST" action="{{ route('user_create') }}">
                 @csrf
 
-                <!-- Name -->
+                <!-- Short Name -->
                 <div class="form-group w-[24rem]">
-                    <label for="name">Name</label>
+                    <label for="name">Short Name
+                        <span class="text-xs text-slate-600">(eg. If your name is Manoj Kumar Das then type mkd)</span>
+                    </label>
+                    
                     <input id="name" class="form-control rounded-md" type="text" name="name" value="{{ old('name') }}"
                         required autofocus autocomplete="name" onchange="generateUsername()" />
                     @error('name')
@@ -149,7 +152,7 @@
         }
 
         var username = name.replace(/\s+/g, '') + "_" + role + "_" + districtText.replace(/[^a-zA-Z0-9]/g, '') +
-            "@dmdashboard.nic.in";
+            "@dmdashboard.assam";
 
 
         document.getElementById("email").value = username;

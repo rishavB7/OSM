@@ -181,7 +181,7 @@
                 <div class="flex justify-between">
                     <span class="block font-semibold text-xl">
 
-                        <form action="{{ route('deptWiseSchemes') }}" onchange="this.submit()">
+                        <form action="{{ route('departmentwiseSchemeList') }}" onchange="this.submit()">
                             @csrf
                             <label for="filter" class="form-label text-sm"></label>
                             <select name="deptId" class="form-select  rounded-md" id="filter">
