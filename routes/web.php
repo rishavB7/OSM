@@ -12,19 +12,8 @@ use App\Http\Controllers\SchemeManagementController;
 use App\Http\Controllers\DepartmentManagementController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\ReportDocsController;
+use App\Http\Controllers\InitializeDatabaseController;
 
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
@@ -124,6 +113,8 @@ Route::match(['get', 'post'], '/upload-report-docs', [ReportDocsController::clas
 Route::get('/dashboard/ca-to-dc/show-report-docs', [ReportDocsController::class, 'ca_to_dc_show_report_docs'])->name('ca_to_dc_show_report_docs');
 Route::get('/dashboard/dept_hod/show-report-docs', [ReportDocsController::class, 'hod_show_report_docs'])->name('hod_show_report_docs');
 Route::get('/dashboard/dept-hod/delete-document/{id}', [ReportDocsController::class, 'deleteReportDocument'])->name('deleteReportDocument');
+
+Route::match(['get', 'post'], '/initialize-database', [InitializeDatabaseController::class, 'initializeDatabase'])->name('initializeDatabase');
 
 
 require __DIR__ . '/auth.php';

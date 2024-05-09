@@ -61,7 +61,8 @@ class ReportDocsController extends Controller
                 $scheme = ReportDocsModel::on(Session::get('db_conn_name'))->create([
                     'subject' => $request->title,
                     'filename' => $filename,
-                    'uploaded_by' => Auth::user()->id  
+                    'uploaded_by' => Auth::user()->id,
+                    'ip_address' => $request->ip()  
                 ]);
 
                 // $path2 = storage_path('app/public/notifications' . $filename);

@@ -46,6 +46,7 @@ use Carbon\Carbon;
                                     <th>Title</th>
                                     <th>Uploaded On</th>
                                     <th>Uploaded By</th>
+                                    <th>IP Address</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -69,6 +70,9 @@ use Carbon\Carbon;
                                                 $uploaded_by = User::where('id', $reportDoc->uploaded_by)->first();
                                                 echo $uploaded_by->name . ', ' . $uploaded_by->designation;
                                             @endphp
+                                        </td>
+                                        <td>
+                                            {{ $reportDoc->ip_address }}
                                         </td>
                                         <td>
                                             <a href="{{ asset('storage/reportDocs/' . $reportDoc->filename) }}"

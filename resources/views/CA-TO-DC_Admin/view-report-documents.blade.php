@@ -44,6 +44,7 @@ use Carbon\Carbon;
                                     <th>Title</th>
                                     <th>Uploaded On</th>
                                     <th>Uploaded By</th>
+                                    <th>IP Address</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -62,6 +63,7 @@ use Carbon\Carbon;
                                             @endphp
                                             {{ $readableDateTime }}
                                         </td>
+
                                         <td>
                                             @php
                                                 $dept_user_map = Department_User_Map::on(Session::get('db_conn_name'))
@@ -77,6 +79,9 @@ use Carbon\Carbon;
                                                     ', ' .
                                                     $department->department_name;
                                             @endphp
+                                        </td>
+                                        <td>
+                                            {{ $reportDoc->ip_address }}
                                         </td>
                                         <td>
                                             <a href="{{ asset('storage/reportDocs/' . $reportDoc->filename) }}"
