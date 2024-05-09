@@ -10,6 +10,8 @@ use App\Http\Controllers\SchemeRegisterController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\SchemeManagementController;
 use App\Http\Controllers\DepartmentManagementController;
+use App\Http\Controllers\NotificationsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -108,5 +110,11 @@ Route::match(['get', 'post'], '/dashboard/addDepartment', [DepartmentManagementC
 Route::get('/dashboard/departmentList', [DepartmentManagementController::class, 'departmentList'])->name('departmentList');
 Route::get('/dashboard/departmentListCA_TO_DC', [DepartmentManagementController::class, 'departmentListCA_TO_DC'])->name('departmentListCA_TO_DC');
 Route::get('/dashboard/printDepartmentListCA_TO_DC', [DepartmentManagementController::class, 'printDepartmentListCA_TO_DC'])->name('printDepartmentListCA_TO_DC');
+
+Route::match(['get', 'post'], '/dashboard/create-notifications', [NotificationsController::class, 'createNotification'])->name('createNotification');
+Route::get('/dashboard/ca-to-dc/notifications', [NotificationsController::class, 'ca_to_dc_notifications'])->name('ca_to_dc_notifications');
+Route::get('/dashboard/ca-to-dc/delete-notifications/{id}', [NotificationsController::class, 'delete_notification'])->name('delete_notification');
+Route::get('/dashboard/notices', [NotificationsController::class, 'notices'])->name('notices');
+
 
 require __DIR__ . '/auth.php';

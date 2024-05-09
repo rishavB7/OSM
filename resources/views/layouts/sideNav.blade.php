@@ -59,6 +59,13 @@
                     </button>
                 </a>
 
+                <a href="{{ route('notices') }}">
+                    <button class=" font-bold left-deshboard-btns btn btn-secondary bg-blue-400 hover:bg-blue-500"
+                        type="button">
+                        Notices
+                    </button>
+                </a>
+
                 {{-- CA-To-DC  --}}
             @elseif (Auth::user()->role == 4)
                 <a href="{{ route('addUserCAtoDC') }}">
@@ -93,6 +100,13 @@
                     </button>
                 </a>
 
+                <a href="{{ route('ca_to_dc_notifications') }}">
+                    <button class=" font-bold left-deshboard-btns btn btn-secondary bg-blue-400 hover:bg-blue-500"
+                        type="button">
+                        Notices
+                    </button>
+                </a>
+
                 {{-- CEO_ZP  --}}
             @elseif (Auth::user()->role == 5)
                 <a href="{{ route('departmentListCA_TO_DC') }}">
@@ -112,6 +126,13 @@
                     <button class=" font-bold left-deshboard-btns btn btn-secondary bg-blue-400 hover:bg-blue-500"
                         type="button">
                         Messages @include('messenger.unread-count')
+                    </button>
+                </a>
+
+                <a href="{{ route('notices') }}">
+                    <button class=" font-bold left-deshboard-btns btn btn-secondary bg-blue-400 hover:bg-blue-500"
+                        type="button">
+                        Notices
                     </button>
                 </a>
 
@@ -137,6 +158,13 @@
                     </button>
                 </a>
 
+                <a href="{{ route('notices') }}">
+                    <button class=" font-bold left-deshboard-btns btn btn-secondary bg-blue-400 hover:bg-blue-500"
+                        type="button">
+                        Notices
+                    </button>
+                </a>
+
                 {{-- HOD Department --}}
             @else
                 <a href="{{ route('schemeCreate') }}">
@@ -156,6 +184,13 @@
                     <button class=" font-bold left-deshboard-btns btn btn-secondary bg-blue-400 hover:bg-blue-500"
                         type="button">
                         Messages @include('messenger.unread-count')
+                    </button>
+                </a>
+
+                <a href="{{ route('notices') }}">
+                    <button class=" font-bold left-deshboard-btns btn btn-secondary bg-blue-400 hover:bg-blue-500"
+                        type="button">
+                        Notices
                     </button>
                 </a>
             @endif
