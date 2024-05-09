@@ -101,8 +101,14 @@
                     <!-- Password -->
                     <div class="form-group w-[24rem]">
                         <label for="password">Password</label>
-                        <input id="password" class="form-control rounded-md" type="password" name="password" required
-                            autocomplete="new-password" />
+                        <div class="input-group">
+                            <input id="password" class="form-control rounded-md" type="password" name="password" required
+                                autocomplete="new-password" />
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-primary bg-blue-700"
+                                    onclick="generateRandomPassword()">Generate</button>
+                            </div>
+                        </div>
                         @error('password')
                             <p class="mt-2">{{ $message }}</p>
                         @enderror
@@ -111,7 +117,7 @@
                     <!-- Confirm Password -->
                     <div class="form-group w-[24rem]">
                         <label for="password_confirmation">Confirm Password</label>
-                        <input id="password_confirmation" class="form-control rounded-md" type="password"
+                        <input id="password_confirmation" class="form-control rounded-md" type="text"
                             name="password_confirmation" required autocomplete="new-password" />
                         @error('password_confirmation')
                             <p class="mt-2">{{ $message }}</p>
@@ -141,4 +147,44 @@
             document.getElementById("email").value = username;
         }
     </script>
+
+    <script>
+        function generateRandomPassword() {
+            // Define characters for the password
+            var lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
+            var uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var numericChars = "0123456789";
+            var specialChars = "!@#$%&*";
+
+            // Define minimum length of the password
+            var minLength = 8;
+
+            // Generate random characters for each category
+            var lowercaseChar = lowercaseChars[Math.floor(Math.random() * lowercaseChars.length)];
+            var uppercaseChar = uppercaseChars[Math.floor(Math.random() * uppercaseChars.length)];
+            var numericChar = numericChars[Math.floor(Math.random() * numericChars.length)];
+            var specialChar = specialChars[Math.floor(Math.random() * specialChars.length)];
+
+            // Concatenate the characters
+            var password = lowercaseChar + uppercaseChar + numericChar + specialChar;
+
+            // Fill remaining characters with random characters from all categories
+            var remainingLength = minLength - 4; // Subtracting 4 for the already chosen characters
+            var allChars = lowercaseChars + uppercaseChars + numericChars + specialChars;
+            for (var i = 0; i < remainingLength; i++) {
+                var randomIndex = Math.floor(Math.random() * allChars.length);
+                password += allChars[randomIndex];
+            }
+
+            // Shuffle the password characters
+            password = password.split('').sort(function() {
+                return 0.5 - Math.random();
+            }).join('');
+
+            // Set generated password to password fields
+            document.getElementById("password").value = password;
+            document.getElementById("password_confirmation").value = password;
+        }
+    </script>
+
 @endsection
