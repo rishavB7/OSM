@@ -11,6 +11,8 @@ use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\SchemeManagementController;
 use App\Http\Controllers\DepartmentManagementController;
 use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\ReportDocsController;
+
 
 
 /*
@@ -117,6 +119,11 @@ Route::match(['get', 'post'], '/dashboard/create-notifications', [NotificationsC
 Route::get('/dashboard/ca-to-dc/notifications', [NotificationsController::class, 'ca_to_dc_notifications'])->name('ca_to_dc_notifications');
 Route::get('/dashboard/ca-to-dc/delete-notifications/{id}', [NotificationsController::class, 'delete_notification'])->name('delete_notification');
 Route::get('/dashboard/notices', [NotificationsController::class, 'notices'])->name('notices');
+
+Route::match(['get', 'post'], '/upload-report-docs', [ReportDocsController::class, 'uploadReportDocs'])->name('uploadReportDocs');
+Route::get('/dashboard/ca-to-dc/show-report-docs', [ReportDocsController::class, 'ca_to_dc_show_report_docs'])->name('ca_to_dc_show_report_docs');
+Route::get('/dashboard/dept_hod/show-report-docs', [ReportDocsController::class, 'hod_show_report_docs'])->name('hod_show_report_docs');
+Route::get('/dashboard/dept-hod/delete-document/{id}', [ReportDocsController::class, 'deleteReportDocument'])->name('deleteReportDocument');
 
 
 require __DIR__ . '/auth.php';
