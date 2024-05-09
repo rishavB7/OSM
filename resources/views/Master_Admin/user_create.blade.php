@@ -29,24 +29,28 @@
             <form method="POST" action="{{ route('user_create') }}">
                 @csrf
 
-                <!-- Full Name -->
+                
+                <!-- Name -->
                 <div class="form-group w-[24rem]">
-                    <label for="fullname">Full Name</label>
-                    <input id="fullname" class="form-control rounded-md" type="text" name="fullname" value="{{ old('fullname') }}"
-                        required autofocus autocomplete="fullname" />
-                    @error('fullname')
-                        <p class="mt-2">{{ $message }}</p>
-                    @enderror
-                </div>
-                <!-- Short Name -->
-                <div class="form-group w-[24rem]">
-                    <label for="name">Short Name
-                        <span class="text-xs text-red-600">(eg. If your name is Manoj Kumar Das then type mkd)</span>
+                    <label for="name"> Name
+                        
                     </label>
                     
                     <input id="name" class="form-control rounded-md" type="text" name="name" value="{{ old('name') }}"
                         required autofocus autocomplete="name" onchange="generateUsername()" />
                     @error('name')
+                        <p class="mt-2">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Short Name -->
+                <div class="form-group w-[24rem]">
+                    <label for="shortname">Short Name
+                        <span class="text-xs text-red-600">(eg. If your name is Manoj Kumar Das then type mkd)</span>
+                    </label>
+                    <input id="shortname" class="form-control rounded-md" type="text" name="shortname" value="{{ old('shortname') }}"
+                        required autofocus autocomplete="shortname" />
+                    @error('shortname')
                         <p class="mt-2">{{ $message }}</p>
                     @enderror
                 </div>
