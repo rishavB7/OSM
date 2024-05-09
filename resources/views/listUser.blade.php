@@ -59,7 +59,7 @@ use App\Models\Department_User_Map;
                                 @if (Auth::user()->role == 1)
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $i++ }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">{{ $all_user->user->name }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">{{ $all_user->user->fullname }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $all_user->user->email }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $all_user->user->mobile }}</td>
                                         {{-- <td>{{$all_user->role}}</td> --}}

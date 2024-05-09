@@ -5,8 +5,8 @@
                 <img class="w-20 h-auto mr-2" src="https://static.javatpoint.com/fullformpages/images/nic.png"
                     alt="NIC LOGO"></a>
             {{-- <img class="w-10 h-auto mr-2" src="public/image/logo2.png" alt="Assam Government logo"> --}}
-            <h3 class="font-weight-bold text-sm mt-1">Online Scheme Monitoring and MIS | Government Of Assam</h3>
-            <h3 class="font-weight-bold text-sm ml-[10rem] mt-1">DM Dashboard @Assam</h3>
+            <h3 class="font-weight-bold text-md mt-1">Online Scheme Monitoring and MIS | Government Of Assam</h3>
+            <h3 class="font-weight-bold text-md ml-5 mt-1">DM Dashboard @Assam</h3>
 
         </div>
         <div>

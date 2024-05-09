@@ -45,7 +45,7 @@ use Carbon\Carbon;
                                 <tr>
                                     <th>#</th>
                                     <th>Title</th>
-                                    <th>Created Date</th>
+                                    <th>Created On</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
