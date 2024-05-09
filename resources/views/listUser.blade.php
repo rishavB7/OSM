@@ -30,7 +30,7 @@ use App\Models\Department_User_Map;
                                     Name
                                 </th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Email
+                                    Username
                                 </th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Mobile</th>
@@ -59,7 +59,7 @@ use App\Models\Department_User_Map;
                                 @if (Auth::user()->role == 1)
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $i++ }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">{{ $all_user->user->fullname }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">{{ $all_user->user->name }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $all_user->user->email }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $all_user->user->mobile }}</td>
                                         {{-- <td>{{$all_user->role}}</td> --}}
@@ -68,7 +68,7 @@ use App\Models\Department_User_Map;
                                         @elseif($all_user->user->role == 2)
                                             <td class="px-6 py-4 whitespace-nowrap">DC/SDO (C)</td>
                                         @elseif($all_user->user->role == 3)
-                                            <td class="px-6 py-4 whitespace-nowrap">Nodal Officer</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">DEPARTMENT HOD</td>
                                         @elseif($all_user->user->role == 4)
                                             <td class="px-6 py-4 whitespace-nowrap">CA_to_DC</td>
                                         @elseif($all_user->user->role == 5)

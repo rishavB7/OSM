@@ -37,7 +37,7 @@
                     </label>
                     
                     <input id="name" class="form-control rounded-md" type="text" name="name" value="{{ old('name') }}"
-                        required autofocus autocomplete="name" onchange="generateUsername()" />
+                        required autofocus autocomplete="name" " />
                     @error('name')
                         <p class="mt-2">{{ $message }}</p>
                     @enderror
@@ -46,21 +46,11 @@
                 <!-- Short Name -->
                 <div class="form-group w-[24rem]">
                     <label for="shortname">Short Name
-                        <span class="text-xs text-red-600">(eg. If your name is Manoj Kumar Das then type mkd)</span>
+                        <span class="text-xs text-blue-600">(eg. If your name is Manoj Kumar Das then type mkd)</span>
                     </label>
-                    <input id="shortname" class="form-control rounded-md" type="text" name="shortname" value="{{ old('shortname') }}"
+                    <input id="shortname" class="form-control rounded-md" type="text" onchange="generateUsername() name="shortname" value="{{ old('shortname') }}"
                         required autofocus autocomplete="shortname" />
                     @error('shortname')
-                        <p class="mt-2">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Designation -->
-                <div class="form-group w-[24rem]">
-                    <label for="designation">Designation</label>
-                    <input id="designation" class="form-control rounded-md" type="text" name="designation"
-                        value="{{ old('designation') }}" required autocomplete="username" />
-                    @error('designation')
                         <p class="mt-2">{{ $message }}</p>
                     @enderror
                 </div>
@@ -165,7 +155,7 @@
 
 <script>
     function generateUsername() {
-        var name = document.getElementById("name").value.toLowerCase(); // Convert name to lowercase
+        var name = document.getElementById("shortname").value.toLowerCase(); // Convert name to lowercase
         var role = document.getElementById("role").value;
         var districtSelect = document.getElementById("district");
         var districtText = districtSelect.options[districtSelect.selectedIndex].text.trim()
