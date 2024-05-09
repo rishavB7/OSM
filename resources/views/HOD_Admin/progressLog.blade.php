@@ -11,9 +11,9 @@
                     @if (Auth::user()->role == 2 )    
             <a href="{{ route('dashboard') }}" class="btn btn-primary d-inline-block m-2 float-right">Dashboard</a>
             @endif
-                    <a href="{{ route('listScheme') }}" class="btn btn-primary ml-2 mt-2">Back</a>
+                    <a href="{{ route('dashboard') }}" class="btn btn-primary ml-2 mt-2">Back</a>
                 </div>
-                @if (!Auth::user()->role === 3)
+                @if (Auth::user()->role === 5 || Auth::user()->role === 6)
                 <a onclick="raise_query()">
                     <button type="submit" class="btn btn-group-sm btn-dark bg-dark mt-2">Raise Querry</button>
                   </a> 
@@ -112,10 +112,13 @@
                 </form>
             </div> --}}
             @endif
-           
+            {{-- {{ dd($schemeProgress->schemeId) }} --}}
             <div class="row justify-content-end">
                 <div class="col-auto">
-                    <button class="btn btn-secondary p-2 mb-2 mt-2" onclick="print_section()">Print</button>
+                    
+                        <button class="btn btn-primary p-2 mb-2 mt-2" onclick="print_section()">Print</button>
+                    
+
                 </div>
             </div>
            
@@ -125,9 +128,8 @@
 
     <script>
         function print_section() {
-            window.print();
+            window.print()
         }
-
         function toggleQuerySection() {
             var querySection = document.getElementById('query_section');
             var checkbox = document.getElementById('unlock_query_section');

@@ -26,4 +26,13 @@ class Schemes extends Model
         'created_by',
         'supervisor'
     ];
+    public function progress()
+    {
+        return $this->hasMany(SchemeProgress::class, 'scheme_id');
+    }
+
+    public function scheme_supervisor_map()
+    {
+        return $this->hasMany(Scheme_Supervisor_Map::class, 'scheme_id');
+    }
 }

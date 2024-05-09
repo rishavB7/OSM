@@ -22,7 +22,7 @@
             @if (Auth::user()->role == 2)    
             <a href="{{ route('dashboard') }}" class="btn btn-primary d-inline-block m-2 float-right">Dashboard</a>
             @endif
-            <a href="{{ route('listScheme') }}" class="btn btn-primary d-inline-block m-2 float-right">Back</a>
+            <a href="{{ route('dashboard') }}" class="btn btn-primary d-inline-block m-2 float-right">Back</a>
 
             <div id="print_section">  
                 <div class="table-responsive mt-4">
@@ -82,8 +82,9 @@
                     @endif
                     
                 </div>
-            </div>  
-            <button class="btn btn-secondary p-2 mt-3 mb-2" onclick="print_section()">Print</button>
+            </div>
+            <a href="{{route('printSchemeInfo', $scheme_id->id)}}"> 
+            <button class="btn btn-primary p-2 mt-3 mb-2">Print</button></a> 
         </div>
     </div>
     {{-- @include('layouts.footer') --}}

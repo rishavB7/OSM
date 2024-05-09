@@ -24,7 +24,6 @@
                         <th>End Date</th>
                         <th>Last Updated On</th>
                         <th>Status</th>
-                        <th>Action</th>
                         <th>Details</th>
                         <th>Scheme Progress</th>
                         <th>Created By</th>
@@ -45,15 +44,7 @@
                                 <td>
                                     <a class="btn btn-warning disabled text-white opacity-100 p-1">Running</a>
                                 </td>
-                                <td>
-                                    <div class="btn-group">
-                                        <a href="{{ route('SchemeUpdate', $runningScheme->id) }}"
-                                            class="btn btn-info text-white mr-2">Edit</a>
-                                        <a href="{{ route('SchemeDelete', $runningScheme->id) }}"
-                                            onclick="return confirm('Are you sure you want to delete this notice')"
-                                            class="btn btn-danger text-white">Delete</a>
-                                    </div>
-                                </td>
+                                
                                 <td>
                                     <div class="btn-group">
                                         <a href="{{route('schemeInfo', $runningScheme->id)}}" class="bg-purple-500 hover:bg-purple-600 cursor-pointer p-2 btn text-white">

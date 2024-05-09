@@ -62,7 +62,7 @@
                     style="background: radial-gradient(black, transparent 60%); transform: rotate3d(0, 0, 1, 20deg) scale3d(1, 0.6, 1); opacity: 0.2;">
                 </div>
             </div>
-            <a class="hover:no-underline" href="{{route('listScheme')}}">
+            <a class="hover:no-underline" href="{{route('listSchemeDC')}}">
             <div class="relative text-white px-6 pb-6 mt-6">
                     <span class="block  text-2xl -mb-1">Total Schemes</span>
                     <div class="flex justify-between">
@@ -137,7 +137,7 @@
                     style="background: radial-gradient(black, transparent 60%); transform: rotate3d(0, 0, 1, 20deg) scale3d(1, 0.6, 1); opacity: 0.2;">
                 </div>
             </div>
-            <a class="hover:no-underline" href="{{route('departmentList')}}">
+            <a class="hover:no-underline" href="{{route('departmentListCA_TO_DC')}}">
             <div class="relative text-white px-6 pb-6 mt-6">
                 <span class="block  text-2xl -mb-1">Total Departments</span>
                 <?php
@@ -194,28 +194,6 @@
         </div>
 
        </div>
-       {{-- <div>
-        <div class="mb-3 px-[40rem]">
-            <form action="{{ route('deptWiseSchemes') }}" onchange="this.submit()">
-                @csrf
-                <label for="filter" class="form-label">Select Department:</label>
-                <select name="deptId" class="form-select" id="filter">
-                    <?php
-                        $deptNames = Departments::on(Session::get('db_conn_name'))->get();
-                    ?>
-        
-                    <option value="">Select</option>
-                    @if ($deptNames->isNotEmpty())
-                        @foreach ($deptNames as $deptName)
-                            <option value="{{ $deptName->id }}">{{ $deptName->department_name }}</option>
-                        @endforeach
-                    @else
-                        <option value="" disabled>No departments found</option>
-                    @endif
-                </select>
-            </form>
-        </div>
-       </div> --}}
     </div>
 </div>
 @include('layouts.footer')

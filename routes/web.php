@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/scheme-create', [SchemeRegisterController::class, 'schemeCreate'])->middleware(['auth', 'verified'])->name('schemeCreate');
 Route::post('/scheme-create', [SchemeRegisterController::class, 'schemeCreate'])->middleware(['auth', 'verified'])->name('schemeCreate');
 Route::get('/listScheme', [SchemeRegisterController::class, 'listScheme'])->name('listScheme');
+Route::get('/listSchemeDC', [SchemeRegisterController::class, 'listSchemeDC'])->name('listSchemeDC');
 Route::get('/runningSchemesList', [SchemeRegisterController::class, 'runningSchemesList'])->name('runningSchemesList');
 Route::get('/runningSchemesListDC', [SchemeRegisterController::class, 'runningSchemesListDC'])->name('runningSchemesListDC');
 Route::get('/runningSchemesListHod', [SchemeRegisterController::class, 'runningSchemesListHod'])->name('runningSchemesListHod');
@@ -48,6 +49,7 @@ Route::post('/schemes/{id}/update', [SchemeRegisterController::class, 'updateSch
 Route::match(['get','post'], '/schemes/{id}/delete', [SchemeRegisterController::class, 'deleteScheme'])->name('SchemeDelete');
 Route::get('/schemes/apply/{scheme}',[SchemeRegisterController::class, 'apply'])->name('schemes.apply')->middleware('auth');
 Route::match(['get', 'post'],'/schemeInfo/{id}',[SchemeRegisterController::class, 'schemeInfo'])->name('schemeInfo');
+Route::match(['get', 'post'],'/printSchemeInfo/{id}',[SchemeRegisterController::class, 'printSchemeInfo'])->name('printSchemeInfo');
 Route::match(['get', 'post'],'/finishedSchemes',[SchemeRegisterController::class, 'finishedSchemes'])->name('finishedSchemes');
 
 Route::get('/deptWiseSchemes', [SchemeRegisterController::class, 'deptWiseSchemes'])->name('deptWiseSchemes');
@@ -57,6 +59,9 @@ Route::get('/listSchemeNodal', [SchemeRegisterController::class, 'listNodalSchem
 
 
 Route::match(['get', 'post'],'/log/{schemeId}',[SchemeRegisterController::class, 'progressLog'])->name('progressLog');
+Route::get('/printProgressLog/{schemeId}', [SchemeRegisterController::class, 'printProgressLog'])->name('printProgressLog');
+
+
 
 Route::group(['middleware' => 'auth', 'prefix' => 'messages', 'as' => 'messages'], function () {
     Route::get('/', [MessagesController::class, 'index']);
@@ -89,6 +94,7 @@ Route::match(['get', 'post'], '/dashboard/user/create', [UserManagementControlle
 Route::match(['get', 'post'], '/dashboard/addUser', [UserManagementController::class, 'addUser'])->name('addUser');
 Route::match(['get', 'post'], '/dashboard/addUserCAtoDC', [UserManagementController::class, 'addUserCAtoDC'])->name('addUserCAtoDC');
 Route::match(['get', 'patch'], '/dashboard/UpdateUser/{id}', [UserManagementController::class, 'updateUser'])->name('updateUser');
+// Route::match(['get', 'patch'], '/dashboard/UpdateUser/{id}', [UserManagementController::class, 'updateUserTest'])->name('updateUserTest');
 Route::match(['get', 'post'], '/dashboard/update-password', [UserManagementController::class, 'update_password'])->name('update_password');
 Route::get('/dashboard/listUser', [UserManagementController::class, 'list_user'])->name('listUser');
 

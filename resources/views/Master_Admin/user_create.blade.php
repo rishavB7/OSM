@@ -49,15 +49,7 @@
                     @enderror
                 </div>
 
-                <!-- Mobile -->
-                <div class="form-group w-[24rem]">
-                    <label for="mobile">Mobile</label>
-                    <input id="mobile" class="form-control rounded-md" type="number" name="mobile" value="{{ old('mobile') }}"
-                        required autocomplete="mobile" />
-                    @error('mobile')
-                        <p class="mt-2">{{ $message }}</p>
-                    @enderror
-                </div>
+                
 
                 <!-- Role -->
                 <div class="form-group w-[24rem]">
@@ -88,12 +80,22 @@
                     @enderror
                 </div>
 
-                <!-- Email Address -->
+                <!-- Unique Username -->
                 <div class="form-group w-[24rem]">
                     <label for="email">Username</label>
                     <input id="email" class="form-control rounded-md" type="email" name="email" value="{{ old('email') }}"
                         required autocomplete="username" readonly />
                     @error('email')
+                        <p class="mt-2">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Mobile -->
+                <div class="form-group w-[24rem]">
+                    <label for="mobile">Mobile</label>
+                    <input id="mobile" class="form-control rounded-md" type="number" name="mobile" value="{{ old('mobile') }}"
+                        required autocomplete="mobile" />
+                    @error('mobile')
                         <p class="mt-2">{{ $message }}</p>
                     @enderror
                 </div>
