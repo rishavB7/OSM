@@ -64,8 +64,18 @@ use Carbon\Carbon;
                                         </td>
                                         <td>
                                             @php
-                                                $uploaded_by = User::where('id', $reportDoc->uploaded_by)->first();
-                                                echo $uploaded_by->name . ', ' . $uploaded_by->designation;
+                                                $dept_user_map = Department_User_Map::on(Session::get('db_conn_name'))
+                                                    ->where('user_id', $reportDoc->uploaded_by)
+                                                    ->first();
+                                                $user = User::where('id', $dept_user_map->user_id)->first();
+                                                $department = Departments::on(Session::get('db_conn_name'))
+                                                    ->where('id', $dept_user_map->department_id)
+                                                    ->first();
+                                                echo $user->name .
+                                                    ', ' .
+                                                    $user->designation .
+                                                    ', ' .
+                                                    $department->department_name;
                                             @endphp
                                         </td>
                                         <td>

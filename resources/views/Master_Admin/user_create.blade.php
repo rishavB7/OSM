@@ -26,8 +26,8 @@
 
             <div class="d-flex justify-content-center  align-items-center">
 
-            <form method="POST" action="{{ route('user_create') }}">
-                @csrf
+                <form method="POST" action="{{ route('user_create') }}">
+                    @csrf
 
                 
                 <!-- Name -->
@@ -65,56 +65,66 @@
                     @enderror
                 </div>
 
-                
+                    <!-- Designation -->
+                    <div class="form-group w-[24rem]">
+                        <label for="designation">Designation</label>
+                        <input id="designation" class="form-control rounded-md" type="text" name="designation"
+                            value="{{ old('designation') }}" required autocomplete="username" />
+                        @error('designation')
+                            <p class="mt-2">{{ $message }}</p>
+                        @enderror
+                    </div>
 
-                <!-- Role -->
-                <div class="form-group w-[24rem]">
-                    <label for="role">Role</label>
-                    <select class="form-control rounded-md" id="role" name="role" required onchange="generateUsername()">
-                        {{-- <option value="">Select User Type</option> --}}
-                        <option value="2">DC/SDO (C)</option>
-                        <option value="4">CA-TO-DC</option>
-                        <option value="5">CEO,ZP</option>
-                        <option value="6">DDC</option>
-                    </select>
-                    @error('role')
-                        <p class="mt-2">{{ $message }}</p>
-                    @enderror
-                </div>
+                    <!-- Role -->
+                    <div class="form-group w-[24rem]">
+                        <label for="role">Role</label>
+                        <select class="form-control rounded-md" id="role" name="role" required
+                            onchange="generateUsername()">
+                            {{-- <option value="">Select User Type</option> --}}
+                            <option value="2">DC/SDO (C)</option>
+                            <option value="4">CA-TO-DC</option>
+                            <option value="5">CEO,ZP</option>
+                            <option value="6">DDC</option>
+                        </select>
+                        @error('role')
+                            <p class="mt-2">{{ $message }}</p>
+                        @enderror
+                    </div>
 
-                <!-- District -->
-                <div class="form-group w-[24rem]">
-                    <label for="district">District</label>
-                    <select class="form-control rounded-md" id="district" name="district" required onchange="generateUsername()">
-                        <option value="">Select District</option>
-                        @foreach ($districts as $district)
-                            <option value="{{ $district->id }}">{{ $district->district }}</option>
-                        @endforeach
-                    </select>
-                    @error('district')
-                        <p class="mt-2">{{ $message }}</p>
-                    @enderror
-                </div>
+                    <!-- District -->
+                    <div class="form-group w-[24rem]">
+                        <label for="district">District</label>
+                        <select class="form-control rounded-md" id="district" name="district" required
+                            onchange="generateUsername()">
+                            <option value="">Select District</option>
+                            @foreach ($districts as $district)
+                                <option value="{{ $district->id }}">{{ $district->district }}</option>
+                            @endforeach
+                        </select>
+                        @error('district')
+                            <p class="mt-2">{{ $message }}</p>
+                        @enderror
+                    </div>
 
-                <!-- Unique Username -->
-                <div class="form-group w-[24rem]">
-                    <label for="email">Username</label>
-                    <input id="email" class="form-control rounded-md" type="email" name="email" value="{{ old('email') }}"
-                        required autocomplete="username" readonly />
-                    @error('email')
-                        <p class="mt-2">{{ $message }}</p>
-                    @enderror
-                </div>
+                    <!-- Unique Username -->
+                    <div class="form-group w-[24rem]">
+                        <label for="email">Username</label>
+                        <input id="email" class="form-control rounded-md" type="email" name="email"
+                            value="{{ old('email') }}" required autocomplete="username" readonly />
+                        @error('email')
+                            <p class="mt-2">{{ $message }}</p>
+                        @enderror
+                    </div>
 
-                <!-- Mobile -->
-                <div class="form-group w-[24rem]">
-                    <label for="mobile">Mobile</label>
-                    <input id="mobile" class="form-control rounded-md" type="number" name="mobile" value="{{ old('mobile') }}"
-                        required autocomplete="mobile" />
-                    @error('mobile')
-                        <p class="mt-2">{{ $message }}</p>
-                    @enderror
-                </div>
+                    <!-- Mobile -->
+                    <div class="form-group w-[24rem]">
+                        <label for="mobile">Mobile</label>
+                        <input id="mobile" class="form-control rounded-md" type="number" name="mobile"
+                            value="{{ old('mobile') }}" required autocomplete="mobile" />
+                        @error('mobile')
+                            <p class="mt-2">{{ $message }}</p>
+                        @enderror
+                    </div>
 
                 <!-- Password -->
                 <div class="form-group w-[24rem]">
@@ -142,11 +152,11 @@
                     @enderror
                 </div>
 
-                <div class="form-group w-[24rem]">
-                    <button type="submit" class="btn btn-primary bg-blue-700 w-[150px]">Create</button>
-                </div>
-            </form>
-        </div>
+                    <div class="form-group w-[24rem]">
+                        <button type="submit" class="btn btn-primary bg-blue-700 w-[150px]">Create</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 

@@ -156,7 +156,7 @@
                 .toLowerCase();
 
             var username = name.replace(/\s+/g, '') + "_" + "hod" + "_" + dept.replace(/[^a-zA-Z0-9]/g, '') +
-                "@dmdashboard.nic.in";
+                "@dmdashboard.assam";
 
 
             document.getElementById("email").value = username;
