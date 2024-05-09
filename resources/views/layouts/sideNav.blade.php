@@ -38,14 +38,14 @@
                         User List
                     </button>
                 </a>
-                <a href="{{ route('departmentList') }}">
+                <a href="{{ route('departmentListCA_TO_DC') }}">
                     <button class=" font-bold left-deshboard-btns btn btn-secondary bg-blue-400 hover:bg-blue-500"
                         type="button">
                         Department List
                     </button>
                 </a>
 
-                <a href="{{ route('listScheme') }}">
+                <a href="{{ route('listSchemeDC') }}">
                     <button class=" font-bold left-deshboard-btns btn btn-secondary bg-blue-400 hover:bg-blue-500"
                         type="button">
                         List of Schemes

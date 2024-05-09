@@ -272,6 +272,59 @@ class UserManagementController extends Controller
         }
     }
 
+    // TEST 
+
+    public function updateUserTest(Request $request, $id) {
+        // Find the user
+        $user = User::findOrFail($id);
+    
+        // Validate the request
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,'.$id,
+            'password' => 'nullable|string|min:8|confirmed',
+            'mobile' => 'required|string|max:20',
+        ]);
+    
+        // Update user details
+        $user->name = $validatedData['name'];
+        $user->email = $validatedData['email'];
+        $user->mobile = $validatedData['mobile'];
+    
+        // Check if password is provided, if not generate a random password
+        if ($request->filled('password')) {
+            $user->password = Hash::make($validatedData['password']);
+        } else {
+            // Generate a random password
+            $randomPassword = generateRandomPassword();
+            $user->password = Hash::make($randomPassword);
+    
+            // Optionally, you can send the random password to the user's email or mobile
+            // For example:
+            // Mail::to($user->email)->send(new RandomPasswordMail($randomPassword));
+            // or
+            // SMS::send($user->mobile, 'Your new password: ' . $randomPassword);
+        }
+    
+        $user->save();
+
+        return redirect()->route('listUser')->with('alert-success', 'User updated successfully');
+    }
+
+    // function generateRandomPassword($length = 10) {
+    //     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()-_';
+    //     $password = '';
+    //     $max = strlen($characters) - 1;
+    //     for ($i = 0; $i < $length; $i++) {
+    //         $password .= $characters[random_int(0, $max)];
+    //     }
+    //     return $password;
+    // }
+    
+    
+
+    // TEST 
+
     public function update_password(Request $request){
         $request->validate([
             'old_password' => 'required',
