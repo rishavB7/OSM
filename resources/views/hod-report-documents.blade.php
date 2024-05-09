@@ -9,7 +9,7 @@ use Carbon\Carbon;
 
 @extends('layouts.app')
 
-@section('title', 'Notifications')
+@section('title', 'Documents')
 @section('content')
     @include('layouts.header')
     <div class="wrapper">
@@ -18,9 +18,11 @@ use Carbon\Carbon;
             @include('layouts.sideNav')
             <div class="w-100">
                 <div class="d-flex justify-content-end">
+                    <a href="{{ route('uploadReportDocs') }}"><button class="btn btn-primary p-2 mt-3 mb-2 mr-1">Upload
+                            Document</button></a>
                     <a href="{{ route('dashboard') }}"><button class="btn btn-primary p-2 mt-3 mb-2 mr-5">Back</button></a>
                 </div>
-                <h1 class="ml-4 mb-3"><b>Notifications</b></h1>
+                <h1 class="ml-4 mb-3"><b>Documents</b></h1>
 
                 <div class="px-3">
                     @if (session('alert-success'))
@@ -42,31 +44,41 @@ use Carbon\Carbon;
                                 <tr>
                                     <th>#</th>
                                     <th>Title</th>
-                                    <th>Created On</th>
-                                    <th>Created By</th>
+                                    <th>Uploaded On</th>
+                                    <th>Uploaded By</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $i = 1; ?>
-                                @foreach ($notices as $notice)
+                                @foreach ($reportDocs as $reportDoc)
                                     <tr>
                                         <td>{{ $i }}</td>
                                         <td>
-                                            {{ $notice->title }}
+                                            {{ $reportDoc->subject }}
                                         </td>
                                         <td>
                                             @php
-                                                $date = Carbon::parse($notice->created_at);
+                                                $date = Carbon::parse($reportDoc->created_at);
                                                 $readableDateTime = $date->formatLocalized('%e %B %Y');
                                             @endphp
                                             {{ $readableDateTime }}
                                         </td>
-                                        <td>CA-TO-DC</td>
                                         <td>
-                                            <a href="{{ asset('storage/notifications/' . $notice->filename) }}"
+                                            @php
+                                                $uploaded_by = User::where('id', $reportDoc->uploaded_by)->first();
+                                                echo $uploaded_by->name . ', ' . $uploaded_by->designation;
+                                            @endphp
+                                        </td>
+                                        <td>
+                                            <a href="{{ asset('storage/reportDocs/' . $reportDoc->filename) }}"
                                                 target="_blank">
                                                 <button class="btn btn-primary btn-sm">View</button>
+                                            </a>
+
+                                            <a href="{{ route('deleteReportDocument', ['id' => $reportDoc->id]) }}">
+                                                <button type="submit" class="btn btn-danger btn-sm ml-2"
+                                                    style="background-color: red;">Delete</button>
                                             </a>
                                         </td>
                                         @php
@@ -77,6 +89,7 @@ use Carbon\Carbon;
                             </tbody>
                         </table>
                     </div>
+                    {{ $reportDocs->links() }}
                 </div>
             </div>
 

@@ -107,6 +107,13 @@
                     </button>
                 </a>
 
+                <a href="{{ route('ca_to_dc_show_report_docs') }}">
+                    <button class=" font-bold left-deshboard-btns btn btn-secondary bg-blue-400 hover:bg-blue-500"
+                        type="button">
+                        Report Documents
+                    </button>
+                </a>
+
                 {{-- CEO_ZP  --}}
             @elseif (Auth::user()->role == 5)
                 <a href="{{ route('departmentListCA_TO_DC') }}">
@@ -191,6 +198,13 @@
                     <button class=" font-bold left-deshboard-btns btn btn-secondary bg-blue-400 hover:bg-blue-500"
                         type="button">
                         Notices
+                    </button>
+                </a>
+
+                <a href="{{ route('hod_show_report_docs') }}">
+                    <button class=" font-bold left-deshboard-btns btn btn-secondary bg-blue-400 hover:bg-blue-500"
+                        type="button">
+                        Upload Docs
                     </button>
                 </a>
             @endif
