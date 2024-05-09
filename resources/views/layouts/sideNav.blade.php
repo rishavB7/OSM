@@ -20,6 +20,12 @@
                         List Users
                     </button>
                 </a>
+                <a href="{{ route('initializeDatabase') }}">
+                    <button class=" font-bold left-deshboard-btns btn btn-secondary bg-blue-400 hover:bg-blue-500"
+                        type="button">
+                        Initialize Database
+                    </button>
+                </a>
                 {{-- DC/SDO  --}}
             @elseif (Auth::user()->role == 2)
                 {{-- <a href="{{  route('addUser') }}">

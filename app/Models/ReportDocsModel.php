@@ -14,6 +14,7 @@ class ReportDocsModel extends Model
     protected $fillable = [
         'subject',
         'filename',
-        'uploaded_by'
+        'uploaded_by',
+        'ip_address'
     ];
 }
